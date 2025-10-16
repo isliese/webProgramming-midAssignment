@@ -5,6 +5,9 @@
 
 * layout.css 파일 참조는 `<link rel="stylesheet" href="layout.css">`로 하시면 돼요
 
+* 노래 / 앨범 이미지는 `src/img/` 폴더 안에 `1_에쁠킬라_앨범/노래이름.jpg`로 넣어주세요!
+![alt text](image.png)
+
 * player-bar class 아래처럼 바꿔주세요!
 ```
 <div class="player-bar">
