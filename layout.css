@@ -30,6 +30,7 @@ body {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 40px;
+    margin-left: 20px;
     background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
