@@ -405,7 +405,7 @@
 
                     <!-- 버튼 -->
                     <div class="form-actions">
-                        <button type="button" class="btn btn-secondary">취소</button>
+                        <button type="reset" class="btn btn-secondary">초기화</button>
                         <button type="submit" class="btn btn-primary">타임캡슐 만들기</button>
                     </div>
                 </form>
@@ -459,23 +459,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function selectPlaylist(element) {
-            // Remove selected class from all options
-            const options = document.querySelectorAll('.playlist-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            
-            // Add selected class to clicked option
-            element.classList.add('selected');
-        }
-
-        // Form submission
-        document.querySelector('.capsule-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('타임캡슐이 생성되었습니다!');
-            // Here you would normally send the data to a server
-        });
-    </script>
 </body>
 </html>
