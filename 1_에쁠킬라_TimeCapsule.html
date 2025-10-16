@@ -8,13 +8,12 @@
     <link rel="stylesheet" href="1_에쁠킬라_layout.css">
     
     <style>
-        /* Header */
         .page-title {
             font-size: 32px;
             font-weight: 700;
         }
 
-        /* Description */
+        /* 설명 */
         .page-description {
             font-size: 14px;
             color: #b3b3b3;
@@ -22,7 +21,7 @@
             line-height: 1.6;
         }
 
-        /* Create Button */
+        /* 생성 버튼 */
         .create-capsule-btn {
             display: inline-flex;
             align-items: center;
@@ -45,14 +44,14 @@
             box-shadow: 0 8px 16px rgba(255, 149, 0, 0.3);
         }
 
-        /* Capsule Grid */
+        /* 캡슐 그리드 */
         .capsule-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
         }
 
-        /* Capsule Card */
+        /* 캡슐 카드 */
         .capsule-card {
             height: 360px;
             perspective: 1000px;
@@ -80,7 +79,7 @@
             overflow: hidden;
         }
 
-        /* Front of Card */
+        /* 카드 앞면 */
         .capsule-front {
             background: #282828;
             display: flex;
@@ -119,7 +118,7 @@
             margin-top: auto;
         }
 
-        /* Back of Card */
+        /* 카드 뒷면 */
         .capsule-back {
             background: linear-gradient(135deg, rgba(255, 149, 0, 0.9) 0%, rgba(255, 204, 0, 0.9) 100%);
             transform: rotateY(180deg);
@@ -156,7 +155,7 @@
             color: rgba(0,0,0,0.6);
         }
 
-        /* Locked State */
+        /* 잠긴 상태 */
         .capsule-locked {
             opacity: 0.7;
         }
@@ -182,7 +181,7 @@
             fill: #ff9500;
         }
 
-        /* Unlocked State */
+        /* 열린 상태 */
         .capsule-unlocked .capsule-back {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.9) 0%, rgba(139, 195, 74, 0.9) 100%);
         }
@@ -191,7 +190,7 @@
             color: #4caf50;
         }
 
-        /* Empty State */
+        /* 빈 상태 */
         .empty-state {
             text-align: center;
             padding: 80px 20px;
@@ -256,10 +255,10 @@
                 </div>
                 <div class="header-right">
                     <div class="search-bar">
-                        <svg class="search-icon" viewBox="0 0 24 24">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                         </svg>
-                        <input type="text" placeholder="검색창">
+                        <input type="text" placeholder="검색">
                     </div>
                     <div class="user-profile">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
@@ -404,6 +403,7 @@
             </div>
         </main>
     </div>
+    <!-- 재생바 -->
     <div class="player-bar">
         <div class="now-playing">
             <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=100" alt="Now Playing" class="now-playing-image">

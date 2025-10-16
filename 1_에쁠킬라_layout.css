@@ -16,7 +16,7 @@ body {
     height: 100vh;
 }
 
-/* Navigation Bar */
+/* 내비게이션 바 */
 .nav-bar {
     width: 240px;
     background: #121212;
@@ -71,7 +71,7 @@ body {
     margin-right: 16px;
 }
 
-/* Main Content */
+/* 메인 콘텐츠 */
 .main-content {
     margin-left: 240px;
     flex: 1;
@@ -80,7 +80,7 @@ body {
     height: 100vh;
 }
 
-/* Header */
+/* 헤더 */
 .header {
     display: flex;
     justify-content: space-between;
@@ -141,7 +141,7 @@ body {
     transform: scale(1.1);
 }
 
-/* Section */
+/* 섹션 */
 .section {
     margin-bottom: 48px;
 }
@@ -266,7 +266,7 @@ body {
     border-bottom: none;
 }
 
-/* Player Bar */
+/* 재생바 */
 .player-bar {
     position: fixed;
     bottom: 0;
