@@ -8,6 +8,8 @@
 * 노래 / 앨범 이미지는 `src/img/` 폴더 안에 `1_에쁠킬라_앨범/노래이름.jpg`로 넣어주세요!
 ![alt text](image.png)
 
+* 주석은 한국어로 달아주세요,, AI 티 안 나게
+
 * player-bar class 아래처럼 바꿔주세요!
 ```
 <div class="player-bar">
