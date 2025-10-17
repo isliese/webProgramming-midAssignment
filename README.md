@@ -1,7 +1,7 @@
 # webProgramming-midAssignment
 웹프로그래밍 중간과제
 
-* 각 html 파일의 title은 `SoundLetter - 페이지 이름` 으로 해주세요!
+* 각 html 파일의 타이틀은 `<title> SoundLetter - 페이지 이름 </title>`으로 해주세요!
 
 * layout.css 파일 참조는 `<link rel="stylesheet" href="1_에쁠킬라_layout.css">`로 하시면 돼요
 
