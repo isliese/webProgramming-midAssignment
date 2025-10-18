@@ -402,3 +402,75 @@ body {
     border-radius: 2px;
     width: 70%;
 }
+
+.record-tabs {
+display: flex;
+gap: 16px;
+margin-bottom: 16px;
+}
+
+.tab {
+background: none;
+border: none;
+color: #b3b3b3;
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s;
+padding-bottom: 8px;
+}
+
+.tab.active {
+color: #ff9500;
+border-bottom: 2px solid #ff9500;
+}
+
+.tab:hover {
+color: #ffffff;
+}
+
+.tab-divider {
+border: none;
+height: 1px;
+background: #3e3e3e;
+margin-bottom: 24px;
+}
+
+.record-list {
+display: flex;
+flex-direction: column;
+gap: 16px;
+}
+
+.record-item {
+display: flex;
+align-items: center;
+background: #282828;
+padding: 12px 16px;
+border-radius: 12px;
+transition: all 0.3s;
+cursor: pointer;
+}
+
+.record-item:hover {
+background: #3e3e3e;
+}
+
+.record-thumb {
+width: 64px;
+height: 64px;
+border-radius: 8px;
+object-fit: cover;
+margin-right: 16px;
+}
+
+.record-info h4 {
+font-size: 16px;
+font-weight: 600;
+margin-bottom: 6px;
+}
+
+.record-info p {
+font-size: 13px;
+color: #b3b3b3;
+}
