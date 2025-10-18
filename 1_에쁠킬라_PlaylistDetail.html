@@ -122,15 +122,16 @@
                 display: block;
                 align-items: center;
                 height: 75%;
+
             }
 
             .playlist-cover-large {
                 /* border: 1px solid red; */
-                width: 74%;
+                width: 73%;
                 height: 70%;
                 border-radius: 8px;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-                object-fit: cover;
+                object-fit: contain;
                 position: relative;
                 left: 23%;
             }
@@ -140,8 +141,8 @@
                 position: relative;
                 left: 25%;
                 flex: 1;
-                padding-top: 10px;
-                margin-bottom: 0p;
+                
+                
             }
 
             .playlist-type {
@@ -482,6 +483,7 @@
                                 src="src\img\1_에쁠킬라_allbum.png"
                                 alt="Playlist Cover"
                                 class="playlist-cover-large"
+                               
                             />
                             <div class="playlist-header-info">
                                 <div class="playlist-type">playlist</div>
