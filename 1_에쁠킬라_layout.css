@@ -76,7 +76,7 @@ body {
 .main-content {
     margin-left: 240px;
     flex: 1;
-    /* padding: 24px 32px 110px 32px; */
+    padding: 24px 32px 110px 32px; 
     overflow-y: auto;
     height: 100vh;
 }
@@ -490,7 +490,7 @@ color: #b3b3b3;
   background: #3e3e3e;
 }
 
-/* 🔽 정렬 드롭다운 */
+/*  정렬 드롭다운 */
 .sort-select {
   background: #282828;
   color: #fff;
