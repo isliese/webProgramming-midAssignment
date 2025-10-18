@@ -5,6 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoundLetter - 홈</title>
     <link rel="stylesheet" href="1_에쁠킬라_layout.css">
+    <style>
+        /* 메인 콘텐츠 패딩 추가 (외부 CSS에서 주석 처리되어 있어서) */
+        .main-content {
+            padding: 24px 32px 110px 32px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        /* Song Card (no flip) */
+        .song-card {
+            background: #282828;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            min-width: 200px;
+            max-width: 200px;
+            height: 280px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .song-card:hover {
+            background: #3e3e3e;
+            transform: translateY(-4px);
+        }
+
+        .song-cover {
+            width: 100%;
+            height: 168px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .song-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button-simple {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 48px;
+            height: 48px;
+            background: #ff9500;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        .song-card:hover .play-button-simple {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .play-button-simple svg {
+            width: 20px;
+            height: 20px;
+            fill: #000;
+        }
+
+        .song-info {
+            padding: 0 4px;
+        }
+
+        .song-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .song-artist {
+            font-size: 13px;
+            color: #b3b3b3;
+        }
+
+        .mood-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        /* 무드별 카드 고정 너비 설정 */
+        .card {
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -40,7 +146,7 @@
 
         <main class="main-content">
             <header class="header">
-                <h1 style="font-size: 32px; font-weight: 700;">홈</h1>
+                <h1 class="page-title">홈</h1>
                 <div class="header-right">
                     <div class="search-bar">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -56,19 +162,416 @@
                 </div>
             </header>
 
+            <!-- 최신 앨범 섹션 -->
+            <section class="section">
+                <h2 class="section-title">최신 앨범</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_lover.jpg" alt="Lover" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="card-artist">Taylor Swift</h3>
+                                    <p class="card-year">Lover </p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>수록곡</h3>
+                                <ul class="track-list">
+                                    <li>1. I Forgot That You Existed</li>
+                                    <li>2. Cruel Summer</li>
+                                    <li>3. Lover</li>
+                                    <li>4. The Man</li>
+                                    <li>5. The Archer</li>
+                                    <li>6. I Think He Knows</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_SOS.jpg" alt="SOS" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="card-artist">SZA</h3>
+                                    <p class="card-year">SOS </p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>수록곡</h3>
+                                <ul class="track-list">
+                                    <li>1. SOS</li>
+                                    <li>2. Kill Bill</li>
+                                    <li>3. Seek & Destroy</li>
+                                    <li>4. Low</li>
+                                    <li>5. Love Language</li>
+                                    <li>6. Blind</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_GETUP.jpg" alt="Get Up" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="card-artist">NewJeans</h3>
+                                    <p class="card-year">Get Up</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>수록곡</h3>
+                                <ul class="track-list">
+                                    <li>1. New Jeans</li>
+                                    <li>2. Super Shy</li>
+                                    <li>3. ETA</li>
+                                    <li>4. Cool With You</li>
+                                    <li>5. Get Up</li>
+                                    <li>6. ASAP</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_please.png" alt="Album" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="card-artist">Sabrina Carpenter</h3>
+                                    <p class="card-year">Short n' Sweet</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>수록곡</h3>
+                                <ul class="track-list">
+                                    <li>1. Taste</li>
+                                    <li>2. Please Please Please</li>
+                                    <li>3. Good Graces</li>
+                                    <li>4. Espresso</li>
+                                    <li>5. Bed Chem</li>
+                                    <li>6. Juno</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_Youth.jpg" alt="Youth" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="card-artist">다섯</h3>
+                                    <p class="card-year">Youth</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>수록곡</h3>
+                                <ul class="track-list">
+                                    <li>1. Youth</li>
+                                    <li>2. Summer Days</li>
+                                    <li>3. Memories</li>
+                                    <li>4. Golden Hour</li>
+                                    <li>5. Forever Young</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 요즘 많이 듣는 노래 섹션 -->
             <section class="section">
                 <h2 class="section-title">요즘 많이 듣는 노래</h2>
                 <div class="cards-container">
+                    <div class="song-card">
+                        <div class="song-cover">
+                            <img src="src/img/1_에쁠킬라_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈">
+                            <button class="play-button-simple">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="song-info">
+                            <div class="song-title">좋은밤좋은꿈</div>
+                            <div class="song-artist">SG 워너비</div>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <div class="song-cover">
+                            <img src="src/img/1_에쁠킬라_에피소드.jpg" alt="에피소드">
+                            <button class="play-button-simple">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="song-info">
+                            <div class="song-title">에피소드</div>
+                            <div class="song-artist">이무진</div>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <div class="song-cover">
+                            <img src="src/img/1_에쁠킬라_Trip.jpg" alt="ETA">
+                            <button class="play-button-simple">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="song-info">
+                            <div class="song-title">Trip (Feat. Hannah)</div>
+                            <div class="song-artist">릴러말즈</div>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <div class="song-cover">
+                            <img src="src/img/1_에쁠킬라_howsweet.png" alt="How Sweet">
+                            <button class="play-button-simple">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="song-info">
+                            <div class="song-title">How Sweet</div>
+                            <div class="song-artist">NewJeans</div>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <div class="song-cover">
+                            <img src="src/img/1_에쁠킬라_비오는날에듣기좋은노래.jpg" alt="1_에쁠킬라_비오는날에듣기좋은노래">
+                            <button class="play-button-simple">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="song-info">
+                            <div class="song-title">비 오는 날에 듣기 좋은 노래</div>
+                            <div class="song-artist">에픽하이</div>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <div class="song-cover">
+                            <img src="src/img/1_에쁠킬라_꿈의버스.jpg" alt="꿈">
+                            <button class="play-button-simple">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="song-info">
+                            <div class="song-title">꿈의 버스</div>
+                            <div class="song-artist">DAY6</div>
+                        </div>
+                    </div>
                 </div>
             </section>
+
+            <!-- 무드별 섹션 -->
             <section class="section">
-                <h2 class="section-title">공부할 때 듣는 음악</h2>
+                <h2 class="section-title">무드별</h2>
                 <div class="cards-container">
-                </div>
-            </section>
-            <section class="section">
-                <h2 class="section-title">드라이브 mood</h2>
-                <div class="cards-container">
+                    <!-- 기쁨 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_celebrity.png" alt="기쁨" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">기쁨</h3>
+                                    <p class="card-year">행복한 순간을 위한</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                   <li>Lover - Taylor Swift</li>
+                        <li>Good as Hell - Lizzo</li>
+                        <li>Dynamite - BTS</li>
+                        <li>Celebrity - 아이유</li>
+                        <li>Feel My Rhythm - Red Velvet</li>
+                        <li>Hype Boy - NewJeans</li>
+                        <li>Love Dive - IVE</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 슬픔 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_tellusboutyourself.jpg" alt="슬픔" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">슬픔</h3>
+                                    <p class="card-year">위로가 필요한 밤</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                     <li>tellusboutyourself - 백예린 </li>
+                        <li>비도 오고 그래서 - 헤이즈</li>
+                        <li>모든 날, 모든 순간 - 폴킴</li>
+                        <li>Love poem - 아이유</li>
+                        <li>The Night We Met - Lord Huron</li>
+                        <li>그리워하다 - 비투비</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 에너지 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_Lose_My_Mind.jpg" alt="에너지" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">에너지</h3>
+                                    <p class="card-year">활력이 필요할 때</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                    <li>Eye of the Tiger - Survivor</li>
+                                    <li>Titanium - David Guetta</li>
+                                    <li>Stronger - Kanye West</li>
+                                    <li>Thunder - Imagine Dragons</li>
+                                    <li>BOOM BOOM BASS - RIIZE</li>
+                                    <li>Levitating - Dua Lipa</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 사랑 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_사랑.jpg" alt="사랑" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">사랑</h3>
+                                    <p class="card-year">사랑에 빠진 순간</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                    <li>사랑 - 최유리</li>
+                                    <li>All of Me - John Legend</li>
+                                    <li>Lover - Taylor Swift</li>
+                                    <li>Make You Feel My Love - Adele</li>
+                                    <li>Thinking Out Loud - Ed Sheeran</li>
+                                    <li>Die With A Smile - Lady Gaga</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 드라이브 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_GETUP.jpg" alt="드라이브" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">드라이브</h3>
+                                    <p class="card-year">길 위의 자유</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                  <li>ETA - NewJeans</li>
+                        <li>Trip - 릴러말즈</li>
+                        <li>한 페이지가 될 수 있게 - DAY6</li>
+                        <li>Drive - 제시카 & 박재범</li>
+                        <li>Shut Up and Drive - Rihanna</li>
+                        <li>Life is a Highway - Rascal Flatts</li>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 공부 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_experience.png" alt="공부" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">공부</h3>
+                                    <p class="card-year">집중이 필요할 때</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                    <li>Clair de Lune - Debussy</li>
+                                    <li>Comptine d'un autre été - Tiersen</li>
+                                    <li>River Flows in You - Yiruma</li>
+                                    <li>Nocturne Op.9 No.2 - Chopin</li>
+                                    <li>Gymnopédie No.1 - Satie</li>
+                                    <li>Experience - Einaudi</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 휴식 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_좋은밤좋은꿈.jpg" alt="휴식" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">휴식</h3>
+                                    <p class="card-year">편안한 시간</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                    <li>좋은 밤 좋은 꿈 - 너드커넥션</li>
+                                    <li>Sunset Lover - Petit Biscuit</li>
+                                    <li>Here Comes the Sun - Beatles</li>
+                                    <li>Three Little Birds - Bob Marley</li>
+                                    <li>Better Together - Jack Johnson</li>
+                                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 이별 -->
+                    <div class="card">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="src/img/1_에쁠킬라_we.png" alt="이별" class="card-image">
+                                <div class="card-info">
+                                    <h3 class="mood-card-title">이별</h3>
+                                    <p class="card-year">홀로 남은 밤</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h3>추천 곡</h3>
+                                <ul class="track-list">
+                                    <li>Say Something - A Great Big World</li>
+                                    <li>Let Her Go - Passenger</li>
+                                    <li>Someone You Loved - Lewis Capaldi</li>
+                                    <li>We Don't Talk Anymore - Charlie Puth</li>
+                                    <li>Drivers License - Olivia Rodrigo</li>
+                                
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -76,7 +579,7 @@
 
     <div class="player-bar">
         <div class="now-playing">
-            <img src="src\img\1_에쁠킬라_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image">
+            <img src="src/img/1_에쁠킬라_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image">
             <div class="now-playing-info">
                 <h4>Don't Look Back in Anger</h4>
                 <p>Oasis</p>
