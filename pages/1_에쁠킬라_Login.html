@@ -1,153 +1,165 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SoundLetter - 로그인</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-      }
-      
-      .login-page {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: #000000;
-        position: relative;
-      }
-      
-      .login-page::before {
-        display: none;
-      }
-      
-      .login-box {
-        position: relative;
-        z-index: 2;
-        background: rgba(24, 24, 24, 0.9);
-        border-radius: 16px;
-        padding: 48px 56px;
-        width: 400px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      }
-      .login-title {
-        font-size: 28px;
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 32px;
-        background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      .login-box input[type="text"],
-      .login-box input[type="password"] {
-        width: 100%;
-        padding: 14px 16px;
-        margin-bottom: 16px;
-        border: none;
-        border-radius: 8px;
-        background: #2d2d2d;
-        color: #ffffff;
-        font-size: 15px;
-        outline: none;
-        transition: background 0.3s;
-      }
-      .login-box input[type="text"]:focus,
-      .login-box input[type="password"]:focus {
-        background: #3e3e3e;
-      }
-      
-      /* 기존 버튼 스타일을 링크에도 적용 */
-      .login-button {
-        width: 100%;
-        padding: 14px 0;
-        border: none;
-        border-radius: 8px;
-        background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-        color: #000;
-        font-weight: 700;
-        font-size: 15px;
-        cursor: pointer;
-        transition: transform 0.2s ease, opacity 0.3s;
-        margin-top: 8px;
-        
-        
-        display: block; 
-        text-align: center; 
-        text-decoration: none; 
-      }
-      
-      .login-button:hover {
-        transform: scale(1.03);
-        opacity: 0.9;
-      }
-      .login-options {
-        margin-top: 20px;
-        font-size: 14px;
-        color: #b3b3b3;
-        text-align: center;
-      }
-      .login-options a {
-        color: #ffcc00;
-        text-decoration: none;
-        transition: color 0.3s;
-      }
-      .login-options a:hover {
-        color: #ffffff;
-      }
-      .remember {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 12px;
-        color: #b3b3b3;
-        font-size: 13px;
-      }
-      .remember input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        margin: 0;
-        cursor: pointer;
-        accent-color: #ff9500;
-      }
-      .remember label {
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="login-page">
-      <div class="login-box">
-        <h2 class="login-title">로그인</h2>
-        <form>
-          <input type="text" placeholder="이메일 주소 또는 휴대폰 번호" required/>
-          <input type="password" placeholder="비밀번호" required />
-          
-          <!-- 로그인 버튼 (홈으로 연결) -->
-          <a href="1_에쁠킬라_Home.html" class="login-button">
-            로그인 하기
-          </a>
-          
-          <div class="remember">
-            <input type="checkbox" id="remember" />
-            <label for="remember">로그인 정보 저장</label>
-          </div>
-          <div class="login-options">
-            <p><a href="#">비밀번호를 잊으셨나요?</a></p>
-            <p><a href="#">가입하기</a></p>
-          </div>
-        </form>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoundLetter - 로그인</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        sans-serif;
+    }
+
+    .login-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000000;
+      position: relative;
+    }
+
+    .login-page::before {
+      display: none;
+    }
+
+    .login-box {
+      position: relative;
+      z-index: 2;
+      background: rgba(24, 24, 24, 0.9);
+      border-radius: 16px;
+      padding: 48px 56px;
+      width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .login-title {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+      background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #2d2d2d;
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+      transition: background 0.3s;
+    }
+
+    .login-box input[type="text"]:focus,
+    .login-box input[type="password"]:focus {
+      background: #3e3e3e;
+    }
+
+    /* 기존 버튼 스타일을 링크에도 적용 */
+    .login-button {
+      width: 100%;
+      padding: 14px 0;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+      color: #000;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.3s;
+      margin-top: 8px;
+
+
+      display: block;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .login-button:hover {
+      transform: scale(1.03);
+      opacity: 0.9;
+    }
+
+    .login-options {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #b3b3b3;
+      text-align: center;
+    }
+
+    .login-options a {
+      color: #ffcc00;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .login-options a:hover {
+      color: #ffffff;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      color: #b3b3b3;
+      font-size: 13px;
+    }
+
+    .remember input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: #ff9500;
+    }
+
+    .remember label {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-page">
+    <div class="login-box">
+      <h2 class="login-title">로그인</h2>
+      <form>
+        <input type="text" placeholder="이메일 주소 또는 휴대폰 번호" required />
+        <input type="password" placeholder="비밀번호" required />
+
+        <!-- 로그인 버튼 (홈으로 연결) -->
+        <a href="1_에쁠킬라_Home.html" class="login-button">
+          로그인 하기
+        </a>
+
+        <div class="remember">
+          <input type="checkbox" id="remember" />
+          <label for="remember">로그인 정보 저장</label>
+        </div>
+        <div class="login-options">
+          <p><a href="#">비밀번호를 잊으셨나요?</a></p>
+          <p><a href="#">가입하기</a></p>
+        </div>
+      </form>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
 
 
