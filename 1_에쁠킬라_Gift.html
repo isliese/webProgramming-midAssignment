@@ -7,10 +7,6 @@
   <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
 
   <style>
-    body {
-      overflow: hidden;
-    }
-
     .main-content {
       display: flex;
       justify-content: center;
@@ -196,6 +192,15 @@
       color: #ccc;
       margin-bottom: 20px;
     }
+
+    .playlist-cover {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
   </style>
 </head>
 
@@ -255,24 +260,29 @@
 
     <main class="main-content">
       <div class="gift-wrapper">
+
+        <!-- 왼쪽: 대표 이미지 + 플레이리스트 정보 -->
         <div class="gift-playlist">
+          <img src="src/img/1_에쁠킬라_allbum.png" alt="대표 앨범 이미지" class="playlist-cover" />
           <div class="playlist-info">
             <h2>요즘 많이 듣는 노래</h2>
             <p>총 6곡 · 21분</p>
           </div>
         </div>
 
+        <!-- 오른쪽: 입력 폼 -->
         <div class="gift-container">
           <div>
             <h1 class="gift-title">플레이리스트 선물하기</h1>
             <p class="gift-description">
               마음을 담아 음악을 선물해보세요.<br>
-              당신의 플레이리스트가 누군가의 하루를 따뜻하게 만들어줄지도 몰라요.
+              당신의 플레이리스트가<br>
+              누군가의 하루를 따뜻하게 만들어줄지도 몰라요.
             </p>
 
             <div class="form-section">
               <label class="form-label">받는 사람</label>
-              <input type="text" class="form-input" placeholder="닉네임 또는 이메일 입력" />
+              <input type="text" class="form-input" placeholder="아이디 또는 이메일 입력" />
             </div>
 
             <div class="form-section">
@@ -283,7 +293,6 @@
 
           <div class="form-actions">
             <a href="1_에쁠킬라_PlaylistDetail.html" class="btn-secondary">취소</a>
-            <!-- 팝업 트리거 -->
             <label for="popup-toggle" class="btn-primary">보내기</label>
           </div>
         </div>
