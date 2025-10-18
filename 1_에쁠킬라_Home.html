@@ -11,7 +11,7 @@
             font-size: 32px;
             font-weight: 700;
         }
-        /* Song Card (no flip) */
+        /* 음악 */
         .song-card {
             background: #282828;
             border-radius: 12px;
@@ -106,6 +106,27 @@
         .card {
             flex-shrink: 0;
         }
+
+        /* 최신 앨범 카드 정보 (앨범명 위, 가수명 아래) */
+.card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 앨범명 */
+.card-year {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+/* 가수명 */
+.card-artist {
+    font-size: 13px;
+    color: #b3b3b3;
+}
+
     </style>
 </head>
 <body>
@@ -167,12 +188,12 @@
                             <div class="card-front">
                                 <img src="src/img/1_에쁠킬라_lover.jpg" alt="Lover" class="card-image">
                                 <div class="card-info">
-                                    <h3 class="card-artist">Taylor Swift</h3>
-                                    <p class="card-year">Lover </p>
+                                    <h3 class="card-year">Lover</h3>
+                                    <p class="card-artist">Taylor Swift </p>
                                 </div>
                             </div>
                             <div class="card-back">
-                                <h3>수록곡</h3>
+                                <h3>Lover</h3>
                                 <ul class="track-list">
                                     <li>1. I Forgot That You Existed</li>
                                     <li>2. Cruel Summer</li>
@@ -190,12 +211,13 @@
                             <div class="card-front">
                                 <img src="src/img/1_에쁠킬라_SOS.jpg" alt="SOS" class="card-image">
                                 <div class="card-info">
-                                    <h3 class="card-artist">SZA</h3>
-                                    <p class="card-year">SOS </p>
+                                     <h3 class="card-year">SOS </h3>
+                                    <p class="card-artist">SZA</p>
+                                   
                                 </div>
                             </div>
                             <div class="card-back">
-                                <h3>수록곡</h3>
+                                <h3>SOS</h3>
                                 <ul class="track-list">
                                     <li>1. SOS</li>
                                     <li>2. Kill Bill</li>
@@ -213,12 +235,13 @@
                             <div class="card-front">
                                 <img src="src/img/1_에쁠킬라_GETUP.jpg" alt="Get Up" class="card-image">
                                 <div class="card-info">
-                                    <h3 class="card-artist">NewJeans</h3>
                                     <p class="card-year">Get Up</p>
+                                    <h3 class="card-artist">NewJeans</h3>
+
                                 </div>
                             </div>
                             <div class="card-back">
-                                <h3>수록곡</h3>
+                                <h3>Get up</h3>
                                 <ul class="track-list">
                                     <li>1. New Jeans</li>
                                     <li>2. Super Shy</li>
@@ -236,12 +259,13 @@
                             <div class="card-front">
                                 <img src="src/img/1_에쁠킬라_please.png" alt="Album" class="card-image">
                                 <div class="card-info">
-                                    <h3 class="card-artist">Sabrina Carpenter</h3>
-                                    <p class="card-year">Short n' Sweet</p>
+                               <p class="card-year">Short n' Sweet</p>
+                               <h3 class="card-artist">Sabrina Carpenter</h3>
+
                                 </div>
                             </div>
                             <div class="card-back">
-                                <h3>수록곡</h3>
+                                <h3>Short n' Sweet</h3>
                                 <ul class="track-list">
                                     <li>1. Taste</li>
                                     <li>2. Please Please Please</li>
@@ -259,12 +283,13 @@
                             <div class="card-front">
                                 <img src="src/img/1_에쁠킬라_Youth.jpg" alt="Youth" class="card-image">
                                 <div class="card-info">
-                                    <h3 class="card-artist">다섯</h3>
-                                    <p class="card-year">Youth</p>
+                                   <p class="card-year">Youth</p>
+                                   <h3 class="card-artist">다섯</h3>
+
                                 </div>
                             </div>
                             <div class="card-back">
-                                <h3>수록곡</h3>
+                                <h3>Youth</h3>
                                 <ul class="track-list">
                                     <li>1. Youth</li>
                                     <li>2. Summer Days</li>
