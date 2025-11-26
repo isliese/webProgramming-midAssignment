@@ -36,41 +36,55 @@
 
       /* 커스텀 마커 스타일 */
       .custom-marker {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 3px solid #ff9500;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         cursor: pointer;
         transition: all 0.3s;
         object-fit: cover;
+        position: relative;
       }
 
       .custom-marker:hover {
-        transform: scale(1.2);
-        border-color: #ffcc00;
+        transform: scale(1.15);
+        border-color: #ff9500;
         box-shadow: 0 6px 16px rgba(255, 149, 0, 0.6);
       }
 
-      /* 클러스터 스타일 */
-      .cluster-marker {
-        background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+      /* 클러스터 마커 - 이미지 + 개수 */
+      .cluster-photo-marker {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
         border: 3px solid #fff;
-        border-radius: 50%;
-        color: #000;
-        font-weight: 700;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
         cursor: pointer;
         transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
       }
 
-      .cluster-marker:hover {
+      .cluster-photo-marker:hover {
         transform: scale(1.1);
-        box-shadow: 0 6px 16px rgba(255, 149, 0, 0.6);
+        box-shadow: 0 6px 20px rgba(255, 149, 0, 0.7);
+        border-color: #ff9500;
+      }
+
+      .cluster-count {
+        position: absolute;
+        bottom: 0;
+        left: 50px;
+        right: 0;
+        color: white;
+        font-weight: 700;
+        font-size: 15px;
+        text-align: center;
+        padding: 6px 0;
+        line-height: 1;
       }
 
       /* 정보창 스타일 */
@@ -234,13 +248,12 @@
       </div>
     </div>
 
-    <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQJOM6hle-RP6zIjnpb53gkDJ1w-gRWpg&callback=initMap" async defer></script>
-    <!-- MarkerClusterer -->
+    <!-- MarkerClusterer 먼저 로드 -->
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     
     <script>
       let map;
+      let mapInitialized = false;
       
       // 가짜 데이터 - 전 세계 위치
       const musicLocations = [
@@ -303,7 +316,56 @@
         { lat: 35.0979, lng: 129.0403, title: "비오는 날 듣기 좋은 노래", artist: "Various Artists", location: "광안리, 부산", image: "src/img/1_비오는날듣기좋은노래.jpg" },
       ];
 
+      // 커스텀 클러스터 렌더러 클래스
+      class PhotoClusterRenderer {
+        render({ count, position, markers }, stats, map) {
+
+          // 랜덤 대표 마커 하나 선택
+          const randomMarker = markers[Math.floor(Math.random() * markers.length)];
+          const representativeImage = randomMarker.getIcon().url;
+
+          // 클러스터 HTML 엘리먼트 생성
+          const div = document.createElement('div');
+          div.className = 'cluster-photo-marker';
+          div.style.backgroundImage = `url('${representativeImage}')`;
+          div.innerHTML = `<div class="cluster-count">${count.toLocaleString()}</div>`;
+
+          // OverlayView로 지도 위에 추가
+          const overlay = new google.maps.OverlayView();
+          overlay.div = div;
+          overlay.position = position;
+
+          overlay.onAdd = function () {
+            this.getPanes().overlayMouseTarget.appendChild(div);
+          };
+
+          overlay.draw = function () {
+            const projection = this.getProjection();
+            const point = projection.fromLatLngToDivPixel(position);
+
+            if (point) {
+              div.style.position = 'absolute';
+              div.style.left = (point.x - 40) + 'px';
+              div.style.top = (point.y - 40) + 'px';
+            }
+          };
+
+          overlay.onRemove = function () {
+            if (div.parentNode) div.parentNode.removeChild(div);
+          };
+
+          overlay.setMap(map);
+          return overlay;
+        }
+      }
+
+
       function initMap() {
+        // 이미 초기화되었으면 리턴
+        if (mapInitialized) {
+          return;
+        }
+        
         // 지도 초기화 (전 세계 뷰)
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: 37.5665, lng: 126.9780 },
@@ -338,8 +400,8 @@
             position: { lat: location.lat, lng: location.lng },
             icon: {
               url: location.image,
-              scaledSize: new google.maps.Size(48, 48),
-              anchor: new google.maps.Point(24, 24)
+              scaledSize: new google.maps.Size(56, 56),
+              anchor: new google.maps.Point(28, 28)
             },
             title: location.title
           });
@@ -362,40 +424,21 @@
           return marker;
         });
 
-        // 마커 클러스터링
+        // 마커 클러스터링 - 사진 + 개수 스타일
         new markerClusterer.MarkerClusterer({ 
           map, 
           markers,
-          renderer: {
-            render: ({ count, position }) => {
-              const size = Math.min(60, 40 + Math.floor(count / 5) * 5);
-              return new google.maps.Marker({
-                position,
-                icon: {
-                  url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
-                    <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
-                      <defs>
-                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" style="stop-color:#ff9500;stop-opacity:1" />
-                          <stop offset="100%" style="stop-color:#ffcc00;stop-opacity:1" />
-                        </linearGradient>
-                      </defs>
-                      <circle cx="${size/2}" cy="${size/2}" r="${size/2 - 3}" fill="url(#grad)" stroke="white" stroke-width="3"/>
-                      <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-family="Arial" font-size="${size/3}" font-weight="bold" fill="black">${count}</text>
-                    </svg>
-                  `)}`,
-                  scaledSize: new google.maps.Size(size, size),
-                  anchor: new google.maps.Point(size/2, size/2)
-                },
-                label: {
-                  text: '',
-                  color: 'transparent'
-                }
-              });
-            }
-          }
+          renderer: new PhotoClusterRenderer()
         });
+        
+        mapInitialized = true;
       }
+
+      // Google Maps API 로드 완료 후 자동으로 initMap 호출되도록 설정
+      window.initMap = initMap;
     </script>
+    
+    <!-- Google Maps API를 callback과 함께 로드 -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQJOM6hle-RP6zIjnpb53gkDJ1w-gRWpg&callback=initMap" async defer></script>
 </body>
 </html>
