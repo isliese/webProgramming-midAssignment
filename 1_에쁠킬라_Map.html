@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoundLetter - Map</title>
+    <title>SoundLetter - 지도</title>
     <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
     <style>
       .page-title {
         font-size: 32px;
         font-weight: 700;
-        margin-bottom: 40px;
       }
+      
       .main-content {
         padding: 24px 32px 110px 32px;
         height: calc(100vh - 110px);
         box-sizing: border-box;
+      }
+
+      /* 설명 */
+      .page-description {
+          font-size: 14px;
+          color: #b3b3b3;
+          margin-bottom: 32px;
+          line-height: 1.6;
       }
 
       /* 지도 컨테이너 */
@@ -135,8 +143,13 @@
 
       <!-- 주요 내용 -->
       <main class="main-content">
-        <header class="header" style="margin-bottom: 20px;">
-          <h1 class="page-title">내 음악 지도</h1>
+        <header class="header">
+          <div>
+            <h1 class="page-title">지도</h1>
+            <p class="page-description">
+                내가 들은 노래들이 전 세계 어디에서 재생되었는지 한눈에 확인해보세요!
+            </p>
+          </div>
           <div class="header-right">
             <div class="search-bar">
               <svg class="search-icon" viewBox="0 0 24 24">
