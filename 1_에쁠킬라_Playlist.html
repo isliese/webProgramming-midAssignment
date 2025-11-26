@@ -11,7 +11,6 @@
     .page-title {
       font-size: 32px;
       font-weight: 700;
-
     }
 
     .main-content {
@@ -99,8 +98,8 @@
 
     .play-button {
       position: absolute;
-      bottom: 8px;
-      right: 8px;
+      bottom: 110px;
+      right: 25px;
       width: 48px;
       height: 48px;
       background: #ff9500;
@@ -112,6 +111,8 @@
       transform: translateY(8px);
       transition: all 0.3s;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      border: none;
+      cursor: pointer;
     }
 
     .playlist-card:hover .play-button {
@@ -150,6 +151,20 @@
     .playlist-creator {
       font-size: 13px;
       color: #b3b3b3;
+    }
+
+    /* 재생바 */
+    .player-bar .progress .progress-filled {
+      width: 0%;
+      transition: width 0.2s linear;
+    }
+
+    .volume-slider {
+      position: relative;
+    }
+
+    .volume-filled {
+      width: 60%;
     }
   </style>
 </head>
@@ -228,27 +243,24 @@
           </div>
         </div>
       </header>
+
       <!-- 플레이리스트 버튼 -->
-<a href="1_에쁠킬라_PlaylistCreate.html" style="text-decoration: none; display: block; margin-bottom: 32px;">
-  <button class="create-playlist-btn" style="margin-bottom: 0; margin-top: 16px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-    </svg>
-    새 플레이리스트 만들기
-  </button>
-</a>
+      <a href="1_에쁠킬라_PlaylistCreate.html" style="text-decoration: none; display: block; margin-bottom: 32px;">
+        <button class="create-playlist-btn" style="margin-bottom: 0; margin-top: 16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          새 플레이리스트 만들기
+        </button>
+      </a>
+
       <!--플레이리스트 그리드 -->
       <div class="playlists-grid">
         <!-- 플레이리스트 카드 1 -->
-        <a href="1_에쁠킬라_PlaylistDetail.html" style="text-decoration: none; color: inherit;">
-          <div class="playlist-card">
+        <div class="playlist-card" data-playlist="요즘 많이 듣는 노래">
+          <a href="1_에쁠킬라_PlaylistDetail.html" style="text-decoration: none; color: inherit;">
             <div class="playlist-cover">
               <img src="src/img/1_allbum.png" alt="Playlist" />
-              <button class="play-button">
-                <svg viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </button>
             </div>
             <div class="playlist-info">
               <div class="playlist-name">요즘 많이 듣는 노래</div>
@@ -259,17 +271,18 @@
               </div>
               <div class="playlist-creator">내가 만듦</div>
             </div>
-          </div>
-        </a>
+          </a>
+          <button class="play-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
+        </div>
+
         <!-- 플레이리스트 카드 2 -->
-        <div class="playlist-card">
+        <div class="playlist-card" data-playlist="밤공기 playlist">
           <div class="playlist-cover">
             <img src="src/img/1_allbum2.png" alt="Playlist" />
-            <button class="play-button">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
           </div>
           <div class="playlist-info">
             <div class="playlist-name">밤공기 playlist</div>
@@ -280,17 +293,17 @@
             </div>
             <div class="playlist-creator">내가 만듦</div>
           </div>
+          <button class="play-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
         </div>
 
         <!-- 플레이리스트 카드 3 -->
-        <div class="playlist-card">
+        <div class="playlist-card" data-playlist="드라이브 mood">
           <div class="playlist-cover">
             <img src="src/img/1_Trip.jpg" alt="Playlist" />
-            <button class="play-button">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
           </div>
           <div class="playlist-info">
             <div class="playlist-name">드라이브 mood</div>
@@ -301,17 +314,17 @@
             </div>
             <div class="playlist-creator">내가 만듦</div>
           </div>
+          <button class="play-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
         </div>
 
         <!-- 플레이리스트 카드 4 -->
-        <div class="playlist-card">
+        <div class="playlist-card" data-playlist="힐링하고 싶을 때">
           <div class="playlist-cover">
             <img src="src/img/1_한페이지가될수있게_.jpg" alt="Playlist" />
-            <button class="play-button">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
           </div>
           <div class="playlist-info">
             <div class="playlist-name">힐링하고 싶을 때</div>
@@ -322,17 +335,17 @@
             </div>
             <div class="playlist-creator">내가 만듦</div>
           </div>
+          <button class="play-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
         </div>
 
         <!-- 플레이리스트 카드 5 -->
-        <div class="playlist-card">
+        <div class="playlist-card" data-playlist="공부할 때 듣는 음악">
           <div class="playlist-cover">
             <img src="src/img/1_좋은밤좋은꿈.jpg" alt="Playlist" />
-            <button class="play-button">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
           </div>
           <div class="playlist-info">
             <div class="playlist-name">공부할 때 듣는 음악</div>
@@ -343,18 +356,17 @@
             </div>
             <div class="playlist-creator">내가 만듦</div>
           </div>
+          <button class="play-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
         </div>
 
-
         <!-- 플레이리스트 카드 6 -->
-        <div class="playlist-card">
+        <div class="playlist-card" data-playlist="운동할 때">
           <div class="playlist-cover">
             <img src="src/img/1_CruelSummer.jpg" alt="Playlist" />
-            <button class="play-button">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
           </div>
           <div class="playlist-info">
             <div class="playlist-name">운동할 때</div>
@@ -365,17 +377,17 @@
             </div>
             <div class="playlist-creator">내가 만듦</div>
           </div>
+          <button class="play-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
         </div>
 
         <!-- 플레이리스트 카드 7 -->
-        <div class="playlist-card">
+        <div class="playlist-card" data-playlist="카페에서 듣기 좋은">
           <div class="playlist-cover">
             <img src="src/img/1_너에게못했던내마지막말은.jpg" alt="Playlist" />
-            <button class="play-button">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
           </div>
           <div class="playlist-info">
             <div class="playlist-name">카페에서 듣기 좋은</div>
@@ -386,54 +398,190 @@
             </div>
             <div class="playlist-creator">내가 만듦</div>
           </div>
-        </div>
-
-        <!-- 재생바 -->
-        <div class="player-bar">
-          <div class="now-playing">
-            <img src="src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image" />
-            <div class="now-playing-info">
-              <h4>Don't Look Back in Anger</h4>
-              <p>Oasis</p>
-            </div>
-          </div>
-
-          <div class="player-controls">
-            <div class="control-buttons">
-              <button class="control-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
-                </svg>
-              </button>
-              <button class="control-btn play">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </button>
-              <button class="control-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-                </svg>
-              </button>
-            </div>
-            <div class="progress-bar">
-              <span class="time">2:15</span>
-              <div class="progress">
-                <div class="progress-filled"></div>
-              </div>
-              <span class="time">4:48</span>
-            </div>
-          </div>
-
-          <div class="volume-control">
-            <svg class="volume-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+          <button class="play-button">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
             </svg>
-            <div class="volume-slider">
-              <div class="volume-filled"></div>
-            </div>
-          </div>
+          </button>
         </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 재생바 -->
+  <div class="player-bar">
+    <div class="now-playing">
+      <img src="src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image" />
+      <div class="now-playing-info">
+        <h4 class="now-playing-title">Don't Look Back in Anger</h4>
+        <p class="now-playing-artist">Oasis</p>
+      </div>
+    </div>
+
+    <div class="player-controls">
+      <div class="control-buttons">
+        <button class="control-btn prev-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+          </svg>
+        </button>
+        <button class="control-btn play-btn">
+          <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+            <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+          </svg>
+        </button>
+        <button class="control-btn next-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+          </svg>
+        </button>
+      </div>
+      <div class="progress-bar">
+        <span class="time current-time">0:00</span>
+        <div class="progress">
+          <div class="progress-filled"></div>
+        </div>
+        <span class="time total-time">3:30</span>
+      </div>
+    </div>
+
+    <div class="volume-control">
+      <svg class="volume-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+      </svg>
+      <div class="volume-slider">
+        <div class="volume-filled"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const playableTracks = [
+      { title: "요즘 많이 듣는 노래", artist: "LE SSERAFIM", image: "src/img/1_allbum.png" },
+      { title: "밤공기 playlist", artist: "에픽하이", image: "src/img/1_allbum2.png" },
+      { title: "드라이브 mood", artist: "릴러말즈", image: "src/img/1_Trip.jpg" },
+      { title: "힐링하고 싶을 때", artist: "DAY6", image: "src/img/1_한페이지가될수있게_.jpg" },
+      { title: "공부할 때 듣는 음악", artist: "너드커넥션", image: "src/img/1_좋은밤좋은꿈.jpg" },
+      { title: "운동할 때", artist: "Taylor Swift", image: "src/img/1_lover.jpg" },
+      { title: "카페에서 듣기 좋은", artist: "다비치", image: "src/img/1_너에게못했던내마지막말은.jpg" }
+    ];
+
+    let currentIndex = 0;
+    let isPlaying = false;
+    let currentTime = 0;
+    const totalDuration = 210;
+    let playTimer = null;
+
+    const nowPlayingImg = document.querySelector('.now-playing-image');
+    const nowPlayingTitle = document.querySelector('.now-playing-info h4');
+    const nowPlayingArtist = document.querySelector('.now-playing-info p');
+    const progressFilled = document.querySelector('.progress-filled');
+    const currentTimeSpan = document.querySelectorAll('.time')[0];
+    const totalTimeSpan = document.querySelectorAll('.time')[1];
+    const playBtn = document.querySelector('.control-btn.play-btn');
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return m + ':' + (s < 10 ? '0' + s : s);
+    }
+
+    function updateProgress() {
+      const percent = (currentTime / totalDuration) * 100;
+      progressFilled.style.width = Math.min(percent, 100) + '%';
+      currentTimeSpan.textContent = formatTime(currentTime);
+    }
+
+    function startPlayTimer() {
+      if (playTimer) clearInterval(playTimer);
+      playTimer = setInterval(() => {
+        if (!isPlaying) return;
+        currentTime += 0.5;
+        if (currentTime >= totalDuration) {
+          currentTime = totalDuration;
+          updateProgress();
+          pause();
+          return;
+        }
+        updateProgress();
+      }, 500);
+    }
+
+    function play() {
+      isPlaying = true;
+      document.querySelector('.icon-play').style.display = 'none';
+      document.querySelector('.icon-pause').style.display = 'inline';
+      startPlayTimer();
+    }
+
+    function pause() {
+      isPlaying = false;
+      document.querySelector('.icon-play').style.display = 'inline';
+      document.querySelector('.icon-pause').style.display = 'none';
+      if (playTimer) clearInterval(playTimer);
+
+      const currentBtn = document.querySelectorAll('.playlist-card .play-button')[currentIndex];
+      if (currentBtn) {
+        currentBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>`;
+      }
+    }
+
+    function selectTrack(index) {
+      if (index < 0 || index >= playableTracks.length) return;
+      currentIndex = index;
+      const track = playableTracks[index];
+
+      nowPlayingImg.src = track.image;
+      nowPlayingTitle.textContent = track.title;
+      nowPlayingArtist.textContent = track.artist;
+
+      currentTime = 0;
+      updateProgress();
+      document.querySelectorAll('.playlist-card .play-button').forEach(btn => {
+        btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>`;
+      });
+
+      const currentBtn = document.querySelectorAll('.playlist-card .play-button')[index];
+      if (currentBtn) {
+        currentBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>`;
+      }
+
+      play();
+    }
+
+    document.querySelectorAll('.playlist-card .play-button').forEach((btn, index) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        selectTrack(index);
+      });
+    });
+
+    // 재생 버튼
+    playBtn.addEventListener('click', () => {
+      if (!isPlaying) play();
+      else pause();
+    });
+
+    // 이전/다음 버튼
+    document.querySelector('.prev-btn').addEventListener('click', () => {
+      const nextIndex = (currentIndex - 1 + playableTracks.length) % playableTracks.length;
+      selectTrack(nextIndex);
+    });
+
+    document.querySelector('.next-btn').addEventListener('click', () => {
+      const nextIndex = (currentIndex + 1) % playableTracks.length;
+      selectTrack(nextIndex);
+    });
+
+    // 시간 설정
+    totalTimeSpan.textContent = formatTime(totalDuration);
+    currentTimeSpan.textContent = formatTime(0);
+  </script>
 </body>
 
 </html>
