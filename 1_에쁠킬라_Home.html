@@ -235,6 +235,26 @@
     gap: 16px;
     overflow-x: auto;
     padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #ff9500 #282828;
+}
+
+.recent-songs-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.recent-songs-container::-webkit-scrollbar-track {
+    background: #282828;
+    border-radius: 4px;
+}
+
+.recent-songs-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #ff9500 0%, #ffcc00 100%);
+    border-radius: 4px;
+}
+
+.recent-songs-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #ffaa00 0%, #ffdd00 100%);
 }
 
 .recent-song-item {
@@ -242,8 +262,8 @@
     align-items: center;
     background: #282828;
     border-radius: 12px;
-    padding: 12px;
-    min-width: 320px;
+    padding: 10px;
+    min-width: 260px;
     cursor: pointer;
     transition: all 0.3s;
 }
@@ -254,8 +274,8 @@
 }
 
 .recent-song-img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 8px;
     object-fit: cover;
     margin-right: 12px;
@@ -263,10 +283,11 @@
 
 .recent-song-info {
     flex: 1;
+    min-width: 0;
 }
 
 .recent-song-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     margin-bottom: 4px;
     overflow: hidden;
@@ -275,13 +296,13 @@
 }
 
 .recent-song-artist {
-    font-size: 13px;
+    font-size: 12px;
     color: #b3b3b3;
 }
 
 .recent-play-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background: #ff9500;
     border: none;
     border-radius: 50%;
@@ -291,6 +312,7 @@
     cursor: pointer;
     transition: all 0.3s;
     opacity: 0;
+    flex-shrink: 0;
 }
 
 .recent-song-item:hover .recent-play-btn {
@@ -298,15 +320,16 @@
 }
 
 .recent-play-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     margin-left: 2px;
 }
-
 /* 음악 차트 섹션 */
 .chart-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    grid-auto-flow: column;
     gap: 12px;
 }
 
@@ -449,209 +472,210 @@
             </header>
 </header>
 <!-- 최근 재생한 곡 섹션 -->
-<section class="section section-recent">
-    <h2 class="section-title">최근 재생한 곡</h2>
-    <div class="recent-songs-container">
-        <div class="recent-song-item">
-            <img src="src/img/1_DontLookBackInAnger.jpg" alt="Don't Look Back in Anger" class="recent-song-img">
-            <div class="recent-song-info">
-                <div class="recent-song-title">Don't Look Back in Anger</div>
-                <div class="recent-song-artist">Oasis</div>
-            </div>
-            <button class="recent-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="recent-song-item">
-            <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="recent-song-img">
-            <div class="recent-song-info">
-                <div class="recent-song-title">좋은밤좋은꿈</div>
-                <div class="recent-song-artist">SG 워너비</div>
-            </div>
-            <button class="recent-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="recent-song-item">
-            <img src="src/img/1_에피소드.jpg" alt="에피소드" class="recent-song-img">
-            <div class="recent-song-info">
-                <div class="recent-song-title">에피소드</div>
-                <div class="recent-song-artist">이무진</div>
-            </div>
-            <button class="recent-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="recent-song-item">
-            <img src="src/img/1_Trip.jpg" alt="Trip" class="recent-song-img">
-            <div class="recent-song-info">
-                <div class="recent-song-title">Trip (Feat. Hannah)</div>
-                <div class="recent-song-artist">릴러말즈</div>
-            </div>
-            <button class="recent-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="recent-song-item">
-            <img src="src/img/1_howsweet.png" alt="How Sweet" class="recent-song-img">
-            <div class="recent-song-info">
-                <div class="recent-song-title">How Sweet</div>
-                <div class="recent-song-artist">NewJeans</div>
-            </div>
-            <button class="recent-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-</section>
+            <section class="section section-recent">
+                <h2 class="section-title">최근 재생한 곡</h2>
+                <div class="recent-songs-container">
+                    <div class="recent-song-item">
+                        <img src="src/img/1_DontLookBackInAnger.jpg" alt="Don't Look Back in Anger" class="recent-song-img">
+                        <div class="recent-song-info">
+                            <div class="recent-song-title">Don't Look Back in Anger</div>
+                            <div class="recent-song-artist">Oasis</div>
+                        </div>
+                        <button class="recent-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="recent-song-item">
+                        <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="recent-song-img">
+                        <div class="recent-song-info">
+                            <div class="recent-song-title">좋은밤좋은꿈</div>
+                            <div class="recent-song-artist">SG 워너비</div>
+                        </div>
+                        <button class="recent-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="recent-song-item">
+                        <img src="src/img/1_에피소드.jpg" alt="에피소드" class="recent-song-img">
+                        <div class="recent-song-info">
+                            <div class="recent-song-title">에피소드</div>
+                            <div class="recent-song-artist">이무진</div>
+                        </div>
+                        <button class="recent-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="recent-song-item">
+                        <img src="src/img/1_Trip.jpg" alt="Trip" class="recent-song-img">
+                        <div class="recent-song-info">
+                            <div class="recent-song-title">Trip (Feat. Hannah)</div>
+                            <div class="recent-song-artist">릴러말즈</div>
+                        </div>
+                        <button class="recent-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="recent-song-item">
+                        <img src="src/img/1_howsweet.png" alt="How Sweet" class="recent-song-img">
+                        <div class="recent-song-info">
+                            <div class="recent-song-title">How Sweet</div>
+                            <div class="recent-song-artist">NewJeans</div>
+                        </div>
+                        <button class="recent-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-<!-- 음악 차트 섹션 -->
-<section class="section section-chart">
-    <h2 class="section-title">🔥 음악 차트 TOP 10</h2>
-    <div class="chart-container">
-        <div class="chart-item">
-            <div class="chart-rank">1</div>
-            <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">좋은밤좋은꿈</div>
-                <div class="chart-artist">SG 워너비</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">2</div>
-            <img src="src/img/1_에피소드.jpg" alt="에피소드" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">에피소드</div>
-                <div class="chart-artist">이무진</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">3</div>
-            <img src="src/img/1_howsweet.png" alt="How Sweet" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">How Sweet</div>
-                <div class="chart-artist">NewJeans</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">4</div>
-            <img src="src/img/1_Trip.jpg" alt="Trip" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">Trip (Feat. Hannah)</div>
-                <div class="chart-artist">릴러말즈</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">5</div>
-            <img src="src/img/1_비오는날에듣기좋은노래.jpg" alt="비 오는 날에 듣기 좋은 노래" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">비 오는 날에 듣기 좋은 노래</div>
-                <div class="chart-artist">에픽하이</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">6</div>
-            <img src="src/img/1_꿈의버스.jpg" alt="꿈의 버스" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">꿈의 버스</div>
-                <div class="chart-artist">DAY6</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">7</div>
-            <img src="src/img/1_LeaveBeforeYouLoveMe.jpg" alt="Leave Before You Love Me" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">Leave Before You Love Me</div>
-                <div class="chart-artist">Marshmello & Jonas Brothers</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">8</div>
-            <img src="src/img/1_lover.jpg" alt="Lover" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">Lover</div>
-                <div class="chart-artist">Taylor Swift</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">9</div>
-            <img src="src/img/1_SOS.jpg" alt="Kill Bill" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">Kill Bill</div>
-                <div class="chart-artist">SZA</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chart-item">
-            <div class="chart-rank">10</div>
-            <img src="src/img/1_GETUP.jpg" alt="Super Shy" class="chart-img">
-            <div class="chart-info">
-                <div class="chart-title">Super Shy</div>
-                <div class="chart-artist">NewJeans</div>
-            </div>
-            <button class="chart-play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-</section>
+            <!-- 음악 차트 섹션 -->
+            <section class="section section-chart">
+                <h2 class="section-title">🔥 음악 차트 TOP 10</h2>
+                <div class="chart-container">
+                    <div class="chart-item" data-track-index="chart-0">
+                        <div class="chart-rank">1</div>
+                        <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">좋은밤좋은꿈</div>
+                            <div class="chart-artist">SG 워너비</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-1">
+                        <div class="chart-rank">2</div>
+                        <img src="src/img/1_에피소드.jpg" alt="에피소드" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">에피소드</div>
+                            <div class="chart-artist">이무진</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-2">
+                        <div class="chart-rank">3</div>
+                        <img src="src/img/1_howsweet.png" alt="How Sweet" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">How Sweet</div>
+                            <div class="chart-artist">NewJeans</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-3">
+                        <div class="chart-rank">4</div>
+                        <img src="src/img/1_Trip.jpg" alt="Trip" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">Trip (Feat. Hannah)</div>
+                            <div class="chart-artist">릴러말즈</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-4">
+                        <div class="chart-rank">5</div>
+                        <img src="src/img/1_비오는날에듣기좋은노래.jpg" alt="비 오는 날에 듣기 좋은 노래" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">비 오는 날에 듣기 좋은 노래</div>
+                            <div class="chart-artist">에픽하이</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-5">
+                        <div class="chart-rank">6</div>
+                        <img src="src/img/1_꿈의버스.jpg" alt="꿈의 버스" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">꿈의 버스</div>
+                            <div class="chart-artist">DAY6</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-6">
+                        <div class="chart-rank">7</div>
+                        <img src="src/img/1_LeaveBeforeYouLoveMe.jpg" alt="Leave Before You Love Me" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">Leave Before You Love Me</div>
+                            <div class="chart-artist">Marshmello & Jonas Brothers</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-7">
+                        <div class="chart-rank">8</div>
+                        <img src="src/img/1_lover.jpg" alt="Lover" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">Lover</div>
+                            <div class="chart-artist">Taylor Swift</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-8">
+                        <div class="chart-rank">9</div>
+                        <img src="src/img/1_SOS.jpg" alt="Kill Bill" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">Kill Bill</div>
+                            <div class="chart-artist">SZA</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-item" data-track-index="chart-9">
+                        <div class="chart-rank">10</div>
+                        <img src="src/img/1_GETUP.jpg" alt="Super Shy" class="chart-img">
+                        <div class="chart-info">
+                            <div class="chart-title">Super Shy</div>
+                            <div class="chart-artist">NewJeans</div>
+                        </div>
+                        <button class="chart-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
 
+        
             <!-- 최신 앨범 섹션 -->
             <section class="section section-latest">
                 <h2 class="section-title">최신 앨범</h2>
