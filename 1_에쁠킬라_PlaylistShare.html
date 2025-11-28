@@ -71,20 +71,33 @@
                 text-overflow: ellipsis;
             }
 
+            /* SoundLetter 스타일 copy 버튼 */
             .copy-btn {
-                width: 60px;
-                background: #3e3e3e;
-                padding: 6px 12px;
-                border-radius: 6px;
-                margin-left: 14px;
+                background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+                color: #000;
+                border: none;
+                padding: 8px 18px;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 700;
                 cursor: pointer;
-                transition: 0.15s;
-                font-size: 13px;
-                text-align: center;
+                transition: all 0.25s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 70px;
+                box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
             }
 
             .copy-btn:hover {
-                background: #505050;
+                background: #ffaa00;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(255, 149, 0, 0.45);
+            }
+
+            .copy-btn:active {
+                transform: translateY(0);
+                background: #ff8c00;
             }
 
             /* 공유 버튼들 */
