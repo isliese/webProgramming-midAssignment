@@ -13,13 +13,13 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 24px 32px;
+                padding: 27px 32px 24px 32px ;
                 background: rgba(18, 18, 18, 0.6);
                 backdrop-filter: blur(10px);
                 position: sticky;
                 top: 0;
                 z-index: 10;
-                /* border: 1px solid red; */
+            
             }
 
             .back-button {
@@ -42,57 +42,6 @@
 
             .backback {
                 text-decoration: none;
-            }
-
-            .header-right {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-            }
-
-            .search-bar {
-                position: relative;
-            }
-
-            .search-bar input {
-                width: 300px;
-                padding: 12px 16px 12px 40px;
-                background: #282828;
-                border: none;
-                border-radius: 24px;
-                color: #ffffff;
-                font-size: 14px;
-                outline: none;
-            }
-
-            .search-bar input:focus {
-                background: #3e3e3e;
-            }
-
-            .search-icon {
-                position: absolute;
-                left: 12px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 20px;
-                height: 20px;
-                fill: #b3b3b3;
-            }
-
-            .user-profile {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: #ff9500;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: transform 0.3s;
-            }
-
-            .user-profile:hover {
-                transform: scale(1.1);
             }
 
             /* 헤더 제외 메인부분 */
@@ -398,7 +347,7 @@
             .popup-container {
                 position: fixed;
                 top: 50%; left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-30%, -50%);
                 display: none;
                 z-index: 999;
             }
@@ -715,25 +664,28 @@
             <!-- Main Content -->
             <main class="main-content">
                 <!-- Top Header -->
-                <div class="top-header">
-                    <a href="1_에쁠킬라_Playlist.html" class="backback"
-                        ><button class="back-button">
+                <!-- 헤더 -->
+                <header class="top-header">
+                    <a href="1_에쁠킬라_Playlist.html" class="back-button" style="margin-left: 10px;">
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                            />
+                        </svg>
+                        뒤로가기
+                    </a>
+                    <div class="header-right">
+                        <div class="search-bar">
                             <svg
-                                width="20"
-                                height="20"
+                                class="search-icon"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
                             >
-                                <path
-                                    d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
-                                />
-                            </svg>
-                            뒤로가기
-                        </button></a
-                    >
-                    <div class="header-right">
-                        <div class="search-bar">
-                            <svg class="search-icon" viewBox="0 0 24 24">
                                 <path
                                     d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
                                 />
@@ -755,7 +707,7 @@
                         </div>
                         </a>
                     </div>
-                </div>
+                </header>
                 <div class="center">
                     <div class="left">
                         <!-- Playlist Header -->
@@ -1487,11 +1439,5 @@
                 });
 
         </script>
-
-
-
-
-
-
     </body>
 </html>
