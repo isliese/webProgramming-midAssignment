@@ -8,6 +8,22 @@
 
         <title>SoundLetter - 플레이리스트 상세</title>
         <style>
+
+            /* a 태그 기본 밑줄 / 눌렀을 때 선 제거 */
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+}
+
+/* 클릭했을 때 생기는 점선/테두리 제거 */
+a:focus,
+a:focus-visible {
+    outline: none;
+}
+
             /* 헤더부분 */
             .top-header {
                 display: flex;
@@ -65,7 +81,6 @@
 
             /* 플레이리스트 앨범 부분 */
             .playlist-header {
-                /* border: 1px solid red; */
                 padding: 48px 32px;
                 padding-bottom: 0;
                 display: block;
@@ -75,7 +90,6 @@
             }
 
             .playlist-cover-large {
-                /* border: 1px solid red; */
                 width: 72%;
                 height: 72%;
                 border-radius: 8px;
@@ -83,10 +97,11 @@
                 object-fit: cover;
                 position: relative;
                 left: 23%;
+                transform: scale(1);   
+                transition: none !important; 
             }
 
             .playlist-header-info {
-                /* border: 1px solid red; */
                 position: relative;
                 left: 25%;
                 flex: 1;
@@ -125,7 +140,6 @@
 
             /* 재생,공유,좋아요,등등 버튼 */
             .action-bar {
-                /* border: 1px solid red; */
                 padding: 0px 32px;
                 display: flex;
                 align-items: center;
@@ -146,7 +160,6 @@
                 cursor: pointer;
                 transition: all 0.3s;
                 margin-left: 30%;
-                padding-top: 5px;
             }
 
             .play-main-btn:hover {
@@ -594,8 +607,54 @@
                 background: #484848;
             }
 
+            /* 커스텀 툴팁 */
+            .action-btn[data-tooltip] {
+                position: relative;
+            }
 
-            
+            .action-btn[data-tooltip]::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                bottom: -40px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(40, 40, 40, 0.95);
+                color: #fff;
+                padding: 6px 12px;
+                border-radius: 8px;
+                font-size: 12px;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .45s ease;
+            }
+
+            .action-btn[data-tooltip]:hover::after {
+                opacity: 1;
+            }
+
+            /* ===== 좋아요 하트 애니메이션 ===== */
+            .heart-btn.liked .heart-icon {
+                fill: #ff9500;
+                transform: scale(1.2);
+                transition: fill 0.2s ease, transform 0.2s ease;
+            }
+
+            .heart-btn .heart-icon {
+                transition: fill 0.2s ease, transform 0.2s ease;
+            }
+
+            /* 인스타 하트 팡 애니메이션 */
+            @keyframes heart-pop {
+                0% { transform: scale(1); }
+                40% { transform: scale(1.35); }
+                100% { transform: scale(1); }
+            }
+
+            .heart-btn.liked .heart-icon {
+                animation: heart-pop 0.3s ease;
+            }
+
             
         </style>
     </head>
@@ -728,19 +787,37 @@
                                     <span>6곡</span>
                                     <span>•</span>
                                     <span>21분</span>
-                                    <button class="play-main-btn">
-                                        <svg viewBox="0 0 24 24">
-                                            <path d="M8 5v14l11-7z" />
-                                        </svg>
-                                    </button>
+                                    <button class="play-main-btn play-toggle">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+    </svg>
+</button>
                                 </div>
                             </div>
                             <!-- Action Bar -->
                             <div class="action-bar">
                                 <button
+                                    class="action-btn heart-btn" 
+                                    aria-label="좋아요"
+                                    data-tooltip="좋아요"
+                                >
+                                    <svg
+                                        class="heart-icon"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                                        />
+                                    </svg>
+                                </button>
+                                <button
                                     class="action-btn"
-                                    aria-label="다운로드"
-                                    title="다운로드"
+                                    aria-label="오프라인 저장"
+                                    data-tooltip="오프라인 저장"
                                 >
                                     <svg
                                         viewBox="0 0 24 24"
@@ -759,24 +836,11 @@
                                         <path d="M3 15v3a2 2 0 0 0 2 2" />
                                     </svg>
                                 </button>
-                                <button
-                                    class="action-btn"
-                                    aria-label="좋아요"
-                                    title="좋아요"
-                                >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                                        />
-                                    </svg>
-                                </button>
+                                
                                 <a href="1_에쁠킬라_PlaylistShare.html"><button
                                     class="action-btn"
                                     aria-label="공유하기"
-                                    title="공유하기"
+                                    data-tooltip="공유하기"
                                 >
                                     <svg
                                         viewBox="0 0 24 24"
@@ -788,7 +852,7 @@
                                     </svg>
                                 </button></a>
 
-                                <a href="1_에쁠킬라_Gift.html" title="내 플레이리스트 선물하기" class="action-btn" aria-label="내 플레이리스트 선물하기">
+                                <a href="1_에쁠킬라_Gift.html" data-tooltip="이 플레이리스트 선물하기" class="action-btn" aria-label="이 플레이리스트 선물하기">
                                     <!-- gift icon -->
                                     <svg
                                         viewBox="0 0 24 24"
@@ -822,8 +886,8 @@
                                 <a href="1_에쁠킬라_TimeCapsule.html"
                                     ><button
                                         class="action-btn time"
-                                        aria-label="타임캡슐"
-                                        title="타임캡슐 만들기"
+                                        aria-label="이 플레이리스트로 타임캡슐 만들기"
+                                        data-tooltip="이 플레이리스트로 타임캡슐 만들기"
                                     >
                                         <svg
                                             viewBox="0 0 24 24"
@@ -857,14 +921,14 @@
                         <div class="track-item">
                             <div style="position: relative; text-align: center">
                                 <span class="track-number">1</span>
-                                <button class="track-play-btn">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </button>
+                                <button class="track-play-btn play-toggle">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+    </svg>
+</button>
                             </div>
                             <div class="track-info">
                                 <img
@@ -893,14 +957,14 @@
                         <div class="track-item">
                             <div style="position: relative; text-align: center">
                                 <span class="track-number">2</span>
-                                <button class="track-play-btn">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </button>
+                                <button class="track-play-btn play-toggle">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+    </svg>
+</button>
                             </div>
                             <div class="track-info">
                                 <img
@@ -930,14 +994,14 @@
                         <div class="track-item">
                             <div style="position: relative; text-align: center">
                                 <span class="track-number">3</span>
-                                <button class="track-play-btn">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </button>
+                                <button class="track-play-btn play-toggle">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+    </svg>
+</button>
                             </div>
                             <div class="track-info">
                                 <img
@@ -966,14 +1030,14 @@
                         <div class="track-item">
                             <div style="position: relative; text-align: center">
                                 <span class="track-number">4</span>
-                                <button class="track-play-btn">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </button>
+                                <button class="track-play-btn play-toggle">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+    </svg>
+</button>
                             </div>
                             <div class="track-info">
                                 <img
@@ -1003,14 +1067,14 @@
                         <div class="track-item">
                             <div style="position: relative; text-align: center">
                                 <span class="track-number">5</span>
-                                <button class="track-play-btn">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </button>
+                                <button class="track-play-btn play-toggle">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+    </svg>
+</button>
                             </div>
                             <div class="track-info">
                                 <img
@@ -1040,14 +1104,14 @@
                         <div class="track-item">
                             <div style="position: relative; text-align: center">
                                 <span class="track-number">6</span>
-                                <button class="track-play-btn">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </button>
+                                <button class="track-play-btn play-toggle">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+    </svg>
+</button>
                             </div>
                             <div class="track-info">
                                 <img
@@ -1105,7 +1169,7 @@
                         <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
                     </svg>
                 </button>
-                <button class="control-btn play-btn">
+                <button class="control-btn play-toggle">
                     <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z"/>
                     </svg>
@@ -1349,9 +1413,6 @@
                         >
                     </div>
                 </div>
-
-                
-
         <div class="toast" id="toast">플레이리스트에 추가되었습니다.</div>
 
     </div>
@@ -1437,6 +1498,35 @@
                 .addEventListener('click', () => {
                     alert('검색 기능은 추후 구현 예정입니다 :)');
                 });
+
+
+            // ===== 좋아요 하트 클릭 애니메이션 =====
+            const heartBtn = document.querySelector(".heart-btn");
+
+            heartBtn.addEventListener("click", () => {
+                heartBtn.classList.toggle("liked");
+            });
+
+
+            // ===== 재생/일시정지 토글 기능 (모든 재생 버튼 공통) =====
+document.querySelectorAll(".play-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const playIcon = btn.querySelector(".icon-play");
+        const pauseIcon = btn.querySelector(".icon-pause");
+
+        const isPlaying = pauseIcon.style.display === "block";
+
+        if (isPlaying) {
+            pauseIcon.style.display = "none";
+            playIcon.style.display = "block";
+        } else {
+            pauseIcon.style.display = "block";
+            playIcon.style.display = "none";
+        }
+    });
+});
+
+
 
         </script>
     </body>
