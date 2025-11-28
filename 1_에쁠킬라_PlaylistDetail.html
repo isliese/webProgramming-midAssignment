@@ -377,6 +377,277 @@
                 height: 22px;
                 display: block;
             }
+
+            
+
+            /* 플레이리스트 추가 팝업의 css */
+            .main-content {
+                display: block;
+                height: calc(100vh - 90px);
+                        }
+
+            .popup-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            backdrop-filter: blur(3px);
+            display: none;
+            z-index: 900;
+            }
+
+            .popup-container {
+                position: fixed;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                z-index: 999;
+            }
+
+            /* 팝업 카드 전체 */
+            .add-popup {
+                background: #181818;
+                border-radius: 20px;
+                width: 420px;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 14px 36px rgba(0, 0, 0, 0.7);
+                overflow: hidden;
+            }
+
+            /* 상단 헤더 */
+            .add-header {
+                margin: 0 25px;
+                display: flex;
+                align-items: center;
+                padding: 21px 18px 8px 18px;
+                border-bottom: 1px solid #2a2a2a;
+            }
+
+            .add-title {
+                flex: 1;
+                text-align: center;
+                font-size: 22px;
+                font-weight: 600;
+                color: #ffffff;
+            }
+
+            /* 검색 영역 */
+
+            .search-button {
+                padding: 7px 100px;
+                border-radius: 10px;
+                border: none;
+                background: #2a2a2a;
+                color: #bfbfbf;
+                gap: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: 41px;
+                width: 338px;
+                margin-top: 20px;
+            }
+
+            .search-button svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .search-button:hover {
+                background: #343434;
+            }
+
+            /* 캐러셀 전체 래퍼 */
+            .carousel-wrapper {
+                display: flex;
+                align-items: stretch;
+                padding: 10px 10px 6px 10px;
+                flex: 1;
+                min-height: 0; /* flex 안에서 스크롤 정상 동작 */
+            }
+
+            .carousel-nav {
+                width: 32px;
+                border: none;
+                background: transparent;
+                color: #ffffff;
+                font-size: 20px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0.7;
+                transition: opacity 0.2s;
+            }
+
+            .carousel-nav:hover {
+                opacity: 1;
+            }
+
+            .carousel-window {
+                flex: 1;
+                overflow: hidden;
+                border-radius: 16px;
+                width: 400px;
+            }
+
+            .carousel-track {
+                display: flex;
+                width: 200%; /* 슬라이드 2개 */
+                height: 100%;
+                transform: translateX(0);
+                transition: transform 0.35s ease;
+            }
+
+            .carousel-slide {
+                width: 50%;
+                background: #202020;
+                padding: 16px 20px 12px 20px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .slide-title {
+                font-size: 15px;
+                font-weight: 600;
+                margin-bottom: 10px;
+                color: #ffffff;
+            }
+
+            .song-list {
+                overflow-y: auto;
+                padding-right: 4px;
+            }
+
+            .song-item {
+                display: flex;
+                align-items: center;
+                padding: 8px 0;
+                min-width: 0;
+            }
+
+            .song-cover {
+                width: 44px;
+                height: 44px;
+                border-radius: 6px;
+                flex-shrink: 0;
+                background: #3a3a3a;
+                margin-right: 10px;
+            }
+
+            .song-info {
+                flex: 1;
+
+                overflow: hidden;
+                width: 100px;
+            }
+
+            .song-title {
+                font-size: 14px;
+                color: #ffffff;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .song-artist {
+                font-size: 12px;
+                color: #b3b3b3;
+                margin-top: 2px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .add-btn {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                border: 1.5px solid #bfbfbf;
+                background: transparent;
+                color: #ffffff;
+                font-size: 18px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .add-btn:hover {
+                background: #2f2f2f;
+                /* background-color: #ff9500; */
+            }
+
+            /* 하단 페이지 인디케이터 */
+            .carousel-dots {
+                padding: 6px 0 10px 0;
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .carousel-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                border: none;
+                background: #4c4c4c;
+                cursor: pointer;
+            }
+
+            .carousel-dot.active {
+                background: #ffffff;
+            }
+
+            /* 토스트 메시지 */
+            .toast {
+                position: fixed;
+                bottom: 90px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(40, 40, 40, 0.95);
+                color: #ffffff;
+                padding: 10px 18px;
+                border-radius: 18px;
+                font-size: 13px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease;
+                z-index: 9999;
+            }
+
+            .toast.show {
+                opacity: 1;
+            }
+
+            .add-close-btn {
+                background: #3e3e3e;
+                color: #ffffff;
+                border: none;
+                border-radius: 24px;
+                padding: 12px 28px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+                position: relative;
+                left: 300px;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 30px;
+                text-decoration: none;
+            }
+
+            .add-close-btn:hover {
+                background: #484848;
+            }
+
+
+            
+            
         </style>
     </head>
     <body>
@@ -493,7 +764,6 @@
                                 src="src\img\1_allbum.png"
                                 alt="Playlist Cover"
                                 class="playlist-cover-large"
-                               
                             />
                             <div class="playlist-header-info">
                                 <div class="playlist-type">playlist</div>
@@ -851,16 +1121,18 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="1_에쁠킬라_PlaylistAdd.html"><div class="track-add">
+                        <div class="track-add" id = openAddPopup>
                             <img
                                 alt="추가"
                                 width="22"
                                 height="22"
                                 src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M12 5v14M5 12h14' stroke='%23b3b3b3' stroke-width='2' stroke-linecap='round'/></svg>"
                             />추가
-                        </div></a>
+                        </div>
                         
                     </div>
+
+
                 </div>
             </main>
         </div>
@@ -913,5 +1185,313 @@
             </div>
         </div>
     </div>
+
+
+    <div class="popup-overlay" id="popupOverlay"></div>
+
+    <div class="popup-container" id="popupContainer">
+    <!-- 여기 안에 PlaylistAdd.html에서 가져온 add-popup UI 그대로 넣기 -->
+        <div class="add-popup">
+                    <!-- 헤더 -->
+                    <div class="add-header">
+                        <div class="add-title">이 플레이리스트에 추가</div>
+                    </div>
+
+                    <!-- 검색 버튼 -->
+                    <div class="search-bar">
+                        <button class="search-button" id="searchBtn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L19 20.49 20.49 19 15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                />
+                            </svg>
+                            <span>검색하기</span>
+                        </button>
+                    </div>
+
+                    <!-- 캐러셀 + 리스트 -->
+                    <div class="carousel-wrapper">
+                        <button class="carousel-nav" id="prevBtn">&lt;</button>
+
+                        <div class="carousel-window">
+                            <div class="carousel-track" id="carouselTrack">
+                                <!-- 슬라이드 1: 추천곡 -->
+                                <section class="carousel-slide">
+                                    <div class="slide-title">추천곡</div>
+                                    <div class="song-list">
+                                        <div class="song-item">
+                                            <div
+                                                class="song-cover"
+                                                style="
+                                                    background: url('src/img/1_CruelSummer.jpg')
+                                                        center/cover;
+                                                "
+                                            ></div>
+                                            <div class="song-info">
+                                                <div class="song-title">
+                                                    Cruel Summer
+                                                </div>
+                                                <div class="song-artist">
+                                                    Taylor Swift
+                                                </div>
+                                            </div>
+                                            <button class="add-btn">+</button>
+                                        </div>
+
+                                        <div class="song-item">
+                                            <div
+                                                class="song-cover"
+                                                style="
+                                                    background: url('src/img/1_SOS.jpg')
+                                                        center/cover;
+                                                "
+                                            ></div>
+                                            <div class="song-info">
+                                                <div class="song-title">
+                                                    SOS
+                                                </div>
+                                                <div class="song-artist">
+                                                    Travis Scott
+                                                </div>
+                                            </div>
+                                            <button class="add-btn">+</button>
+                                        </div>
+
+                                        <div class="song-item">
+                                            <div
+                                                class="song-cover"
+                                                style="
+                                                    background: url('src/img/1_Trip.jpg')
+                                                        center/cover;
+                                                "
+                                            ></div>
+                                            <div class="song-info">
+                                                <div class="song-title">
+                                                    Trip
+                                                </div>
+                                                <div class="song-artist">
+                                                    Leellamarz (feat.Hannah)
+                                                </div>
+                                            </div>
+                                            <button class="add-btn">+</button>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <!-- 슬라이드 2: 최근 재생한 항목 -->
+                                <section class="carousel-slide">
+                                    <div class="slide-title">
+                                        최근 재생한 항목
+                                    </div>
+                                    <div class="song-list">
+                                        <div class="song-list">
+                                            <div class="song-item">
+                                                <div
+                                                    class="song-cover"
+                                                    style="
+                                                        background: url('src/img/1_DontLookBackInAnger.jpg')
+                                                            center/cover;
+                                                    "
+                                                ></div>
+                                                <div class="song-info">
+                                                    <div class="song-title">
+                                                        Don't Look Back In Anger
+                                                    </div>
+                                                    <div class="song-artist">
+                                                        Oasis
+                                                    </div>
+                                                </div>
+                                                <button class="add-btn">
+                                                    +
+                                                </button>
+                                            </div>
+
+                                            <div class="song-item">
+                                                <div
+                                                    class="song-cover"
+                                                    style="
+                                                        background: url('src/img/1_GETUP.jpg')
+                                                            center/cover;
+                                                    "
+                                                ></div>
+                                                <div class="song-info">
+                                                    <div class="song-title">
+                                                        Get Up
+                                                    </div>
+                                                    <div class="song-artist">
+                                                        Newjeans
+                                                    </div>
+                                                </div>
+                                                <button class="add-btn">
+                                                    +
+                                                </button>
+                                            </div>
+
+                                            <div class="song-item">
+                                                <div
+                                                    class="song-cover"
+                                                    style="
+                                                        background: url('src/img/1_LeaveBeforeYouLoveMe.jpg')
+                                                            center/cover;
+                                                    "
+                                                ></div>
+                                                <div class="song-info">
+                                                    <div class="song-title">
+                                                        Leave Before You Love Me
+                                                    </div>
+                                                    <div class="song-artist">
+                                                        Marshmello
+                                                    </div>
+                                                </div>
+                                                <button class="add-btn">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="song-item">
+                                                <div
+                                                    class="song-cover"
+                                                    style="
+                                                        background: url('src/img/1_Love_on_the_canvas.jpg')
+                                                            center/cover;
+                                                    "
+                                                ></div>
+                                                <div class="song-info">
+                                                    <div class="song-title">
+                                                        Love on the canvas
+                                                    </div>
+                                                    <div class="song-artist">
+                                                        Don Toliver
+                                                    </div>
+                                                </div>
+                                                <button class="add-btn">
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                        <button class="carousel-nav" id="nextBtn">&gt;</button>
+                    </div>
+
+                    <!-- 페이지 인디케이터 -->
+                    <div class="carousel-dots">
+                        <button
+                            class="carousel-dot active"
+                            data-index="0"
+                        ></button>
+                        <button class="carousel-dot" data-index="1"></button>
+                    </div>
+                    <!-- 취소버튼 -->
+                    <div>
+                        <a href="1_에쁠킬라_PlaylistDetail.html"
+                            ><button
+                                class="add-close-btn"
+                                id="closeAdd"
+                                aria-label="취소"
+                            >
+                                취소
+                            </button></a
+                        >
+                    </div>
+                </div>
+
+                
+
+        <div class="toast" id="toast">플레이리스트에 추가되었습니다.</div>
+
+    </div>
+
+
+        <script>
+            // 열기 버튼 (추가 버튼)
+            const openPopupBtn = document.getElementById("openAddPopup");
+            // 오버레이 + 팝업
+            const popupOverlay = document.getElementById("popupOverlay");
+            const popupContainer = document.getElementById("popupContainer");
+
+            // 팝업 열기
+            openPopupBtn.addEventListener("click", () => {
+                popupOverlay.style.display = "block";
+                popupContainer.style.display = "block";
+            });
+
+            // 팝업 닫기 (추가 화면 안의 취소버튼)
+            document.addEventListener("click", (e) => {
+                if (e.target.id === "closeAdd") {
+                    popupOverlay.style.display = "none";
+                    popupContainer.style.display = "none";
+                }
+            });
+
+            // 오버레이 클릭 → 닫기
+            popupOverlay.addEventListener("click", () => {
+                popupOverlay.style.display = "none";
+                popupContainer.style.display = "none";
+            });
+
+            // 캐러셀 로직
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentIndex = 0;
+            const slideCount = 2;
+
+            function updateCarousel() {
+                track.style.transform = `translateX(-${currentIndex * 50}%)`;
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIndex);
+                });
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                updateCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % slideCount;
+                updateCarousel();
+            });
+
+            dots.forEach((dot) => {
+                dot.addEventListener('click', () => {
+                    currentIndex = Number(dot.dataset.index);
+                    updateCarousel();
+                });
+            });
+
+            // 토스트 메시지
+            document.querySelectorAll('.add-btn').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    alert('플레이리스트에 추가되었습니다.');
+                });
+            });
+
+            // 닫기 버튼 (원하는 페이지로 이동)
+            document
+                .getElementById('closeAdd')
+                .addEventListener('click', () => {
+                    // 필요에 따라 이동 경로 수정
+                    window.location.href = '1_에쁠킬라_PlaylistDetail.html';
+                });
+
+            // 검색 버튼 (현재는 알림만)
+            document
+                .getElementById('searchBtn')
+                .addEventListener('click', () => {
+                    alert('검색 기능은 추후 구현 예정입니다 :)');
+                });
+
+        </script>
+
+
+
+
+
+
     </body>
 </html>
