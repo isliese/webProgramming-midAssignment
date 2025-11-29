@@ -8,7 +8,6 @@
         <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
         
         <style>
-
             /* a 태그 기본 밑줄 / 눌렀을 때 선 제거 */
             a,
             a:link,
@@ -36,6 +35,75 @@
                 top: 0;
                 z-index: 10;
             
+            }
+
+            /* 사용자 프로필 드롭다운 */
+            .user-profile {
+                position: relative;
+                cursor: pointer;
+                z-index: 100000;
+            }
+
+            .profile-dropdown {
+                position: absolute;
+                top: calc(100% + 12px);
+                right: 0;
+                background: #282828;
+                border-radius: 12px;
+                padding: 20px;
+                min-width: 200px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+                z-index: 100000;
+                display: none;
+            }
+
+            .profile-dropdown.active {
+                display: block;
+            }
+
+            .profile-close-btn {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                background: none;
+                border: none;
+                color: #b3b3b3;
+                cursor: pointer;
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: color 0.2s;
+            }
+
+            .profile-close-btn:hover {
+                color: #ffffff;
+            }
+
+            .profile-nickname {
+                font-size: 16px;
+                font-weight: 600;
+                color: #ffffff;
+                margin-bottom: 16px;
+                padding-right: 24px;
+            }
+
+            .logout-btn {
+                width: 100%;
+                padding: 10px 16px;
+                background: #ff9500;
+                color: #000000;
+                border: none;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .logout-btn:hover {
+                background: #ffaa00;
+                transform: translateY(-1px);
             }
 
             .back-button {
@@ -750,19 +818,23 @@
                             </svg>
                             <input type="text" placeholder="검색" />
                         </div>
-                        <div class="user-profile">
-                            <a href="1_에쁠킬라_Login.html" style="text-decoration: none">
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="white"
-                            >
+                        <div class="user-profile" id="userProfile">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                                 <path
-                                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
                                 />
                             </svg>
-                        </div>
+                            <div class="profile-dropdown" id="profileDropdown">
+                                <button class="profile-close-btn" id="closeProfile">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                </svg>
+                                </button>
+                                <!-- 회원가입에서 받아오는 실제 닉네임 -->
+                                <div class="profile-nickname">차은우님</div> 
+                                <button class="logout-btn" onclick="handleLogout()">로그아웃</button>
+                            </div>
+                            </div>
                         </a>
                     </div>
                 </header>
@@ -1417,6 +1489,32 @@
 
 
         <script>
+            /* 1. 프로필 드롭다운 열기/닫기 */
+            const userProfile = document.getElementById("userProfile");
+            const profileDropdown = document.getElementById("profileDropdown");
+            const closeProfile = document.getElementById("closeProfile");
+
+            userProfile.addEventListener("click", (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle("active");
+            });
+
+            closeProfile.addEventListener("click", (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.remove("active");
+            });
+
+            document.addEventListener("click", () => {
+                profileDropdown.classList.remove("active");
+            });
+
+
+            /* 2. 로그아웃 버튼 */
+
+            function handleLogout() {
+                alert("로그아웃 되었습니다!");
+                window.location.href = "1_에쁠킬라_Login.html";
+            }
             // 열기 버튼 (추가 버튼)
             const openPopupBtn = document.getElementById("openAddPopup");
             // 오버레이 + 팝업

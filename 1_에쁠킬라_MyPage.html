@@ -35,6 +35,7 @@
         .user-profile {
             position: relative;
             cursor: pointer;
+            z-index: 100000;
         }
 
         .profile-dropdown {
@@ -537,14 +538,10 @@
             </div>
         </div>
     </div>
-
-    <!-- ============================= -->
-    <!-- 🔥 자바스크립트 기능 -->
-    <!-- ============================= -->
     <script>
-      /* ------------------------------- */
+
       /* 1. 프로필 드롭다운 열기/닫기 */
-      /* ------------------------------- */
+
       const userProfile = document.getElementById("userProfile");
       const profileDropdown = document.getElementById("profileDropdown");
       const closeProfile = document.getElementById("closeProfile");
@@ -563,26 +560,26 @@
         profileDropdown.classList.remove("active");
       });
 
-      /* ------------------------------- */
+
       /* 2. 로그아웃 버튼 */
-      /* ------------------------------- */
+
       function handleLogout() {
         alert("로그아웃 되었습니다!");
         window.location.href = "1_에쁠킬라_Login.html";
       }
 
-      /* ------------------------------- */
+
       /* 3. 앨범 재생 함수 */
-      /* ------------------------------- */
+
       function playAlbum(artist, title) {
         document.getElementById("playerTitle").textContent = title;
         document.getElementById("playerArtist").textContent = artist;
         alert(`🎵 '${title}' 재생을 시작합니다!`);
       }
 
-      /* ------------------------------- */
+
       /* 4. 전체보기 버튼 */
-      /* ------------------------------- */
+
       function viewAllLiked() {
         window.location.href = "1_에쁠킬라_LikedAlbums.html";
       }
@@ -591,9 +588,9 @@
         window.location.href = "1_에쁠킬라_OfflineMusic.html";
       }
 
-      /* ------------------------------- */
+
       /* 5. 플레이/일시정지 토글 */
-      /* ------------------------------- */
+
       const playPauseBtn = document.getElementById("playPauseBtn");
       let isPlaying = false;
 
@@ -602,9 +599,9 @@
         playPauseBtn.textContent = isPlaying ? "⏸" : "▶";
       });
 
-      /* ------------------------------- */
+
       /* 6. 가짜 진행바 애니메이션 */
-      /* ------------------------------- */
+
       const progressBar = document.getElementById("playerProgress");
 
       function animateProgress() {
