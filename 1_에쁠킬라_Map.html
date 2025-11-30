@@ -342,67 +342,16 @@
     <script>
       let map;
       let mapInitialized = false;
-      
-      // 가짜 데이터 - 전 세계 위치
-      const musicLocations = [
-        // 서울
-        { lat: 37.5665, lng: 126.9780, title: "Cruel Summer", artist: "Taylor Swift", location: "강남역, 서울", image: "src/img/1_CruelSummer.jpg" },
-        { lat: 37.5797, lng: 126.9770, title: "한 페이지가 될 수 있게", artist: "DAY6", location: "광화문, 서울", image: "src/img/1_한페이지가될수있게_.jpg" },
-        { lat: 37.5512, lng: 126.9882, title: "좋은 밤 좋은 꿈", artist: "NELL", location: "이태원, 서울", image: "src/img/1_좋은밤좋은꿈.jpg" },
-        { lat: 37.5172, lng: 127.0473, title: "Love on the Canvas", artist: "Various Artists", location: "강남구청, 서울", image: "src/img/1_Love_on_the_canvas.jpg" },
-        { lat: 37.5663, lng: 126.9779, title: "사랑", artist: "Various Artists", location: "명동, 서울", image: "src/img/1_사랑.jpg" },
-        { lat: 37.5400, lng: 127.0695, title: "Youth", artist: "Troye Sivan", location: "삼성역, 서울", image: "src/img/1_Youth.jpg" },
-        
-        // 뉴욕
-        { lat: 40.7589, lng: -73.9851, title: "Lose My Mind", artist: "Dean", location: "Times Square, New York", image: "src/img/1_Lose_My_Mind.jpg" },
-        { lat: 40.7484, lng: -73.9857, title: "Don't Look Back in Anger", artist: "Oasis", location: "Empire State, New York", image: "src/img/1_DontLookBackInAnger.jpg" },
-        { lat: 40.7614, lng: -73.9776, title: "SOS", artist: "SZA", location: "Central Park, New York", image: "src/img/1_SOS.jpg" },
-        
-        // 로스앤젤레스
-        { lat: 34.0522, lng: -118.2437, title: "Lover", artist: "Taylor Swift", location: "Downtown LA", image: "src/img/1_lover.jpg" },
-        { lat: 34.0928, lng: -118.3287, title: "Supernova", artist: "aespa", location: "Hollywood, LA", image: "src/img/1_supernova.png" },
-        
-        // 파리
-        { lat: 48.8566, lng: 2.3522, title: "Leave Before You Love Me", artist: "Marshmello & Jonas Brothers", location: "Eiffel Tower, Paris", image: "src/img/1_LeaveBeforeYouLoveMe.jpg" },
-        { lat: 48.8606, lng: 2.3376, title: "Experience", artist: "Ludovico Einaudi", location: "Louvre Museum, Paris", image: "src/img/1_experience.png" },
-        
-        // 런던
-        { lat: 51.5074, lng: -0.1278, title: "Love Wins All", artist: "IU", location: "London Eye, London", image: "src/img/1_lovewinsall.png" },
-        { lat: 51.5007, lng: -0.1246, title: "Tell Us Bout Yourself", artist: "Various Artists", location: "Westminster, London", image: "src/img/1_tellusboutyourself.jpg" },
-        
-        // 도쿄
-        { lat: 35.6762, lng: 139.6503, title: "Smart", artist: "LE SSERAFIM", location: "Shibuya, Tokyo", image: "src/img/1_smart.png" },
-        { lat: 35.6586, lng: 139.7454, title: "Please", artist: "Various Artists", location: "Tokyo Tower, Tokyo", image: "src/img/1_please.png" },
-        { lat: 35.7148, lng: 139.7967, title: "We", artist: "Various Artists", location: "Asakusa, Tokyo", image: "src/img/1_we.png" },
-        
-        // 시드니
-        { lat: -33.8568, lng: 151.2153, title: "How Sweet", artist: "NewJeans", location: "Sydney Opera House", image: "src/img/1_howsweet.png" },
-        
-        // 두바이
-        { lat: 25.1972, lng: 55.2744, title: "Siren", artist: "Various Artists", location: "Burj Khalifa, Dubai", image: "src/img/1_siren.png" },
-        
-        // 로마
-        { lat: 41.9028, lng: 12.4964, title: "공의 버스", artist: "Various Artists", location: "Colosseum, Rome", image: "src/img/1_공의버스.jpg" },
-        
-        // 바르셀로나
-        { lat: 41.4036, lng: 2.1744, title: "Trip", artist: "Various Artists", location: "Sagrada Familia, Barcelona", image: "src/img/1_Trip.jpg" },
-        
-        // 싱가포르
-        { lat: 1.2838, lng: 103.8607, title: "Get Up", artist: "NewJeans", location: "Marina Bay, Singapore", image: "src/img/1_GETUP.jpg" },
-        
-        // 방콕
-        { lat: 13.7563, lng: 100.5018, title: "너에게 못했던 내 마지막 말은", artist: "Various Artists", location: "Grand Palace, Bangkok", image: "src/img/1_너에게못했던내마지막말은.jpg" },
-        
-        // 베를린
-        { lat: 52.5200, lng: 13.4050, title: "느사탑", artist: "Various Artists", location: "Brandenburg Gate, Berlin", image: "src/img/1_느사탑.jpg" },
-        
-        // 암스테르담
-        { lat: 52.3676, lng: 4.9041, title: "너에게 못했던 내 마지막 말은", artist: "Various Artists", location: "Canal District, Amsterdam", image: "src/img/1_너에게못했던내마지막말은.jpg" },
-        
-        // 부산
-        { lat: 35.1796, lng: 129.0756, title: "Celebrity", artist: "IU", location: "해운대, 부산", image: "src/img/1_celebrity.png" },
-        { lat: 35.0979, lng: 129.0403, title: "비오는 날 듣기 좋은 노래", artist: "Various Artists", location: "광안리, 부산", image: "src/img/1_비오는날듣기좋은노래.jpg" },
-      ];
+      let musicLocations = []; // JSON 데이터 저장 변수
+
+      // JSON 로드 후 지도 생성
+      fetch("data/musicLocations.json")
+        .then(res => res.json())
+        .then(data => {
+          musicLocations = data.locations;
+          initMap(); // 데이터 불러온 뒤 지도 생성
+        })
+        .catch(err => console.error("데이터 로드 실패:", err));
 
       // 커스텀 클러스터 렌더러 클래스
       class PhotoClusterRenderer {
@@ -552,6 +501,6 @@
     </script>
     
     <!-- Google Maps API를 callback과 함께 로드 -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQJOM6hle-RP6zIjnpb53gkDJ1w-gRWpg&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQJOM6hle-RP6zIjnpb53gkDJ1w-gRWpg" async defer></script>
 </body>
 </html>
