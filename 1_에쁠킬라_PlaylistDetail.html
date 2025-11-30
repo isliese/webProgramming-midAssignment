@@ -1602,9 +1602,7 @@
             heartBtn.addEventListener("click", () => {
                 heartBtn.classList.toggle("liked");
             });
-
             
-
 
             // 재생/일시정지 토글 기능 (모든 재생 버튼 공통) 
                 document.querySelectorAll(".play-toggle").forEach(btn => {
@@ -1624,9 +1622,7 @@
                     });
                 });
 
-                //이동없음
-
-//공통 재생바 업데이트 함수
+            //공통 재생바 업데이트 함수
             function updatePlayerBarToPlaylist() {
                 const playlistImg = document.querySelector(".playlist-cover-large").src;
                 const playlistTitle = document.querySelector(".playlist-title").innerText;
@@ -1652,12 +1648,12 @@
                 mainBtn.querySelector(".icon-pause").style.display = "block";
             }
 
-            //1) 메인 플레이 버튼 클릭
+            //메인 플레이 버튼 클릭
             document.querySelector(".play-main-btn").addEventListener("click", () => {
                 updatePlayerBarToPlaylist();
             });
 
-            //2) 트랙리스트 play 버튼 클릭
+            //트랙리스트 play 버튼 클릭
             document.querySelectorAll(".track-play-btn").forEach(btn => {
                 btn.addEventListener("click", (e) => {
                     e.stopPropagation();
@@ -1665,7 +1661,7 @@
                 });
             });
 
-            //3) 하단 재생바 중앙 버튼 클릭 → 메인버튼과 동기화
+            //하단 재생바 중앙 버튼 클릭 → 메인버튼과 동기화
             document.querySelector(".player-controls .play-toggle")
                 .addEventListener("click", () => {
 
