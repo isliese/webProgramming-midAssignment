@@ -189,6 +189,23 @@
         margin-bottom: 4px;
       }
 
+      .user-details-head {
+        display: flex;
+        gap: 12px;
+      }
+
+      .profile-logout-btn {
+        border-radius: 8px;
+        margin: 2px;
+        background-color: #181818;
+        color:#ffffff;
+        border: 1px solid #181818;
+      }
+
+      .profile-logout-btn:hover {
+        background-color: #282828;
+      }
+
       .user-stats {
         display: flex;
         gap: 24px;
@@ -219,7 +236,7 @@
         overflow-x: auto;
         padding-bottom: 8px;
         scrollbar-width: thin;
-        scrollbar-color: #282828 transparent;
+        scrollbar-color: #ff9500 #282828;
       }
 
       .albums-scroll::-webkit-scrollbar {
@@ -377,7 +394,10 @@
           <div class="user-info-card">
             <img src="src/img/1ser-avatar.jpg" alt="User Avatar" class="user-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22%3E%3Ccircle cx=%2260%22 cy=%2260%22 r=%2260%22 fill=%22%23282828%22/%3E%3Cpath d=%22M60 60c11 0 20-9 20-20s-9-20-20-20-20 9-20 20 9 20 20 20zm0 10c-13.33 0-40 6.67-40 20v10h80v-10c0-13.33-26.67-20-40-20z%22 fill=%22%23b3b3b3%22/%3E%3C/svg%3E'">
             <div class="user-details">
-              <h2>차은우</h2>
+              <div class="user-details-head">
+                <h2>차은우</h2>
+                <button class="profile-logout-btn">로그아웃</button>
+              </div>
               <p>@eunwoo_97</p>
               <p>가입일: 2024년 1월</p>
               <div class="user-stats">
