@@ -1622,76 +1622,122 @@
                     });
                 });
 
-            //공통 재생바 업데이트 함수
-            function updatePlayerBarToPlaylist() {
-                const playlistImg = document.querySelector(".playlist-cover-large").src;
-                const playlistTitle = document.querySelector(".playlist-title").innerText;
-                const playlistArtist = "LE SSERAFIM";
 
-                const nowImg = document.querySelector(".now-playing-image");
-                const nowTitle = document.querySelector(".now-playing-title");
-                const nowArtist = document.querySelector(".now-playing-artist");
+            //  트랙 정보 수집 (track-add 제외)
+            const trackItems = document.querySelectorAll(".track-item");
+            let tracks = [];
 
-                // 하단 재생바 업데이트
-                nowImg.src = playlistImg;
-                nowTitle.innerText = playlistTitle;
-                nowArtist.innerText = playlistArtist;
+            // track-item 중에서 실제 곡만 수집
+            trackItems.forEach((item, index) => {
+                const thumbnail = item.querySelector(".track-thumbnail");
+                if (!thumbnail) return; // 추가 버튼(track-add)은 건너뜀
 
-                // 하단 재생 아이콘 = ||
-                const bottomBtn = document.querySelector(".player-controls .play-toggle");
-                bottomBtn.querySelector(".icon-play").style.display = "none";
-                bottomBtn.querySelector(".icon-pause").style.display = "block";
-
-                // 메인버튼도 ||
-                const mainBtn = document.querySelector(".play-main-btn");
-                mainBtn.querySelector(".icon-play").style.display = "none";
-                mainBtn.querySelector(".icon-pause").style.display = "block";
-            }
-
-            //메인 플레이 버튼 클릭
-            document.querySelector(".play-main-btn").addEventListener("click", () => {
-                updatePlayerBarToPlaylist();
-            });
-
-            //트랙리스트 play 버튼 클릭
-            document.querySelectorAll(".track-play-btn").forEach(btn => {
-                btn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    updatePlayerBarToPlaylist();
+                tracks.push({
+                    img: thumbnail.src,
+                    title: item.querySelector(".track-details h4").innerText,
+                    artist: item.querySelector(".track-details p").innerText
                 });
             });
 
-            //하단 재생바 중앙 버튼 클릭 → 메인버튼과 동기화
-            document.querySelector(".player-controls .play-toggle")
-                .addEventListener("click", () => {
+            // 하단 플레이어 요소
+            const nowImg = document.querySelector(".now-playing-image");
+            const nowTitle = document.querySelector(".now-playing-title");
+            const nowArtist = document.querySelector(".now-playing-artist");
 
-                    const bottomBtn = document.querySelector(".player-controls .play-toggle");
-                    const mainBtn = document.querySelector(".play-main-btn");
 
-                    const playIcon = bottomBtn.querySelector(".icon-play");
-                    const pauseIcon = bottomBtn.querySelector(".icon-pause");
+            let musicIndex = 0;
 
-                    const mainPlayIcon = mainBtn.querySelector(".icon-play");
-                    const mainPauseIcon = mainBtn.querySelector(".icon-pause");
 
-                    const isPlaying = pauseIcon.style.display === "block";
+            // 플레이어 업데이트 함수
 
-                    if (isPlaying) {
-                        // || → ▶
-                        pauseIcon.style.display = "none";
-                        playIcon.style.display = "block";
+            function updatePlayerBar() {
+                const t = tracks[musicIndex];
+                nowImg.src = t.img;
+                nowTitle.innerText = t.title;
+                nowArtist.innerText = t.artist;
 
-                        mainPauseIcon.style.display = "none";
-                        mainPlayIcon.style.display = "block";
-                    } else {
-                        // ▶ → ||
-                        playIcon.style.display = "none";
-                        pauseIcon.style.display = "block";
+                /*  모든 트랙 재생버튼 ▶로 초기화 */
+                document.querySelectorAll(".track-play-btn").forEach((b) => {
+                    b.querySelector(".icon-play").style.display = "block";
+                    b.querySelector(".icon-pause").style.display = "none";
+                });
 
-                        mainPlayIcon.style.display = "none";
-                        mainPauseIcon.style.display = "block";
-                    }
+
+                /* 현재 재생 곡 버튼만 || 표시 */
+                const currentBtn = document.querySelectorAll(".track-play-btn")[musicIndex];
+                if (currentBtn) {
+                    currentBtn.querySelector(".icon-play").style.display = "none";
+                    currentBtn.querySelector(".icon-pause").style.display = "block";
+                }
+
+                /* 하단 중앙 버튼도 || 표시 */
+                const centerPlayBtn = document.querySelector(".player-controls .play-toggle");
+                const centerPlayIcon = centerPlayBtn.querySelector(".icon-play");
+                const centerPauseIcon = centerPlayBtn.querySelector(".icon-pause");
+                centerPlayIcon.style.display = "none";
+                centerPauseIcon.style.display = "block";
+            }
+
+
+
+
+            // 개별 트랙 재생 버튼
+            document.querySelectorAll(".track-play-btn").forEach((btn, i) => {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    musicIndex = i;
+                    updatePlayerBar();
+                });
             });
+
+            // 플레이리스트 메인 재생 버튼 → Smart(1번 곡) 재생과 동일하게
+            const mainPlayBtn = document.querySelector(".playlist-header .play-main-btn");
+
+            if (mainPlayBtn) {
+                mainPlayBtn.addEventListener("click", () => {
+
+                    // Smart(0번 곡) 재생
+                    musicIndex = 0;
+
+                    // Smart 트랙 정보 불러오기
+                    const t = tracks[0];
+                    nowImg.src = t.img;
+                    nowTitle.innerText = t.title;
+                    nowArtist.innerText = t.artist;
+
+                    // 모든 트랙 버튼 ▶로 초기화
+                    document.querySelectorAll(".track-play-btn").forEach((b) => {
+                        b.querySelector(".icon-play").style.display = "block";
+                        b.querySelector(".icon-pause").style.display = "none";
+                    });
+
+                    // Smart(1번 곡)만 || 표시
+                    const smartBtn = document.querySelectorAll(".track-play-btn")[0];
+                    smartBtn.querySelector(".icon-play").style.display = "none";
+                    smartBtn.querySelector(".icon-pause").style.display = "block";
+
+                    // 메인 버튼도 || 표시
+                    mainPlayBtn.querySelector(".icon-play").style.display = "none";
+                    mainPlayBtn.querySelector(".icon-pause").style.display = "block";
+
+                    // 하단 재생바 중앙 버튼도 || 표시
+                    const centerBtn = document.querySelector(".player-controls .play-toggle");
+                    centerBtn.querySelector(".icon-play").style.display = "none";
+                    centerBtn.querySelector(".icon-pause").style.display = "block";
+                });
+            }
+
+            document.querySelector(".next-btn").addEventListener("click", () => {
+                musicIndex = (musicIndex + 1) % tracks.length;
+                updatePlayerBar();
+            });
+
+            document.querySelector(".prev-btn").addEventListener("click", () => {
+                musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
+                updatePlayerBar();
+            });
+
+            
         </script>
     </body>
 </html>
