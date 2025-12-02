@@ -497,7 +497,7 @@
                                         12곡 • 나에게
                                     </div>
                                     <div class="capsule-date">
-                                        2025년 3월 15일 열림
+                                        2026년 3월 15일 열림
                                     </div>
                                 </div>
                             </div>
@@ -890,5 +890,107 @@
         }
       }
     })();
+
+    const capsules = [
+    {
+        name: "2024년 여름 추억",
+        image: "src/img/1_lover.jpg",
+        tracks: 15,
+        unlockDate: "2024-06-17"
+    },
+    {
+        name: "생일 선물",
+        image: "src/img/1_SOS.jpg",
+        tracks: 12,
+        unlockDate: "2026-03-15"
+    },
+    {
+        name: "2024년 봄 플레이리스트",
+        image: "src/img/1_GETUP.jpg",
+        tracks: 18,
+        unlockDate: "2024-04-01"
+    },
+    {
+        name: "새해에는 진짜 운동하자",
+        image: "src/img/1_Lose_My_Mind.jpg",
+        tracks: 22,
+        unlockDate: "2026-01-01"
+    },
+    {
+        name: "내년 크리스마스",
+        image: "src/img/1_tellusboutyourself.jpg",
+        tracks: 25,
+        unlockDate: "2026-12-25"
+    }
+    ];
+
+    function getDaysUntil(dateString) {
+        const today = new Date();
+        const unlock = new Date(dateString);
+        const diff = unlock - today;
+
+        return Math.ceil(diff / (1000 * 60 * 60 * 24)); // 일수
+        }
+    capsules.sort((a, b) => {
+        const d1 = getDaysUntil(a.unlockDate);
+        const d2 = getDaysUntil(b.unlockDate);
+
+        // 이미 열린건 뒤로 보냄
+        if (d1 < 0 && d2 >= 0) return 1;
+        if (d1 >= 0 && d2 < 0) return -1;
+
+        // 둘 다 안 열렸으면 빠른순 정렬
+        return d1 - d2;
+        });
+
+
+
+
+    const capsuleGrid = document.querySelector('.capsule-grid');
+    capsuleGrid.innerHTML = ""; // 기존 카드 지우기
+
+    capsules.forEach(capsule => {
+    const daysLeft = getDaysUntil(capsule.unlockDate);
+    const opened = daysLeft < 0;
+
+    const cardHTML = `
+    <div class="capsule-card ${opened ? "capsule-unlocked" : ""}">
+        <div class="capsule-card-inner">
+        <div class="capsule-front ${opened ? "" : "capsule-locked"}">
+            ${opened ? "" : `
+            <div class="lock-overlay">
+            <svg viewBox="0 0 24 24">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/>
+            </svg>
+            </div>
+            `}
+            <img src="${capsule.image}" class="capsule-cover" />
+            <div class="capsule-info">
+            <div class="capsule-name">${capsule.name}</div>
+            <div class="capsule-meta">${capsule.tracks}곡 • 나에게</div>
+            <div class="capsule-date">
+                ${opened ? "열림 완료" : `${capsule.unlockDate} 열림`}
+            </div>
+            </div>
+        </div>
+
+        <div class="capsule-back">
+            <div class="capsule-countdown">
+            ${opened ? "열렸습니다!" : `${daysLeft}일`}
+            </div>
+            <div class="capsule-countdown-label">
+            ${opened ? "클릭하여 열람하기" : "남았습니다"}
+            </div>
+            <div class="capsule-unlock-date">
+            ${capsule.unlockDate}에 열립니다
+            </div>
+        </div>
+        </div>
+    </div>
+    `;
+
+    capsuleGrid.insertAdjacentHTML("beforeend", cardHTML);
+    });
+
     </script>
 </html>
