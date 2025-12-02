@@ -1585,13 +1585,37 @@ document.querySelectorAll('.section-chart .chart-item').forEach((item) => {
         // 초기 시간 셋업
         currentTimeSpan.textContent = formatTime(0);
         totalTimeSpan.textContent = formatTime(totalDuration);
+function updateSmallButtonsUI() {
+    // 1) 최근 재생한 곡 (0~4번 인덱스)
+    document.querySelectorAll('.section-recent .recent-song-item').forEach((item, i) => {
+        const playBtn = item.querySelector('.recent-play-btn svg');
+        
+        if (i === currentIndex && isPlaying) {
+            playBtn.innerHTML = '<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>'; // 정지
+        } else {
+            playBtn.innerHTML = '<path d="M8 5v14l11-7z"/>'; // 재생
+        }
+    });
 
-        function updateSmallButtonsUI() {
+    // 2) 음악 차트 (5~14번 인덱스)
+    document.querySelectorAll('.section-chart .chart-item').forEach((item, i) => {
+        const playBtn = item.querySelector('.chart-play-btn svg');
+        const chartIndex = i + 5;
+        
+        if (chartIndex === currentIndex && isPlaying) {
+            playBtn.innerHTML = '<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>';
+        } else {
+            playBtn.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        }
+    });
+
+    // 3) 요즘 많이 듣는 노래 (15번 인덱스부터)
     document.querySelectorAll('.section-top-songs .song-card').forEach((card, i) => {
         const playIcon = card.querySelector('.icon-small-play');
         const pauseIcon = card.querySelector('.icon-small-pause');
+        const songIndex = i + 15;
 
-        if (i === currentIndex && isPlaying) {
+        if (songIndex === currentIndex && isPlaying) {
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'inline';
         } else {
