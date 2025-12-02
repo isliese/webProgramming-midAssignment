@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundLetter - 지도</title>
+    <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+    
+    <style>
+      .page-title {
+        font-size: 32px;
+        font-weight: 700;
+      }
+      
+      .main-content {
+        padding: 24px 32px 110px 32px !important;
+        height: calc(100vh - 110px);
+        box-sizing: border-box;
+      }
+
+      .header-right {
+        margin-bottom:22px;
+      }
+
+      /* 설명 */
+      .page-description {
+          font-size: 14px;
+          color: #b3b3b3;
+          line-height: 1.6;
+      }
+
+      /* 사용자 프로필 드롭다운 */
+      .user-profile {
+          position: relative;
+          cursor: pointer;
+          z-index: 100000;
+      }
+
+      .profile-dropdown {
+          position: absolute;
+          top: calc(100% + 12px);
+          right: 0;
+          background: #282828;
+          border-radius: 12px;
+          padding: 20px;
+          min-width: 200px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+          z-index: 100000;
+          display: none;
+      }
+
+      .profile-dropdown.active {
+          display: block;
+      }
+
+      .profile-close-btn {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: none;
+          border: none;
+          color: #b3b3b3;
+          cursor: pointer;
+          padding: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color 0.2s;
+          z-index: 100000;
+      }
+
+      .profile-close-btn:hover {
+          color: #ffffff;
+      }
+
+      .profile-nickname {
+          font-size: 16px;
+          font-weight: 600;
+          color: #ffffff;
+          margin-bottom: 16px;
+          padding-right: 24px;
+      }
+
+      .logout-btn {
+          width: 100%;
+          padding: 10px 16px;
+          background: #ff9500;
+          color: #000000;
+          border: none;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+      }
+
+      .logout-btn:hover {
+          background: #ffaa00;
+          transform: translateY(-1px);
+      }
+
+      /* 지도 컨테이너 */
+      #map {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      /* 커스텀 마커 스타일 */
+      .custom-marker {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        transition: all 0.3s;
+        object-fit: cover;
+        position: relative;
+      }
+
+      .custom-marker:hover {
+        transform: scale(1.15);
+        border-color: #ff9500;
+        box-shadow: 0 6px 16px rgba(255, 149, 0, 0.6);
+      }
+
+      /* 클러스터 마커 - 이미지 + 개수 */
+      .cluster-photo-marker {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .cluster-photo-marker:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 149, 0, 0.7);
+        border-color: #ff9500;
+      }
+
+      .cluster-count {
+        position: absolute;
+        bottom: 0;
+        left: 50px;
+        right: 0;
+        color: white;
+        font-weight: 700;
+        font-size: 15px;
+        text-align: center;
+        padding: 6px 0;
+        line-height: 1;
+      }
+
+      /* 정보창 스타일 */
+      .info-window {
+        background: #282828;
+        padding: 12px;
+        border-radius: 8px;
+        color: #fff;
+        min-width: 200px;
+      }
+
+      .info-window h3 {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .info-window p {
+        margin: 4px 0;
+        font-size: 13px;
+        color: #b3b3b3;
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <nav class="nav-bar">
+        <a href="1_에쁠킬라_Home.html" style="text-decoration: none">
+            <div class="service-name">SoundLetter</div>
+        </a>
+        <a href="1_에쁠킬라_Home.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          홈
+        </a>
+        <a href="1_에쁠킬라_Playlist.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"
+            />
+          </svg>
+          플레이리스트
+        </a>
+        <a href="1_에쁠킬라_PlayRecord.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+            />
+          </svg>
+          재생기록
+        </a>
+        <a href="1_에쁠킬라_TimeCapsule.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"
+            />
+          </svg>
+          타임캡슐
+        </a>
+        <a href="1_에쁠킬라_Map.html" class="nav-item active">
+          <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-388q54-50 84-80t47-50q16-20 22.5-37t6.5-37q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 21 6 37t22 36q17 20 46 50t86 81Zm0 202q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
+          지도
+        </a>
+        <a href="1_에쁠킬라_Sharing.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-160q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T640-458v-342h240v120H720v360q0 66-47 113t-113 47ZM80-320q0-99 38-186.5T221-659q65-65 152.5-103T560-800v80q-82 0-155 31.5t-127.5 86q-54.5 54.5-86 127T160-320H80Zm160 0q0-66 25.5-124.5t69-102Q378-590 436-615t124-25v80q-100 0-170 70t-70 170h-80Z"/></svg>
+            쉐어링
+        </a>
+        <a href="1_에쁠킬라_MyPage.html" class="nav-item">
+          <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+              <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/></svg>
+          마이페이지
+          </a>
+      </nav>
+
+      <!-- 주요 내용 -->
+      <main class="main-content">
+        <header class="header">
+          <div>
+            <h1 class="page-title">지도</h1>
+            <p class="page-description">
+                내가 들은 노래들이 전 세계 어디에서 재생되었는지 한눈에 확인해보세요!
+            </p>
+          </div>
+          <div class="header-right">
+            <div class="search-bar">
+              <svg class="search-icon" viewBox="0 0 24 24">
+                <path
+                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                />
+              </svg>
+              <input type="text" placeholder="검색" />
+            </div>
+            <div class="user-profile" id="userProfile">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                />
+              </svg>
+              <div class="profile-dropdown" id="profileDropdown">
+                <button class="profile-close-btn" id="closeProfile">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                  </svg>
+                </button>
+                <!-- 회원가입에서 받아오는 실제 닉네임 -->
+                  <a href="1_에쁠킬라_MyPage.html" style="text-decoration: none; color: inherit;">
+                    <div class="profile-nickname">차은우님 ></div> 
+                  </a>
+                <button class="logout-btn" onclick="handleLogout()">로그아웃</button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div id="map"></div>
+      </main>
+
+      <!-- 재생바 -->
+      <div class="player-bar">
+        <div class="now-playing">
+          <img
+            src="src/img/1_DontLookBackInAnger.jpg"
+            alt="Now Playing"
+            class="now-playing-image"
+          />
+          <div class="now-playing-info">
+            <h4>Don't Look Back in Anger</h4>
+            <p>Oasis</p>
+          </div>
+        </div>
+
+        <div class="player-controls">
+          <div class="control-buttons">
+            <button class="control-btn prev-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+              </svg>
+            </button>
+            <button class="control-btn play-btn">
+              <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+              </svg>
+            </button>
+            <button class="control-btn next-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+              </svg>
+            </button>
+          </div>
+          <div class="progress-bar">
+            <span class="time">2:15</span>
+            <div class="progress">
+              <div class="progress-filled"></div>
+            </div>
+            <span class="time">4:48</span>
+          </div>
+        </div>
+
+        <div class="volume-control">
+          <svg
+            class="volume-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"
+            />
+          </svg>
+          <div class="volume-slider">
+            <div class="volume-filled"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MarkerClusterer 먼저 로드 -->
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    
+    <script>
+      // 재생바 기능 구현
+      /* 1. 재생 가능한 트랙 목록*/
+      const playableTracks = [
+        { title: "Celebrity", artist: "아이유", image: "src/img/1_celebrity.png" },
+        { title: "눈사람", artist: "정승환", image: "src/img/1_눈사람.jpg" },
+        { title: "Trip", artist: "릴러말즈", image: "src/img/1_Trip.jpg" },
+        { title: "한페이지가 될 수 있게", artist: "DAY6", image: "src/img/1_한페이지가될수있게_.jpg" },
+        { title: "좋은밤 좋은꿈", artist: "너드커넥션", image: "src/img/1_좋은밤좋은꿈.jpg" },
+        { title: "Lover", artist: "Taylor Swift", image: "src/img/1_lover.jpg" },
+        { title: "너에게 못했던 내 마지막 말은", artist: "다비치", image: "src/img/1_너에게못했던내마지막말은.jpg" }
+      ];
+
+      /* 2. 재생 상태 변수*/
+      let currentIndex = 0;
+      let isPlaying = false;
+      let currentTime = 0;
+      const totalDuration = 210; // 3분 30초 = 210초
+      let playTimer = null;
+
+      /* 3. DOM 요소 참조*/
+      const nowPlayingImg = document.querySelector('.now-playing-image');
+      const nowPlayingTitle = document.querySelector('.now-playing-info h4');
+      const nowPlayingArtist = document.querySelector('.now-playing-info p');
+      const progressFilled = document.querySelector('.progress-filled');
+
+      const timeSpans = document.querySelectorAll('.time');
+      const currentTimeSpan = timeSpans[0];
+      const totalTimeSpan = timeSpans[1];
+
+      const playBtn = document.querySelector('.control-btn.play-btn');
+
+      /* 4. 유틸 – 시간 포맷*/
+      function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return m + ':' + (s < 10 ? '0' + s : s);
+      }
+
+      /* 5. 진행 바 업데이트*/
+      function updateProgress() {
+        const percent = (currentTime / totalDuration) * 100;
+        progressFilled.style.width = Math.min(percent, 100) + '%';
+        currentTimeSpan.textContent = formatTime(currentTime);
+      }
+
+      /* 6. 타이머 시작*/
+      function startPlayTimer() {
+        if (playTimer) clearInterval(playTimer);
+        playTimer = setInterval(() => {
+          if (!isPlaying) return;
+
+          currentTime += 0.5;
+
+          if (currentTime >= totalDuration) {
+            currentTime = totalDuration;
+            updateProgress();
+            pause();
+            return;
+          }
+          updateProgress();
+        }, 500);
+      }
+
+      /* 7. 재생*/
+      function play() {
+        isPlaying = true;
+        document.querySelector('.icon-play').style.display = 'none';
+        document.querySelector('.icon-pause').style.display = 'inline';
+        startPlayTimer();
+      }
+
+      /* 8. 일시정지*/
+      function pause() {
+        isPlaying = false;
+        document.querySelector('.icon-play').style.display = 'inline';
+        document.querySelector('.icon-pause').style.display = 'none';
+        if (playTimer) clearInterval(playTimer);
+      }
+
+      /* 9. 트랙 선택*/
+      function selectTrack(index) {
+        if (index < 0 || index >= playableTracks.length) return;
+
+        currentIndex = index;
+        const track = playableTracks[index];
+
+        nowPlayingImg.src = track.image;
+        nowPlayingTitle.textContent = track.title;
+        nowPlayingArtist.textContent = track.artist;
+
+        currentTime = 0;
+        updateProgress();
+
+        play();
+      }
+
+      /* 10. 버튼 이벤트 등록*/
+      playBtn.addEventListener('click', () => {
+        if (!isPlaying) play();
+        else pause();
+      });
+
+      document.querySelector('.prev-btn').addEventListener('click', () => {
+        selectTrack((currentIndex - 1 + playableTracks.length) % playableTracks.length);
+      });
+
+      document.querySelector('.next-btn').addEventListener('click', () => {
+        selectTrack((currentIndex + 1) % playableTracks.length);
+      });
+
+      /* 11. 초기 시간 세팅*/
+      totalTimeSpan.textContent = formatTime(totalDuration);
+      currentTimeSpan.textContent = formatTime(0);
+
+      /* 12. 초기 렌더링 설정*/
+      currentTime = 0;
+      progressFilled.style.width = '0%';
+      currentTimeSpan.textContent = formatTime(0);
+      totalTimeSpan.textContent = formatTime(totalDuration);
+
+      // 지도
+      let map;
+      let mapInitialized = false;
+      let musicLocations = []; // JSON 데이터 저장 변수
+
+      // JSON 로드 후 지도 생성
+      fetch("data/musicLocations.json")
+        .then(res => res.json())
+        .then(data => {
+          musicLocations = data.locations;
+          initMap(); // 데이터 불러온 뒤 지도 생성
+        })
+        .catch(err => console.error("데이터 로드 실패:", err));
+
+      // 커스텀 클러스터 렌더러 클래스
+      class PhotoClusterRenderer {
+        render({ count, position, markers }, stats, map) {
+
+          // 랜덤 대표 마커 하나 선택
+          const randomMarker = markers[Math.floor(Math.random() * markers.length)];
+          const representativeImage = randomMarker.getIcon().url;
+
+          // 클러스터 HTML 엘리먼트 생성
+          const div = document.createElement('div');
+          div.className = 'cluster-photo-marker';
+          div.style.backgroundImage = `url('${representativeImage}')`;
+          div.innerHTML = `<div class="cluster-count">${count.toLocaleString()}</div>`;
+
+          // OverlayView로 지도 위에 추가
+          const overlay = new google.maps.OverlayView();
+          overlay.div = div;
+          overlay.position = position;
+
+          overlay.onAdd = function () {
+            this.getPanes().overlayMouseTarget.appendChild(div);
+          };
+
+          overlay.draw = function () {
+            const projection = this.getProjection();
+            const point = projection.fromLatLngToDivPixel(position);
+
+            if (point) {
+              div.style.position = 'absolute';
+              div.style.left = (point.x - 40) + 'px';
+              div.style.top = (point.y - 40) + 'px';
+            }
+          };
+
+          overlay.onRemove = function () {
+            if (div.parentNode) div.parentNode.removeChild(div);
+          };
+
+          overlay.setMap(map);
+          return overlay;
+        }
+      }
+
+
+      function initMap() {
+        // 이미 초기화되었으면 리턴
+        if (mapInitialized) {
+          return;
+        }
+        
+        // 지도 초기화 
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 37.5665, lng: 126.9780 },
+          zoom: 3,
+          styles: [
+            {
+              "featureType": "all",
+              "elementType": "geometry",
+              "stylers": [{"color": "#242f3e"}]
+            },
+            {
+              "featureType": "all",
+              "elementType": "labels.text.stroke",
+              "stylers": [{"color": "#242f3e"}]
+            },
+            {
+              "featureType": "all",
+              "elementType": "labels.text.fill",
+              "stylers": [{"color": "#746855"}]
+            },
+            {
+              "featureType": "water",
+              "elementType": "geometry",
+              "stylers": [{"color": "#17263c"}]
+            }
+          ]
+        });
+
+        // 마커 생성
+        const markers = musicLocations.map((location, i) => {
+          const marker = new google.maps.Marker({
+            position: { lat: location.lat, lng: location.lng },
+            icon: {
+              url: location.image,
+              scaledSize: new google.maps.Size(56, 56),
+              anchor: new google.maps.Point(28, 28)
+            },
+            title: location.title
+          });
+
+          // 정보창
+          const infoWindow = new google.maps.InfoWindow({
+            content: `
+              <div class="info-window">
+                <h3>${location.title}</h3>
+                <p><strong>${location.artist}</strong></p>
+                <p>📍 ${location.location}</p>
+              </div>
+            `
+          });
+
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+
+          return marker;
+        });
+
+        // 마커 클러스터링 - 사진 + 개수 스타일
+        new markerClusterer.MarkerClusterer({ 
+          map, 
+          markers,
+          renderer: new PhotoClusterRenderer()
+        });
+        
+        mapInitialized = true;
+      }
+
+      // Google Maps API 로드 완료 후 자동으로 initMap 호출되도록 설정
+      window.initMap = initMap;
+
+      /* 1. 프로필 드롭다운 열기/닫기 */
+      const userProfile = document.getElementById("userProfile");
+      const profileDropdown = document.getElementById("profileDropdown");
+      const closeProfile = document.getElementById("closeProfile");
+
+      userProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("active");
+      });
+
+      closeProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.remove("active");
+      });
+
+      document.addEventListener("click", () => {
+        profileDropdown.classList.remove("active");
+      });
+
+      /* 2. 로그아웃 버튼 */
+      function handleLogout() {
+        alert("로그아웃 되었습니다!");
+        window.location.href = "1_에쁠킬라_Login.html";
+      }
+
+        // 로그인 체크 + 사용자 이름 표시
+    (function checkLogin() {
+      const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+      if (!loggedInUser) {
+        // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
+        alert('로그인이 필요한 서비스입니다.');
+        window.location.href = '1_에쁠킬라_Login.html';
+      } else {
+
+        const user = JSON.parse(loggedInUser);
+
+        // 프로필 드롭다운의 닉네임 표시
+        const profileNickname = document.querySelector('.profile-nickname');
+        if (profileNickname) {
+          profileNickname.textContent = user.name + '님';
+        }
+      }
+    })();
+    </script>
+    
+    <!-- Google Maps API를 callback과 함께 로드 -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQJOM6hle-RP6zIjnpb53gkDJ1w-gRWpg" async defer></script>
+</body>
+</html>

@@ -4,16 +4,85 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SoundLetter - 타임캡슐 생성</title>
-
         <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
 
         <style>
+            /* 사용자 프로필 드롭다운 */
+            .user-profile {
+                position: relative;
+                cursor: pointer;
+                z-index: 100000;
+            }
+
+            .profile-dropdown {
+                position: absolute;
+                top: calc(100% + 12px);
+                right: 0;
+                background: #282828;
+                border-radius: 12px;
+                padding: 20px;
+                min-width: 200px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+                z-index: 100000;
+                display: none;
+            }
+
+            .profile-dropdown.active {
+                display: block;
+            }
+
+            .profile-close-btn {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                background: none;
+                border: none;
+                color: #b3b3b3;
+                cursor: pointer;
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: color 0.2s;
+            }
+
+            .profile-close-btn:hover {
+                color: #ffffff;
+            }
+
+            .profile-nickname {
+                font-size: 16px;
+                font-weight: 600;
+                color: #ffffff;
+                margin-bottom: 16px;
+                padding-right: 24px;
+            }
+
+            .logout-btn {
+                width: 100%;
+                padding: 10px 16px;
+                background: #ff9500;
+                color: #000000;
+                border: none;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .logout-btn:hover {
+                background: #ffaa00;
+                transform: translateY(-1px);
+            }
             .back-button {
                 background: none;
                 border: none;
                 color: #ffffff;
                 cursor: pointer;
                 padding: 8px;
+                margin: 22.07px;
                 display: flex;
                 align-items: center;
                 text-decoration: none;
@@ -38,11 +107,19 @@
                 margin-bottom: 12px;
             }
 
+            .main-content {
+                padding: 24px 32px 110px 32px !important;
+            }
+
             .page-description {
                 font-size: 14px;
                 color: #b3b3b3;
                 margin-bottom: 40px;
                 line-height: 1.6;
+            }
+
+            .header-right {
+                margin-bottom: 32px;
             }
 
             /* 폼 */
@@ -299,12 +376,25 @@
                     </svg>
                     타임캡슐
                 </a>
+                <a href="1_에쁠킬라_Map.html" class="nav-item">
+                <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-388q54-50 84-80t47-50q16-20 22.5-37t6.5-37q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 21 6 37t22 36q17 20 46 50t86 81Zm0 202q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
+                지도
+            </a>
+            <a href="1_에쁠킬라_Sharing.html" class="nav-item">
+                <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-160q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T640-458v-342h240v120H720v360q0 66-47 113t-113 47ZM80-320q0-99 38-186.5T221-659q65-65 152.5-103T560-800v80q-82 0-155 31.5t-127.5 86q-54.5 54.5-86 127T160-320H80Zm160 0q0-66 25.5-124.5t69-102Q378-590 436-615t124-25v80q-100 0-170 70t-70 170h-80Z"/></svg>
+                쉐어링
+            </a>
+            <a href="1_에쁠킬라_MyPage.html" class="nav-item">
+                <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                    <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/></svg>
+                마이페이지
+            </a>
             </nav>
 
             <!-- 메인 콘텐츠-->
             <main class="main-content">
                 <!-- 헤더 -->
-                <header class="header" style="margin-top: 20px;">
+                <header class="header">
                     <a href="1_에쁠킬라_TimeCapsule.html" class="back-button" style="margin-left: 10px;">
                         <svg
                             width="20"
@@ -331,19 +421,25 @@
                             </svg>
                             <input type="text" placeholder="검색" />
                         </div>
-                        <div class="user-profile">
-                            <a href="1_에쁠킬라_Login.html" style="text-decoration: none">
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="white"
-                            >
+                        <div class="user-profile" id="userProfile">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                                 <path
-                                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
                                 />
                             </svg>
-                        </div>
+                            <div class="profile-dropdown" id="profileDropdown">
+                                <button class="profile-close-btn" id="closeProfile">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                </svg>
+                                </button>
+                                <!-- 회원가입에서 받아오는 실제 닉네임 -->
+                                <a href="1_에쁠킬라_MyPage.html" style="text-decoration: none; color: inherit;">
+                                    <div class="profile-nickname">차은우님 ></div> 
+                                </a>
+                                <button class="logout-btn" onclick="handleLogout()">로그아웃</button>
+                            </div>
+                            </div>
                         </a>
                     </div>
                 </header>
@@ -565,7 +661,7 @@
             </div>
             <div class="player-controls">
                 <div class="control-buttons">
-                    <button class="control-btn">
+                    <button class="control-btn prev-btn">
                         <svg
                             width="20"
                             height="20"
@@ -575,17 +671,15 @@
                             <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                         </svg>
                     </button>
-                    <button class="control-btn play">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
+                    <button class="control-btn play-btn">
+                        <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M8 5v14l11-7z" />
                         </svg>
+                        <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                            <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                        </svg>
                     </button>
-                    <button class="control-btn">
+                    <button class="control-btn next-btn">
                         <svg
                             width="20"
                             height="20"
@@ -622,4 +716,154 @@
             </div>
         </div>
     </body>
+    <script>
+        /* 1. 프로필 드롭다운 열기/닫기 */
+
+      const userProfile = document.getElementById("userProfile");
+      const profileDropdown = document.getElementById("profileDropdown");
+      const closeProfile = document.getElementById("closeProfile");
+
+      userProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("active");
+      });
+
+      closeProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.remove("active");
+      });
+
+      document.addEventListener("click", () => {
+        profileDropdown.classList.remove("active");
+      });
+
+
+      /* 2. 로그아웃 버튼 */
+
+      function handleLogout() {
+        alert("로그아웃 되었습니다!");
+        window.location.href = "1_에쁠킬라_Login.html";
+      }
+
+
+      // 재생바 기능 구현
+      /* 1. 재생 가능한 트랙 목록*/
+      const playableTracks = [
+        { title: "Celebrity", artist: "아이유", image: "src/img/1_celebrity.png" },
+        { title: "눈사람", artist: "정승환", image: "src/img/1_눈사람.jpg" },
+        { title: "Trip", artist: "릴러말즈", image: "src/img/1_Trip.jpg" },
+        { title: "한페이지가 될 수 있게", artist: "DAY6", image: "src/img/1_한페이지가될수있게_.jpg" },
+        { title: "좋은밤 좋은꿈", artist: "너드커넥션", image: "src/img/1_좋은밤좋은꿈.jpg" },
+        { title: "Lover", artist: "Taylor Swift", image: "src/img/1_lover.jpg" },
+        { title: "너에게 못했던 내 마지막 말은", artist: "다비치", image: "src/img/1_너에게못했던내마지막말은.jpg" }
+      ];
+
+      /* 2. 재생 상태 변수*/
+      let currentIndex = 0;
+      let isPlaying = false;
+      let currentTime = 0;
+      const totalDuration = 210; // 3분 30초 = 210초
+      let playTimer = null;
+
+      /* 3. DOM 요소 참조*/
+      const nowPlayingImg = document.querySelector('.now-playing-image');
+      const nowPlayingTitle = document.querySelector('.now-playing-info h4');
+      const nowPlayingArtist = document.querySelector('.now-playing-info p');
+      const progressFilled = document.querySelector('.progress-filled');
+
+      const timeSpans = document.querySelectorAll('.time');
+      const currentTimeSpan = timeSpans[0];
+      const totalTimeSpan = timeSpans[1];
+
+      const playBtn = document.querySelector('.control-btn.play-btn');
+
+      /* 4. 유틸 – 시간 포맷*/
+      function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return m + ':' + (s < 10 ? '0' + s : s);
+      }
+
+      /* 5. 진행 바 업데이트*/
+      function updateProgress() {
+        const percent = (currentTime / totalDuration) * 100;
+        progressFilled.style.width = Math.min(percent, 100) + '%';
+        currentTimeSpan.textContent = formatTime(currentTime);
+      }
+
+      /* 6. 타이머 시작*/
+      function startPlayTimer() {
+        if (playTimer) clearInterval(playTimer);
+        playTimer = setInterval(() => {
+          if (!isPlaying) return;
+
+          currentTime += 0.5;
+
+          if (currentTime >= totalDuration) {
+            currentTime = totalDuration;
+            updateProgress();
+            pause();
+            return;
+          }
+          updateProgress();
+        }, 500);
+      }
+
+      /* 7. 재생*/
+      function play() {
+        isPlaying = true;
+        document.querySelector('.icon-play').style.display = 'none';
+        document.querySelector('.icon-pause').style.display = 'inline';
+        startPlayTimer();
+      }
+
+      /* 8. 일시정지*/
+      function pause() {
+        isPlaying = false;
+        document.querySelector('.icon-play').style.display = 'inline';
+        document.querySelector('.icon-pause').style.display = 'none';
+        if (playTimer) clearInterval(playTimer);
+      }
+
+      /* 9. 트랙 선택*/
+      function selectTrack(index) {
+        if (index < 0 || index >= playableTracks.length) return;
+
+        currentIndex = index;
+        const track = playableTracks[index];
+
+        nowPlayingImg.src = track.image;
+        nowPlayingTitle.textContent = track.title;
+        nowPlayingArtist.textContent = track.artist;
+
+        currentTime = 0;
+        updateProgress();
+
+        play();
+      }
+
+      /* 10. 버튼 이벤트 등록*/
+      playBtn.addEventListener('click', () => {
+        if (!isPlaying) play();
+        else pause();
+      });
+
+      document.querySelector('.prev-btn').addEventListener('click', () => {
+        selectTrack((currentIndex - 1 + playableTracks.length) % playableTracks.length);
+      });
+
+      document.querySelector('.next-btn').addEventListener('click', () => {
+        selectTrack((currentIndex + 1) % playableTracks.length);
+      });
+
+      /* 11. 초기 시간 세팅*/
+      totalTimeSpan.textContent = formatTime(totalDuration);
+      currentTimeSpan.textContent = formatTime(0);
+
+      /* 12. 초기 렌더링 설정*/
+      currentTime = 0;
+      progressFilled.style.width = '0%';
+      currentTimeSpan.textContent = formatTime(0);
+      totalTimeSpan.textContent = formatTime(totalDuration);
+    </script>
 </html>

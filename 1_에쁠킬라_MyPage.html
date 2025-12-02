@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundLetter - 마이페이지</title>
+    <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+    
+    <style>
+      .page-title {
+        font-size: 32px;
+        font-weight: 700;
+      }
+      
+      .main-content {
+        padding: 24px 32px 110px 32px !important;
+        height: calc(100vh - 110px);
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+
+      .header-right {
+        margin-bottom:22px;
+      }
+
+      /* 설명 */
+      .page-description {
+          font-size: 14px;
+          color: #b3b3b3;
+          line-height: 1.6;
+      }
+
+      /* 사용자 프로필 드롭다운 */
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+            z-index: 100000;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            background: #282828;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 200px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            z-index: 100000;
+            display: none;
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        .profile-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .profile-close-btn:hover {
+            color: #ffffff;
+        }
+
+        .profile-nickname {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 16px;
+            padding-right: 24px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 10px 16px;
+            background: #ff9500;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #ffaa00;
+            transform: translateY(-1px);
+        }
+
+        /* 플레이어 바 진행바 */
+        .player-bar .progress .progress-filled {
+            width: 0%;
+            transition: width 0.2s linear;
+        }
+
+        .volume-slider {
+            position: relative;
+        }
+
+        .volume-filled {
+            width: 60%;
+        }
+
+      /* 환영 메시지 */
+      .welcome-message {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 16px;
+        padding-top: 8px;
+      }
+
+      /* 컨텐츠 카드 */
+      .content-card {
+        background: #181818;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 28px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .card-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .view-all-btn {
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.2s;
+      }
+
+      .view-all-btn:hover {
+        color: #ffffff;
+        background: #282828;
+      }
+
+      /* 사용자 정보 카드 */
+      .user-info-card {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .user-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #ff9500;
+      }
+
+      .user-details h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+
+      .user-details p {
+        font-size: 14px;
+        color: #b3b3b3;
+        margin-bottom: 4px;
+      }
+
+      .user-details-head {
+        display: flex;
+        gap: 12px;
+      }
+
+      .profile-logout-btn {
+        border-radius: 8px;
+        margin: 2px;
+        background-color: #181818;
+        color:#ffffff;
+        border: 1px solid #181818;
+      }
+
+      .profile-logout-btn:hover {
+        background-color: #282828;
+      }
+
+      .user-stats {
+        display: flex;
+        gap: 24px;
+        margin-top: 16px;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ff9500;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #b3b3b3;
+        margin-top: 4px;
+      }
+
+      /* 앨범 스크롤 */
+      .albums-scroll {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #ff9500 #282828;
+      }
+
+      .albums-scroll::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .albums-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .albums-scroll::-webkit-scrollbar-thumb {
+        background: #282828;
+        border-radius: 4px;
+      }
+
+      .albums-scroll::-webkit-scrollbar-thumb:hover {
+        background: #383838;
+      }
+
+      .album-item {
+        min-width: 160px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .album-item:hover {
+        transform: scale(1.05);
+      }
+
+      .album-cover {
+        width: 160px;
+        height: 160px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .album-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .album-artist {
+        font-size: 12px;
+        color: #b3b3b3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+      <nav class="nav-bar">
+        <a href="1_에쁠킬라_Home.html" style="text-decoration: none">
+            <div class="service-name">SoundLetter</div>
+        </a>
+        <a href="1_에쁠킬라_Home.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          홈
+        </a>
+        <a href="1_에쁠킬라_Playlist.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"
+            />
+          </svg>
+          플레이리스트
+        </a>
+        <a href="1_에쁠킬라_PlayRecord.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+            />
+          </svg>
+          재생기록
+        </a>
+        <a href="1_에쁠킬라_TimeCapsule.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"
+            />
+          </svg>
+          타임캡슐
+        </a>
+        <a href="1_에쁠킬라_Map.html" class="nav-item">
+          <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-388q54-50 84-80t47-50q16-20 22.5-37t6.5-37q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 21 6 37t22 36q17 20 46 50t86 81Zm0 202q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
+          지도
+        </a>
+        <a href="1_에쁠킬라_Sharing.html" class="nav-item">
+            <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-160q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T640-458v-342h240v120H720v360q0 66-47 113t-113 47ZM80-320q0-99 38-186.5T221-659q65-65 152.5-103T560-800v80q-82 0-155 31.5t-127.5 86q-54.5 54.5-86 127T160-320H80Zm160 0q0-66 25.5-124.5t69-102Q378-590 436-615t124-25v80q-100 0-170 70t-70 170h-80Z"/></svg>
+            쉐어링
+        </a>
+        <a href="1_에쁠킬라_MyPage.html" class="nav-item active">
+          <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+              <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/></svg>
+          마이페이지
+      </a>
+      </nav>
+
+      <!-- 주요 내용 -->
+      <main class="main-content">
+        <header class="header">
+          <div>
+            <h1 class="page-title">마이페이지</h1>
+            <p class="page-description">
+                사용자 정보를 확인하고 좋아하는 음악을 관리하세요!
+            </p>
+          </div>
+          <div class="header-right">
+            <div class="search-bar">
+              <svg class="search-icon" viewBox="0 0 24 24">
+                <path
+                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                />
+              </svg>
+              <input type="text" placeholder="검색" />
+            </div>
+            <div class="user-profile" id="userProfile">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                />
+              </svg>
+              <div class="profile-dropdown" id="profileDropdown">
+                <button class="profile-close-btn" id="closeProfile">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                  </svg>
+                </button>
+                <!-- 회원가입에서 받아오는 실제 닉네임 -->
+                <div class="profile-nickname">차은우님</div> 
+                <button class="logout-btn" onclick="handleLogout()">로그아웃</button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- 환영 메시지 -->
+        <div class="welcome-message">
+          차은우님, 오늘도 음악을 즐길 준비 되셨나요?
+        </div>
+
+        <!-- 사용자 정보 카드 -->
+        <div class="content-card">
+          <div class="user-info-card">
+            <img src="src/img/1ser-avatar.jpg" alt="User Avatar" class="user-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22%3E%3Ccircle cx=%2260%22 cy=%2260%22 r=%2260%22 fill=%22%23282828%22/%3E%3Cpath d=%22M60 60c11 0 20-9 20-20s-9-20-20-20-20 9-20 20 9 20 20 20zm0 10c-13.33 0-40 6.67-40 20v10h80v-10c0-13.33-26.67-20-40-20z%22 fill=%22%23b3b3b3%22/%3E%3C/svg%3E'">
+            <div class="user-details">
+              <div class="user-details-head">
+                <h2>차은우</h2>
+                <button class="profile-logout-btn">로그아웃</button>
+              </div>
+              <p>@eunwoo_97</p>
+              <p>가입일: 2024년 1월</p>
+              <div class="user-stats">
+                <div class="stat-item">
+                  <span class="stat-number">42</span>
+                  <span class="stat-label">좋아요한 앨범</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">128</span>
+                  <span class="stat-label">오프라인 음악</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">1,247</span>
+                  <span class="stat-label">재생 시간</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 좋아요한 앨범 -->
+        <div class="content-card">
+          <div class="card-header">
+            <h3 class="card-title">좋아요한 앨범</h3>
+            <button class="view-all-btn" onclick="viewAllLiked()">전체보기</button>
+          </div>
+          <div class="albums-scroll">
+            <div class="album-item" onclick="playAlbum('Oasis', 'Don\'t Look Back in Anger')">
+              <img src="src/img/1_DontLookBackInAnger.jpg" alt="Album" class="album-cover">
+              <div class="album-title">Don't Look Back in Anger</div>
+              <div class="album-artist">Oasis</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('Taylor Swift', 'Lover')">
+              <img src="src/img/1_lover.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Lover</div>
+              <div class="album-artist">Taylor Swift</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('SZA', 'SOS')">
+              <img src="src/img/1_SOS.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">SOS</div>
+              <div class="album-artist">SZA</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('NewJeans', 'Get Up')">
+              <img src="src/img/1_GetUp.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Get Up</div>
+              <div class="album-artist">NewJeans</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('IU', 'Celebrity')">
+              <img src="src/img/1_celebrity.png" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Celebrity</div>
+              <div class="album-artist">IU</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('다섯', 'Youth')">
+              <img src="src/img/1_Youth.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Youth</div>
+              <div class="album-artist">다섯</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('Love on the canvas', '소희(SOHEE)')">
+              <img src="src/img/1_Love_on_the_canvas.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">소희(SOHEE)</div>
+              <div class="album-artist">Love on the Canvas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 오프라인 저장 음악 -->
+        <div class="content-card">
+          <div class="card-header">
+            <h3 class="card-title">오프라인 저장 음악</h3>
+            <button class="view-all-btn" onclick="viewAllOffline()">전체보기</button>
+          </div>
+          <div class="albums-scroll">
+            <div class="album-item" onclick="playAlbum('RIIZE', 'Siren')">
+              <img src="src/img/1_siren.png" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Siren</div>
+              <div class="album-artist">RIIZE</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('NewJeans', 'Super Shy')">
+              <img src="src/img/1_GetUp.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Super Shy</div>
+              <div class="album-artist">NewJeans</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('Oasis', 'Wonderwall')">
+              <img src="src/img/1_DontLookBackInAnger.jpg" alt="Album" class="album-cover">
+              <div class="album-title">Wonderwall</div>
+              <div class="album-artist">Oasis</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('Taylor Swift', 'Cruel Summer')">
+              <img src="src/img/1_Lover.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Cruel Summer</div>
+              <div class="album-artist">Taylor Swift</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('SZA', 'Kill Bill')">
+              <img src="src/img/1_SOS.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Kill Bill</div>
+              <div class="album-artist">SZA</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('Doja Cat', 'Lose My Mind')">
+              <img src="src/img/1_Lose_My_Mind.jpg" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Lose My Mind</div>
+              <div class="album-artist">Doja Cat</div>
+            </div>
+            <div class="album-item" onclick="playAlbum('LE SSERAFIM', 'Smart')">
+              <img src="src/img/1_smart.png" alt="Album" class="album-cover" onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
+              <div class="album-title">Smart</div>
+              <div class="album-artist">LE SSERAFIM</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="player-bar">
+        <div class="now-playing">
+            <img src="src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image">
+            <div class="now-playing-info">
+                <h4 class="now-playing-title">Don't Look Back in Anger</h4>
+                <p class="now-playing-artist">Oasis</p>
+            </div>
+        </div>
+
+        <div class="player-controls">
+            <div class="control-buttons">
+                <button class="control-btn prev-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                <button class="control-btn play-btn">
+                    <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+                    </svg>
+                </button>
+                <button class="control-btn next-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="progress-bar">
+                <span class="time current-time">0:00</span>
+                <div class="progress">
+                    <div class="progress-filled"></div>
+                </div>
+                <span class="time total-time">3:30</span>
+            </div>
+        </div>
+
+        <div class="volume-control">
+            <svg class="volume-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+            <div class="volume-slider">
+                <div class="volume-filled"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+      /* 1. 프로필 드롭다운 열기/닫기 */
+
+      const userProfile = document.getElementById("userProfile");
+      const profileDropdown = document.getElementById("profileDropdown");
+      const closeProfile = document.getElementById("closeProfile");
+
+      userProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("active");
+      });
+
+      closeProfile.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.remove("active");
+      });
+
+      document.addEventListener("click", () => {
+        profileDropdown.classList.remove("active");
+      });
+
+
+      /* 2. 로그아웃 버튼 */
+
+      function handleLogout() {
+        alert("로그아웃 되었습니다!");
+        window.location.href = "1_에쁠킬라_Login.html";
+      }
+
+
+      /* 3. 앨범 재생 함수 */
+
+      function playAlbum(artist, title) {
+        document.getElementById("playerTitle").textContent = title;
+        document.getElementById("playerArtist").textContent = artist;
+        alert(`🎵 '${title}' 재생을 시작합니다!`);
+      }
+
+
+      /* 4. 전체보기 버튼 */
+
+      function viewAllLiked() {
+        window.location.href = "1_에쁠킬라_LikedAlbums.html";
+      }
+
+      function viewAllOffline() {
+        window.location.href = "1_에쁠킬라_OfflineMusic.html";
+      }
+
+
+      /* 5. 플레이/일시정지 토글 */
+
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      let isPlaying = false;
+
+      playPauseBtn.addEventListener("click", () => {
+        isPlaying = !isPlaying;
+        playPauseBtn.textContent = isPlaying ? "⏸" : "▶";
+      });
+
+
+      /* 6. 가짜 진행바 애니메이션 */
+
+      const progressBar = document.getElementById("playerProgress");
+
+      function animateProgress() {
+        let width = 0;
+        setInterval(() => {
+          if (isPlaying) {
+            width += 1;
+            if (width > 100) width = 0;
+            progressBar.style.width = width + "%";
+          }
+        }, 500);
+      }
+
+      animateProgress();
+    </script>
+</body>
+</html>
+
+            
