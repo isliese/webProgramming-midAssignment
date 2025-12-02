@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="1_에쁠킬라_layout.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
 <style>
+.random-phrase {
+    color:#ffaa00;
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 12px;
+    
+}
 .page-title {
     font-size: 32px;
     font-weight: 700;
@@ -524,7 +531,9 @@
 
         <main class="main-content">
             <header class="header">
-                <h1 class="page-title">홈</h1>
+                <h1 class="page-title">
+    홈 <span class="random-phrase"></span>
+</h1>
                 <div class="header-right">
                     <div class="search-bar">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1321,6 +1330,22 @@
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
     if (!isLoggedIn) {
         window.location.href = '1_에쁠킬라_Login.html';
+    }
+})();
+// 랜덤 문구 표시
+(function() {
+    const phrases = [
+     "그곳에서 들었던 그 노래, 기억하시나요? 🗺️",
+        "미래의 나에게 음악을 선물하세요 🎁",
+        "친구와 함께 듣는 음악은 특별하죠 👥",
+        "당신의 음악 여정을 기록하세요 📍",
+        "시간을 담은 음악 편지, 타임캡슐 ⏰"
+];
+    
+    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    const phraseElement = document.querySelector('.random-phrase');
+    if (phraseElement) {
+        phraseElement.textContent = randomPhrase;
     }
 })();
         // 재생 가능한 "트랙" 목록 (DOM에서 자동으로 수집)
