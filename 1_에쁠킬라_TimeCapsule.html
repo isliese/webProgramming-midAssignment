@@ -969,7 +969,7 @@
             <div class="capsule-name">${capsule.name}</div>
             <div class="capsule-meta">${capsule.tracks}곡 • 나에게</div>
             <div class="capsule-date">
-                ${opened ? "열림 완료" : `${capsule.unlockDate} 열림`}
+                ${opened ? "열렸습니다" : `${capsule.unlockDate} 열립니다`}
             </div>
             </div>
         </div>
@@ -982,8 +982,9 @@
             ${opened ? "클릭하여 열람하기" : "남았습니다"}
             </div>
             <div class="capsule-unlock-date">
-            ${capsule.unlockDate}에 열립니다
+                ${opened ? `${capsule.unlockDate}에 열렸습니다` : `${capsule.unlockDate}에 열립니다`}
             </div>
+
         </div>
         </div>
     </div>
