@@ -470,15 +470,6 @@
       let mapInitialized = false;
       let musicLocations = []; // JSON 데이터 저장 변수
 
-      // JSON 로드 후 지도 생성
-      fetch("data/musicLocations.json")
-        .then(res => res.json())
-        .then(data => {
-          musicLocations = data.locations;
-          initMap(); // 데이터 불러온 뒤 지도 생성
-        })
-        .catch(err => console.error("데이터 로드 실패:", err));
-
       // 커스텀 클러스터 렌더러 클래스
       class PhotoClusterRenderer {
         render({ count, position, markers }, stats, map) {
@@ -525,9 +516,7 @@
 
       function initMap() {
         // 이미 초기화되었으면 리턴
-        if (mapInitialized) {
-          return;
-        }
+        if (mapInitialized) return;
         
         // 지도 초기화 
         map = new google.maps.Map(document.getElementById("map"), {
@@ -557,46 +546,48 @@
           ]
         });
 
-        // 마커 생성
-        const markers = musicLocations.map((location, i) => {
-          const marker = new google.maps.Marker({
-            position: { lat: location.lat, lng: location.lng },
-            icon: {
-              url: location.image,
-              scaledSize: new google.maps.Size(56, 56),
-              anchor: new google.maps.Point(28, 28)
-            },
-            title: location.title
-          });
+          fetch("data/musicLocations.json")
+            .then(res => res.json())
+            .then(data => {
 
-          // 정보창
-          const infoWindow = new google.maps.InfoWindow({
-            content: `
-              <div class="info-window">
-                <h3>${location.title}</h3>
-                <p><strong>${location.artist}</strong></p>
-                <p>📍 ${location.location}</p>
-              </div>
-            `
-          });
+              const markers = data.locations.map(location => {
 
-          marker.addListener("click", () => {
-            infoWindow.open(map, marker);
-          });
+                const marker = new google.maps.Marker({
+                  position: { lat: location.lat, lng: location.lng },
+                  icon: {
+                    url: location.image,
+                    scaledSize: new google.maps.Size(56, 56),
+                    anchor: new google.maps.Point(28, 28)
+                  },
+                  title: location.title
+                });
 
-          return marker;
-        });
+                const infoWindow = new google.maps.InfoWindow({
+                  content: `
+                    <div class="info-window">
+                      <h3>${location.title}</h3>
+                      <p><strong>${location.artist}</strong></p>
+                      <p>📍 ${location.location}</p>
+                    </div>
+                  `
+                });
 
-        // 마커 클러스터링 - 사진 + 개수 스타일
-        new markerClusterer.MarkerClusterer({ 
-          map, 
-          markers,
-          renderer: new PhotoClusterRenderer()
-        });
-        
-        mapInitialized = true;
-      }
+                marker.addListener("click", () => infoWindow.open(map, marker));
 
+                return marker;
+              });
+
+              // 🔥 클러스터 한 번만
+              new markerClusterer.MarkerClusterer({ 
+                map, 
+                markers,
+                renderer: new PhotoClusterRenderer()
+              });
+
+              mapInitialized = true;
+            })
+            .catch(err => console.error("지도 데이터 로드 실패:", err));
+        }
       // Google Maps API 로드 완료 후 자동으로 initMap 호출되도록 설정
       window.initMap = initMap;
 
@@ -647,6 +638,7 @@
     </script>
     
     <!-- Google Maps API를 callback과 함께 로드 -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQJOM6hle-RP6zIjnpb53gkDJ1w-gRWpg" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQJOM6hle-RP6zIjnpb53gkDJ1w-gRWpg&callback=initMap" async defer></script>
+
 </body>
 </html>
