@@ -480,6 +480,25 @@
     height: 16px;
     margin-left: 2px;
 }
+/* 무드 카드 앞면 레이아웃 수정 */
+.section-moods .card-front {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.section-moods .card-front .card-image {
+    height: 280px !important;  /* 이미지 고정 높이 */
+    flex-shrink: 0;
+}
+
+.section-moods .card-front .card-info {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 </style>
 
 </head>
@@ -560,336 +579,334 @@
                 </div>
             </header>
         </header>
+<!-- 최신 앨범 섹션 -->
+<section class="section section-latest">
+    <h2 class="section-title">최신 앨범</h2>
+    <div class="cards-container">
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="src/img/1_lover.jpg" alt="Lover" class="card-image">
+                    <div class="card-info">
+                        <h3 class="card-year">Lover</h3>
+                        <p class="card-artist">Taylor Swift</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Lover</h3>
+                    <ul class="track-list">
+                        <li>Lover - Taylor Swift</li>
+                        <li>Cruel Summer - Taylor Swift</li>
+                        <li>The Man - Taylor Swift</li>
+                        <li>The Archer - Taylor Swift</li>
+                        <li>I Forgot That You Existed - Taylor Swift</li>
+                        <li>I Think He Knows - Taylor Swift</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="src/img/1_SOS.jpg" alt="SOS" class="card-image">
+                    <div class="card-info">
+                        <h3 class="card-year">SOS</h3>
+                        <p class="card-artist">SZA</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>SOS</h3>
+                    <ul class="track-list">
+                        <li>SOS - SZA</li>
+                        <li>Kill Bill - SZA</li>
+                        <li>Seek & Destroy - SZA</li>
+                        <li>Low - SZA</li>
+                        <li>Love Language - SZA</li>
+                        <li>Blind - SZA</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="src/img/1_GETUP.jpg" alt="Get Up" class="card-image">
+                    <div class="card-info">
+                        <h3 class="card-year">Get Up</h3>
+                        <p class="card-artist">NewJeans</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Get up</h3>
+                    <ul class="track-list">
+                        <li>New Jeans - NewJeans</li>
+                        <li>Super Shy - NewJeans</li>
+                        <li>ETA - NewJeans</li>
+                        <li>Cool With You - NewJeans</li>
+                        <li>Get Up - NewJeans</li>
+                        <li>ASAP - NewJeans</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="src/img/1_please.png" alt="Short n' Sweet" class="card-image">
+                    <div class="card-info">
+                        <h3 class="card-year">Short n' Sweet</h3>
+                        <p class="card-artist">Sabrina Carpenter</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Short n' Sweet</h3>
+                    <ul class="track-list">
+                        <li>Taste - Sabrina Carpenter</li>
+                        <li>Please Please Please - Sabrina Carpenter</li>
+                        <li>Good Graces - Sabrina Carpenter</li>
+                        <li>Espresso - Sabrina Carpenter</li>
+                        <li>Bed Chem - Sabrina Carpenter</li>
+                        <li>Juno - Sabrina Carpenter</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="src/img/1_Youth.jpg" alt="Youth" class="card-image">
+                    <div class="card-info">
+                        <h3 class="card-year">Youth</h3>
+                        <p class="card-artist">다섯</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Youth</h3>
+                    <ul class="track-list">
+                        <li>Youth - 다섯</li>
+                        <li>Summer Days - 다섯</li>
+                        <li>Memories - 다섯</li>
+                        <li>Golden Hour - 다섯</li>
+                        <li>Forever Young - 다섯</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 음악 차트 섹션 -->
+<section class="section section-chart">
+    <h2 class="section-title">🔥 음악 차트 TOP 10</h2>
+    <div class="chart-container">
+        <div class="chart-item" data-track-index="chart-0">
+            <div class="chart-rank">1</div>
+            <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">좋은밤좋은꿈</div>
+                <div class="chart-artist">SG 워너비</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-1">
+            <div class="chart-rank">2</div>
+            <img src="src/img/1_에피소드.jpg" alt="에피소드" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">에피소드</div>
+                <div class="chart-artist">이무진</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-2">
+            <div class="chart-rank">3</div>
+            <img src="src/img/1_howsweet.png" alt="How Sweet" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">How Sweet</div>
+                <div class="chart-artist">NewJeans</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-3">
+            <div class="chart-rank">4</div>
+            <img src="src/img/1_Trip.jpg" alt="Trip" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">Trip (Feat. Hannah)</div>
+                <div class="chart-artist">릴러말즈</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-4">
+            <div class="chart-rank">5</div>
+            <img src="src/img/1_비오는날에듣기좋은노래.jpg" alt="비 오는 날에 듣기 좋은 노래" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">비 오는 날에 듣기 좋은 노래</div>
+                <div class="chart-artist">에픽하이</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-5">
+            <div class="chart-rank">6</div>
+            <img src="src/img/1_꿈의버스.jpg" alt="꿈의 버스" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">꿈의 버스</div>
+                <div class="chart-artist">DAY6</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-6">
+            <div class="chart-rank">7</div>
+            <img src="src/img/1_LeaveBeforeYouLoveMe.jpg" alt="Leave Before You Love Me" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">Leave Before You Love Me</div>
+                <div class="chart-artist">Marshmello & Jonas Brothers</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-7">
+            <div class="chart-rank">8</div>
+            <img src="src/img/1_lover.jpg" alt="Lover" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">Lover</div>
+                <div class="chart-artist">Taylor Swift</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-8">
+            <div class="chart-rank">9</div>
+            <img src="src/img/1_SOS.jpg" alt="Kill Bill" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">Kill Bill</div>
+                <div class="chart-artist">SZA</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chart-item" data-track-index="chart-9">
+            <div class="chart-rank">10</div>
+            <img src="src/img/1_GETUP.jpg" alt="Super Shy" class="chart-img">
+            <div class="chart-info">
+                <div class="chart-title">Super Shy</div>
+                <div class="chart-artist">NewJeans</div>
+            </div>
+            <button class="chart-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
 <!-- 최근 재생한 곡 섹션 -->
-            <section class="section section-recent">
-                <h2 class="section-title">최근 재생한 곡</h2>
-                <div class="recent-songs-container">
-                    <div class="recent-song-item">
-                        <img src="src/img/1_DontLookBackInAnger.jpg" alt="Don't Look Back in Anger" class="recent-song-img">
-                        <div class="recent-song-info">
-                            <div class="recent-song-title">Don't Look Back in Anger</div>
-                            <div class="recent-song-artist">Oasis</div>
-                        </div>
-                        <button class="recent-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="recent-song-item">
-                        <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="recent-song-img">
-                        <div class="recent-song-info">
-                            <div class="recent-song-title">좋은밤좋은꿈</div>
-                            <div class="recent-song-artist">SG 워너비</div>
-                        </div>
-                        <button class="recent-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="recent-song-item">
-                        <img src="src/img/1_에피소드.jpg" alt="에피소드" class="recent-song-img">
-                        <div class="recent-song-info">
-                            <div class="recent-song-title">에피소드</div>
-                            <div class="recent-song-artist">이무진</div>
-                        </div>
-                        <button class="recent-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="recent-song-item">
-                        <img src="src/img/1_Trip.jpg" alt="Trip" class="recent-song-img">
-                        <div class="recent-song-info">
-                            <div class="recent-song-title">Trip (Feat. Hannah)</div>
-                            <div class="recent-song-artist">릴러말즈</div>
-                        </div>
-                        <button class="recent-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="recent-song-item">
-                        <img src="src/img/1_howsweet.png" alt="How Sweet" class="recent-song-img">
-                        <div class="recent-song-info">
-                            <div class="recent-song-title">How Sweet</div>
-                            <div class="recent-song-artist">NewJeans</div>
-                        </div>
-                        <button class="recent-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </section>
+<section class="section section-recent">
+    <h2 class="section-title">최근 재생한 곡</h2>
+    <div class="recent-songs-container">
+        <div class="recent-song-item">
+            <img src="src/img/1_DontLookBackInAnger.jpg" alt="Don't Look Back in Anger" class="recent-song-img">
+            <div class="recent-song-info">
+                <div class="recent-song-title">Don't Look Back in Anger</div>
+                <div class="recent-song-artist">Oasis</div>
+            </div>
+            <button class="recent-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="recent-song-item">
+            <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="recent-song-img">
+            <div class="recent-song-info">
+                <div class="recent-song-title">좋은밤좋은꿈</div>
+                <div class="recent-song-artist">SG 워너비</div>
+            </div>
+            <button class="recent-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="recent-song-item">
+            <img src="src/img/1_에피소드.jpg" alt="에피소드" class="recent-song-img">
+            <div class="recent-song-info">
+                <div class="recent-song-title">에피소드</div>
+                <div class="recent-song-artist">이무진</div>
+            </div>
+            <button class="recent-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="recent-song-item">
+            <img src="src/img/1_Trip.jpg" alt="Trip" class="recent-song-img">
+            <div class="recent-song-info">
+                <div class="recent-song-title">Trip (Feat. Hannah)</div>
+                <div class="recent-song-artist">릴러말즈</div>
+            </div>
+            <button class="recent-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="recent-song-item">
+            <img src="src/img/1_howsweet.png" alt="How Sweet" class="recent-song-img">
+            <div class="recent-song-info">
+                <div class="recent-song-title">How Sweet</div>
+                <div class="recent-song-artist">NewJeans</div>
+            </div>
+            <button class="recent-play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
 
-            <!-- 음악 차트 섹션 -->
-            <section class="section section-chart">
-                <h2 class="section-title">🔥 음악 차트 TOP 10</h2>
-                <div class="chart-container">
-                    <div class="chart-item" data-track-index="chart-0">
-                        <div class="chart-rank">1</div>
-                        <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">좋은밤좋은꿈</div>
-                            <div class="chart-artist">SG 워너비</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-1">
-                        <div class="chart-rank">2</div>
-                        <img src="src/img/1_에피소드.jpg" alt="에피소드" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">에피소드</div>
-                            <div class="chart-artist">이무진</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-2">
-                        <div class="chart-rank">3</div>
-                        <img src="src/img/1_howsweet.png" alt="How Sweet" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">How Sweet</div>
-                            <div class="chart-artist">NewJeans</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-3">
-                        <div class="chart-rank">4</div>
-                        <img src="src/img/1_Trip.jpg" alt="Trip" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">Trip (Feat. Hannah)</div>
-                            <div class="chart-artist">릴러말즈</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-4">
-                        <div class="chart-rank">5</div>
-                        <img src="src/img/1_비오는날에듣기좋은노래.jpg" alt="비 오는 날에 듣기 좋은 노래" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">비 오는 날에 듣기 좋은 노래</div>
-                            <div class="chart-artist">에픽하이</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-5">
-                        <div class="chart-rank">6</div>
-                        <img src="src/img/1_꿈의버스.jpg" alt="꿈의 버스" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">꿈의 버스</div>
-                            <div class="chart-artist">DAY6</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-6">
-                        <div class="chart-rank">7</div>
-                        <img src="src/img/1_LeaveBeforeYouLoveMe.jpg" alt="Leave Before You Love Me" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">Leave Before You Love Me</div>
-                            <div class="chart-artist">Marshmello & Jonas Brothers</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-7">
-                        <div class="chart-rank">8</div>
-                        <img src="src/img/1_lover.jpg" alt="Lover" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">Lover</div>
-                            <div class="chart-artist">Taylor Swift</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-8">
-                        <div class="chart-rank">9</div>
-                        <img src="src/img/1_SOS.jpg" alt="Kill Bill" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">Kill Bill</div>
-                            <div class="chart-artist">SZA</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="chart-item" data-track-index="chart-9">
-                        <div class="chart-rank">10</div>
-                        <img src="src/img/1_GETUP.jpg" alt="Super Shy" class="chart-img">
-                        <div class="chart-info">
-                            <div class="chart-title">Super Shy</div>
-                            <div class="chart-artist">NewJeans</div>
-                        </div>
-                        <button class="chart-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-        
-            <!-- 최신 앨범 섹션 -->
-            <section class="section section-latest">
-                <h2 class="section-title">최신 앨범</h2>
-                <div class="cards-container">
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_lover.jpg" alt="Lover" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="card-year">Lover</h3>
-                                    <p class="card-artist">Taylor Swift</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>Lover</h3>
-                                <ul class="track-list">
-                                    <li>Lover - Taylor Swift</li>
-                                    <li>Cruel Summer - Taylor Swift</li>
-                                    <li>The Man - Taylor Swift</li>
-                                    <li>The Archer - Taylor Swift</li>
-                                    <li>I Forgot That You Existed - Taylor Swift</li>
-                                    <li>I Think He Knows - Taylor Swift</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_SOS.jpg" alt="SOS" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="card-year">SOS</h3>
-                                    <p class="card-artist">SZA</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>SOS</h3>
-                                <ul class="track-list">
-                                    <li>SOS - SZA</li>
-                                    <li>Kill Bill - SZA</li>
-                                    <li>Seek & Destroy - SZA</li>
-                                    <li>Low - SZA</li>
-                                    <li>Love Language - SZA</li>
-                                    <li>Blind - SZA</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_GETUP.jpg" alt="Get Up" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="card-year">Get Up</h3>
-                                    <p class="card-artist">NewJeans</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>Get up</h3>
-                                <ul class="track-list">
-                                    <li>New Jeans - NewJeans</li>
-                                    <li>Super Shy - NewJeans</li>
-                                    <li>ETA - NewJeans</li>
-                                    <li>Cool With You - NewJeans</li>
-                                    <li>Get Up - NewJeans</li>
-                                    <li>ASAP - NewJeans</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_please.png" alt="Short n' Sweet" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="card-year">Short n' Sweet</h3>
-                                    <p class="card-artist">Sabrina Carpenter</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>Short n' Sweet</h3>
-                                <ul class="track-list">
-                                    <li>Taste - Sabrina Carpenter</li>
-                                    <li>Please Please Please - Sabrina Carpenter</li>
-                                    <li>Good Graces - Sabrina Carpenter</li>
-                                    <li>Espresso - Sabrina Carpenter</li>
-                                    <li>Bed Chem - Sabrina Carpenter</li>
-                                    <li>Juno - Sabrina Carpenter</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_Youth.jpg" alt="Youth" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="card-year">Youth</h3>
-                                    <p class="card-artist">다섯</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>Youth</h3>
-                                <ul class="track-list">
-                                    <li>Youth - 다섯</li>
-                                    <li>Summer Days - 다섯</li>
-                                    <li>Memories - 다섯</li>
-                                    <li>Golden Hour - 다섯</li>
-                                    <li>Forever Young - 다섯</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 <!-- 요즘 많이 듣는 노래 섹션 -->
 <section class="section section-top-songs">
     <h2 class="section-title">요즘 많이 듣는 노래</h2>
-
     <div class="cards-container">
-
         <div class="song-card">
             <div class="song-cover">
                 <img src="src/img/1_좋은밤좋은꿈.jpg" alt="좋은밤좋은꿈">
@@ -998,7 +1015,6 @@
             </div>
         </div>
 
-        
         <div class="song-card">
             <div class="song-cover">
                 <img src="src/img/1_LeaveBeforeYouLoveMe.jpg" alt="Leave Before You Love Me">
@@ -1016,261 +1032,261 @@
                 <div class="song-artist">Marshmello & Jonas Brothers</div>
             </div>
         </div>
-
     </div>
 </section>
 
 
-            <!-- 무드별 섹션 -->
-            <section class="section section-moods">
-                <h2 class="section-title">무드별</h2>
-                <div class="cards-container">
-                    <!-- 기쁨 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_celebrity.png" alt="기쁨" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">기쁨</h3>
-                                    <p class="card-year">행복한 순간을 위한</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>Lover - Taylor Swift</li>
-                                    <li>Good as Hell - Lizzo</li>
-                                    <li>Dynamite - BTS</li>
-                                    <li>Celebrity - 아이유</li>
-                                    <li>Feel My Rhythm - Red Velvet</li>
-                                    <li>Hype Boy - NewJeans</li>
-                                    <li>Love Dive - IVE</li>
-                                    <li>롤린(Rollin') – 브레이브걸스</li>
-                                    <li>사랑인가봐 – 멜로망스</li>
-                                    <li>너의 번호를 누르고 – #안녕</li>
-                                    <li>여행 – 볼빨간사춘기</li>
-                                    <li>빨간 맛 – Red Velvet</li>
-                                    <li>좋은 날 – 아이유</li>
-                                    <li>Way Back Home – 숀(SHAUN)</li>
-                                    <li>기대 – 10cm</li>
-                                    <li>모든 순간이 너였다 – 성시경</li>
-                                </ul>
-                            </div>
-                        </div>
+
+<!-- 무드별 섹션 -->
+<section class="section section-moods">
+    <h2 class="section-title">무드별</h2>
+    <div class="cards-container">
+        <!-- 기쁨 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80" alt="기쁨" class="card-image">
+                    <div class="card-info">
+                        <h3 class="mood-card-title">기쁨</h3>
+                        <p class="card-year">행복한 순간을 위한</p>
                     </div>
-
-                    <!-- 슬픔 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_tellusboutyourself.jpg" alt="슬픔" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">슬픔</h3>
-                                    <p class="card-year">위로가 필요한 밤</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>tellusboutyourself - 백예린</li>
-                                    <li>비도 오고 그래서 - 헤이즈</li>
-                                    <li>모든 날, 모든 순간 - 폴킴</li>
-                                    <li>Love poem - 아이유</li>
-                                    <li>The Night We Met - Lord Huron</li>
-                                    <li>그리워하다 - 비투비</li>
-                                    <li>너였다면 – 정승환</li>
-                                    <li>눈의 꽃 – 박효신</li>
-                                    <li>밤이 되니까 – 펀치</li>
-                                    <li>이 소설의 끝을 다시 써보려 해 – 한동근</li>
-                                    <li>고백하지 못한 마음 – 규현</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 에너지 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_Lose_My_Mind.jpg" alt="에너지" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">에너지</h3>
-                                    <p class="card-year">활력이 필요할 때</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>SMOKE – 다이나믹 듀오 & 이영지</li>
-            <li>Hype Boy – NewJeans</li>
-            <li>한강에서 – 폴킴 (업템포 힐링)</li>
-            <li>덤디덤디 – (여자)아이들</li>
-            <li>We Are – 우원재, Loco, GRAY</li>
-            <li>Ring The Alarm – KARD</li>
-
-                                    <li>Eye of the Tiger - Survivor</li>
-                                    <li>Titanium - David Guetta</li>
-                                    <li>Stronger - Kanye West</li>
-                                    <li>Thunder - Imagine Dragons</li>
-                                    <li>BOOM BOOM BASS - RIIZE</li>
-                                    <li>Levitating - Dua Lipa</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 사랑 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_사랑.jpg" alt="사랑" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">사랑</h3>
-                                    <p class="card-year">사랑에 빠진 순간</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>사랑 - 최유리</li>
-                                    <li>사랑인가 봐 – 멜로망스</li>
-                                    <li>Love poem – 아이유</li>
-                                    <li>모든 날, 모든 순간 – 폴킴</li>
-                                    <li>너의 모든 순간 – 성시경</li>
-                                    <li>좋은 사람 – 박효신</li>
-                                    <li>인사 – 멜로망스</li>
-                                    <li>너였다면 – 정승환</li>
-                                    <li>마음을 드려요 – 아이유</li>
-                                    <li>취기를 빌려 – 산들</li>
-                                    <li>너를 만나 – 폴킴</li>
-                                    <li>고백 – 양다일</li>
-                                    <li>All of Me - John Legend</li>
-                                    <li>Lover - Taylor Swift</li>
-                                    <li>Make You Feel My Love - Adele</li>
-                                    <li>Thinking Out Loud - Ed Sheeran</li>
-                                    <li>Die With A Smile - Lady Gaga</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 드라이브 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_GETUP.jpg" alt="드라이브" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">드라이브</h3>
-                                    <p class="card-year">길 위의 자유</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>ETA - NewJeans</li>
-                                    <li>Trip - 릴러말즈</li>
-                                    <li>한 페이지가 될 수 있게 - DAY6</li>
-                                    <li>Drive - 제시카 & 박재범</li>
-                                    <li>Shut Up and Drive - Rihanna</li>
-                                    <li>Life is a Highway - Rascal Flatts</li>
-                                    <li>낭만교향곡 – 이무진</li>
-                                    <li>사건의 지평선 – 윤하</li>
-                                    <li>봄여름가을겨울 – 빅뱅</li>
-                                    <li>Off My Face – Justin Bieber</li>
-                                    <li>우리의 밤 – 적재</li>
-                                    <li>여행을 떠나요 – 조용필</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 공부 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_experience.png" alt="공부" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">공부</h3>
-                                    <p class="card-year">집중이 필요할 때</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>Clair de Lune - Debussy</li>
-                                    <li>Comptine d'un autre été - Tiersen</li>
-                                    <li>River Flows in You - Yiruma</li>
-                                    <li>Nocturne Op.9 No.2 - Chopin</li>
-                                    <li>Gymnopédie No.1 - Satie</li>
-                                    <li>Experience - Einaudi</li>
-                                    <li>너의 바다 – 안예은</li>
-                                    <li>밤하늘의 저 별처럼 – 헤이즈(Inst.)</li>
-                                    <li>편지 – 폴킴(Inst.)</li>
-                                    <li>걱정말아요 그대 – 전인권(Inst.)</li>
-                                    <li>첫눈처럼 너에게 가겠다 – 에일리(Inst.)</li>
-                                    <li>기억을 걷는 시간 – 넬(Inst.)</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 휴식 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_좋은밤좋은꿈.jpg" alt="휴식" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">휴식</h3>
-                                    <p class="card-year">편안한 시간</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>좋은 밤 좋은 꿈 - 너드커넥션</li>
-                                    <li>Sunset Lover - Petit Biscuit</li>
-                                    <li>Here Comes the Sun - Beatles</li>
-                                    <li>Three Little Birds - Bob Marley</li>
-                                    <li>Better Together - Jack Johnson</li>
-                                    <li>너의 의미 – 아이유</li>
-                                    <li>사랑은 은하수 다방에서 – 10cm</li>
-                                    <li>파도 – 적재</li>
-                                    <li>고백 – 딕펑스</li>
-                                    <li>밤이 되니까 – 펀치</li>
-                                    <li>너라는 이유 – 폴킴</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 이별 -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="src/img/1_we.png" alt="이별" class="card-image">
-                                <div class="card-info">
-                                    <h3 class="mood-card-title">이별</h3>
-                                    <p class="card-year">홀로 남은 밤</p>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>추천 곡</h3>
-                                <ul class="track-list">
-                                    <li>Say Something - A Great Big World</li>
-                                    <li>Let Her Go - Passenger</li>
-                                    <li>Someone You Loved - Lewis Capaldi</li>
-                                    <li>We Don't Talk Anymore - Charlie Puth</li>
-                                    <li>Drivers License - Olivia Rodrigo</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-            </section>
+                <div class="card-back">
+                    <h3>추천 곡</h3>
+                    <ul class="track-list">
+                        <li>Lover - Taylor Swift</li>
+                        <li>Good as Hell - Lizzo</li>
+                        <li>Dynamite - BTS</li>
+                        <li>Celebrity - 아이유</li>
+                        <li>Feel My Rhythm - Red Velvet</li>
+                        <li>Hype Boy - NewJeans</li>
+                        <li>Love Dive - IVE</li>
+                        <li>롤린(Rollin') – 브레이브걸스</li>
+                        <li>사랑인가봐 – 멜로망스</li>
+                        <li>너의 번호를 누르고 – #안녕</li>
+                        <li>여행 – 볼빨간사춘기</li>
+                        <li>빨간 맛 – Red Velvet</li>
+                        <li>좋은 날 – 아이유</li>
+                        <li>Way Back Home – 숀(SHAUN)</li>
+                        <li>기대 – 10cm</li>
+                        <li>모든 순간이 너였다 – 성시경</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬픔 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&q=80" alt="슬픔" class="card-image">
+                    <div class="card-info">
+                        <h3 class="mood-card-title">슬픔</h3>
+                        <p class="card-year">위로가 필요한 밤</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>추천 곡</h3>
+                    <ul class="track-list">
+                        <li>tellusboutyourself - 백예린</li>
+                        <li>비도 오고 그래서 - 헤이즈</li>
+                        <li>모든 날, 모든 순간 - 폴킴</li>
+                        <li>Love poem - 아이유</li>
+                        <li>The Night We Met - Lord Huron</li>
+                        <li>그리워하다 - 비투비</li>
+                        <li>너였다면 – 정승환</li>
+                        <li>눈의 꽃 – 박효신</li>
+                        <li>밤이 되니까 – 펀치</li>
+                        <li>이 소설의 끝을 다시 써보려 해 – 한동근</li>
+                        <li>고백하지 못한 마음 – 규현</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 에너지 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="에너지" class="card-image">
+                    <div class="card-info">
+                        <h3 class="mood-card-title">에너지</h3>
+                        <p class="card-year">활력이 필요할 때</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>추천 곡</h3>
+                    <ul class="track-list">
+                        <li>SMOKE – 다이나믹 듀오 & 이영지</li>
+                        <li>Hype Boy – NewJeans</li>
+                        <li>한강에서 – 폴킴 (업템포 힐링)</li>
+                        <li>덤디덤디 – (여자)아이들</li>
+                        <li>We Are – 우원재, Loco, GRAY</li>
+                        <li>Ring The Alarm – KARD</li>
+                        <li>Eye of the Tiger - Survivor</li>
+                        <li>Titanium - David Guetta</li>
+                        <li>Stronger - Kanye West</li>
+                        <li>Thunder - Imagine Dragons</li>
+                        <li>BOOM BOOM BASS - RIIZE</li>
+                        <li>Levitating - Dua Lipa</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 사랑 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80" alt="사랑" class="card-image">
+                    <div class="card-info">
+                        <h3 class="mood-card-title">사랑</h3>
+                        <p class="card-year">사랑에 빠진 순간</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>추천 곡</h3>
+                    <ul class="track-list">
+                        <li>사랑 - 최유리</li>
+                        <li>사랑인가 봐 – 멜로망스</li>
+                        <li>Love poem – 아이유</li>
+                        <li>모든 날, 모든 순간 – 폴킴</li>
+                        <li>너의 모든 순간 – 성시경</li>
+                        <li>좋은 사람 – 박효신</li>
+                        <li>인사 – 멜로망스</li>
+                        <li>너였다면 – 정승환</li>
+                        <li>마음을 드려요 – 아이유</li>
+                        <li>취기를 빌려 – 산들</li>
+                        <li>너를 만나 – 폴킴</li>
+                        <li>고백 – 양다일</li>
+                        <li>All of Me - John Legend</li>
+                        <li>Lover - Taylor Swift</li>
+                        <li>Make You Feel My Love - Adele</li>
+                        <li>Thinking Out Loud - Ed Sheeran</li>
+                        <li>Die With A Smile - Lady Gaga</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 드라이브 -->
+<div class="card">
+    <div class="card-inner">
+        <div class="card-front">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" alt="드라이브" class="card-image">
+            <div class="card-info">
+                <h3 class="mood-card-title">드라이브</h3>
+                <p class="card-year">길 위의 자유</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <h3>추천 곡</h3>
+            <ul class="track-list">
+                <li>ETA - NewJeans</li>
+                <li>Trip - 릴러말즈</li>
+                <li>한 페이지가 될 수 있게 - DAY6</li>
+                <li>Drive - 제시카 & 박재범</li>
+                <li>Shut Up and Drive - Rihanna</li>
+                <li>Life is a Highway - Rascal Flatts</li>
+                <li>낭만교향곡 – 이무진</li>
+                <li>사건의 지평선 – 윤하</li>
+                <li>봄여름가을겨울 – 빅뱅</li>
+                <li>Off My Face – Justin Bieber</li>
+                <li>우리의 밤 – 적재</li>
+                <li>여행을 떠나요 – 조용필</li>
+            </ul>
+        </div>
+    </div>
+</div>
+        <!-- 공부 -->
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80" alt="공부" class="card-image">
+                <div class="card-info">
+                    <h3 class="mood-card-title">공부</h3>
+                    <p class="card-year">집중이 필요할 때</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <h3>추천 곡</h3>
+                <ul class="track-list">
+                    <li>Clair de Lune - Debussy</li>
+                    <li>Comptine d'un autre été - Tiersen</li>
+                    <li>River Flows in You - Yiruma</li>
+                    <li>Nocturne Op.9 No.2 - Chopin</li>
+                    <li>Gymnopédie No.1 - Satie</li>
+                    <li>Experience - Einaudi</li>
+                    <li>너의 바다 – 안예은</li>
+                    <li>밤하늘의 저 별처럼 – 헤이즈(Inst.)</li>
+                    <li>편지 – 폴킴(Inst.)</li>
+                    <li>걱정말아요 그대 – 전인권(Inst.)</li>
+                    <li>첫눈처럼 너에게 가겠다 – 에일리(Inst.)</li>
+                    <li>기억을 걷는 시간 – 넬(Inst.)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 휴식 -->
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="휴식" class="card-image">
+                <div class="card-info">
+                    <h3 class="mood-card-title">휴식</h3>
+                    <p class="card-year">편안한 시간</p>
+                </div>
+            </div>
+            <div class="card-back">
+                <h3>추천 곡</h3>
+                <ul class="track-list">
+                    <li>좋은 밤 좋은 꿈 - 너드커넥션</li>
+                    <li>Sunset Lover - Petit Biscuit</li>
+                    <li>Here Comes the Sun - Beatles</li>
+                    <li>Three Little Birds - Bob Marley</li>
+                    <li>Better Together - Jack Johnson</li>
+                    <li>너의 의미 – 아이유</li>
+                    <li>사랑은 은하수 다방에서 – 10cm</li>
+                    <li>파도 – 적재</li>
+                    <li>고백 – 딕펑스</li>
+                    <li>밤이 되니까 – 펀치</li>
+                    <li>너라는 이유 – 폴킴</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 이별 -->
+<div class="card">
+    <div class="card-inner">
+        <div class="card-front">
+             <img src="https://goodmenproject.com/wp-content/uploads/2016/04/iStock-1308842936.jpg" alt="이별" class="card-image">
+            <div class="card-info">
+                <h3 class="mood-card-title">이별</h3>
+                <p class="card-year">홀로 남은 밤</p>
+            </div>
+        </div>
+        <div class="card-back">
+            <h3>추천 곡</h3>
+            <ul class="track-list">
+                <li>좋니 - 윤종신</li>
+                <li>미련 - 태연</li>
+                <li>너를 만나 - 폴킴</li>
+                <li>헤어지자 말해요 - 박재정</li>
+                <li>이별주 - 황인욱</li>
+                <li>Say Something - A Great Big World</li>
+                <li>Let Her Go - Passenger</li>
+                <li>Someone You Loved - Lewis Capaldi</li>
+                <li>We Don't Talk Anymore - Charlie Puth</li>
+                <li>Drivers License - Olivia Rodrigo</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+
+        
         </main>
     </div>
 
@@ -1335,11 +1351,11 @@
 // 랜덤 문구 표시
 (function() {
     const phrases = [
-     "그곳에서 들었던 그 노래, 기억하시나요? 🗺️",
-        "미래의 나에게 음악을 선물하세요 🎁",
-        "친구와 함께 듣는 음악은 특별하죠 👥",
-        "당신의 음악 여정을 기록하세요 📍",
-        "시간을 담은 음악 편지, 타임캡슐 ⏰"
+     "그곳에서 들었던 그 노래, 기억하시나요? ",
+        "미래의 나에게 음악을 선물하세요. ",
+        "친구와 함께 듣는 음악은 특별하죠! ",
+        "당신의 음악 여정을 기록하세요. ",
+        "시간을 담은 음악 편지, 타임캡슐 "
 ];
     
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
