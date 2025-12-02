@@ -1,1232 +1,1107 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
-        <title>SoundLetter - 플레이리스트 상세</title>
-        <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
-        
-        <style>
-            /* a 태그 기본 밑줄 / 눌렀을 때 선 제거 */
-            a,
-            a:link,
-            a:visited,
-            a:hover,
-            a:active {
-                text-decoration: none;
-            }
 
-            /* 클릭했을 때 생기는 점선/테두리 제거 */
-            a:focus,
-            a:focus-visible {
-                outline: none;
-            }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
+    <title>SoundLetter - 플레이리스트 상세</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
 
-            /* 헤더부분 */
-            .top-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 27px 32px 24px 32px ;
-                background: rgba(18, 18, 18, 0.6);
-                backdrop-filter: blur(10px);
-                position: sticky;
-                top: 0;
-                z-index: 10;
-            
-            }
+    <style>
+        /* a 태그 기본 밑줄 / 눌렀을 때 선 제거 */
+        a,
+        a:link,
+        a:visited,
+        a:hover,
+        a:active {
+            text-decoration: none;
+        }
 
-            /* 사용자 프로필 드롭다운 */
-            .user-profile {
-                position: relative;
-                cursor: pointer;
-                z-index: 100000;
-            }
+        /* 클릭했을 때 생기는 점선/테두리 제거 */
+        a:focus,
+        a:focus-visible {
+            outline: none;
+        }
 
-            .profile-dropdown {
-                position: absolute;
-                top: calc(100% + 12px);
-                right: 0;
-                background: #282828;
-                border-radius: 12px;
-                padding: 20px;
-                min-width: 200px;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-                z-index: 100000;
-                display: none;
-            }
+        /* 헤더부분 */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 27px 32px 24px 32px;
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
 
-            .profile-dropdown.active {
-                display: block;
-            }
+        }
 
-            .profile-close-btn {
-                position: absolute;
-                top: 12px;
-                right: 12px;
-                background: none;
-                border: none;
-                color: #b3b3b3;
-                cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: color 0.2s;
-            }
+        /* 사용자 프로필 드롭다운 */
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+            z-index: 100000;
+        }
 
-            .profile-close-btn:hover {
-                color: #ffffff;
-            }
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            background: #282828;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 200px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            z-index: 100000;
+            display: none;
+        }
 
-            .profile-nickname {
-                font-size: 16px;
-                font-weight: 600;
-                color: #ffffff;
-                margin-bottom: 16px;
-                padding-right: 24px;
-            }
+        .profile-dropdown.active {
+            display: block;
+        }
 
-            .logout-btn {
-                width: 100%;
-                padding: 10px 16px;
-                background: #ff9500;
-                color: #000000;
-                border: none;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.2s;
-            }
+        .profile-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
 
-            .logout-btn:hover {
-                background: #ffaa00;
-                transform: translateY(-1px);
-            }
+        .profile-close-btn:hover {
+            color: #ffffff;
+        }
 
-            .back-button {
-                background: none;
-                border: none;
-                color: #ffffff;
-                cursor: pointer;
-                padding: 8px;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-size: 14px;
-                transition: all 0.3s;
-                text-decoration: none;
-            }
+        .profile-nickname {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 16px;
+            padding-right: 24px;
+        }
 
-            .back-button:hover {
-                color: #ff9500;
-            }
+        .logout-btn {
+            width: 100%;
+            padding: 10px 16px;
+            background: #ff9500;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
 
-            .backback {
-                text-decoration: none;
-            }
+        .logout-btn:hover {
+            background: #ffaa00;
+            transform: translateY(-1px);
+        }
 
-            /* 헤더 제외 메인부분 */
-            .center {
-                display: flex;
-                height: 100%;
-                background: linear-gradient(
-                    180deg,
+        .back-button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            color: #ff9500;
+        }
+
+        .backback {
+            text-decoration: none;
+        }
+
+        /* 헤더 제외 메인부분 */
+        .center {
+            display: flex;
+            height: 100%;
+            background: linear-gradient(180deg,
                     rgba(255, 149, 0, 0.2) 0%,
-                    transparent 100%
-                );
-            }
+                    transparent 100%);
+        }
 
-            .right {
-                width: 50%;
-            }
+        .right {
+            width: 50%;
+        }
 
-            .left {
-                width: 50%;
-            }
+        .left {
+            width: 50%;
+        }
 
-            /* 플레이리스트 앨범 부분 */
-            .playlist-header {
-                padding-top: 48px;
-                padding-bottom: 0;
-                padding-right: 0px;
-                padding-left: 64px;
-                display: block;
-                align-items: center;
-                height: 75%; 
-            }
+        /* 플레이리스트 앨범 부분 */
+        .playlist-header {
+            padding-top: 48px;
+            padding-bottom: 0;
+            padding-right: 0px;
+            padding-left: 64px;
+            display: block;
+            align-items: center;
+            height: 75%;
+        }
 
-            .playlist-cover-large {
-                width: 68%;
-                border-radius: 8px;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-                object-fit: cover;
-                position: relative;
-                left: 23%;
-                transform: scale(1);
-                transition: none !important;
-                flex-shrink: 0;
-                
-            }
+        .playlist-cover-large {
+            width: 68%;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+            position: relative;
+            left: 23%;
+            transform: scale(1);
+            transition: none !important;
+            flex-shrink: 0;
 
-            .playlist-header-info {
-                position: relative;
-                left: 25%;
-                flex: 1;
-                
-                
-            }
+        }
 
-            .playlist-type {
-                font-size: 12px;
-                font-weight: 700;
-                letter-spacing: 1px;
-                margin-bottom: 8px;
-                color: #b3b3b3;
-            }
+        .playlist-header-info {
+            position: relative;
+            left: 25%;
+            flex: 1;
 
-            .playlist-title {
-                font-size: 30px;
-                font-weight: 900;
-                margin-bottom: 0px;
-            }
 
-            .playlist-stats {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-size: 14px;
-                color: #b3b3b3;
-            }
+        }
 
-            .playlist-stats span {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
+        .playlist-type {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: #b3b3b3;
+        }
 
-            /* 재생,공유,좋아요,등등 버튼 */
-            .action-bar {
-                padding: 0px 32px;
-                display: flex;
-                align-items: center;
-                gap: 16px;
-                position: relative;
-                left: 20%;
-            }
+        .playlist-title {
+            font-size: 30px;
+            font-weight: 900;
+            margin-bottom: 0px;
+        }
 
-            .play-main-btn {
-                width: 56px;
-                height: 56px;
-                background: #ff9500;
-                border: none;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s;
-                margin-left: 30%;
-            }
+        .playlist-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #b3b3b3;
+        }
 
-            .play-main-btn:hover {
-                transform: scale(1.1);
-                background: #ffaa00;
-            }
+        .playlist-stats span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-            .play-main-btn svg {
-                width: 24px;
-                height: 24px;
-                fill: #000;
-                margin-left: 2px;
-            }
+        /* 재생,공유,좋아요,등등 버튼 */
+        .action-bar {
+            padding: 0px 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            left: 20%;
+        }
 
-            .action-btn {
-                width: 40px;
-                height: 40px;
-                background: none;
-                border: none;
-                color: #b3b3b3;
-                cursor: pointer;
-                transition: all 0.3s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        .play-main-btn {
+            width: 56px;
+            height: 56px;
+            background: #ff9500;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 30%;
+        }
 
-            .action-btn:hover {
-                color: #ffffff;
-                transform: scale(1.1);
-            }
+        .play-main-btn:hover {
+            transform: scale(1.1);
+            background: #ffaa00;
+        }
 
-            .action-btn svg {
-                width: 24px;
-                height: 24px;
-            }
+        .play-main-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+            margin-left: 2px;
+        }
 
-            /* 트랙리스트 */
-            .more {
-                width: 20px;
-                padding-left: 0;
-                margin-left: 0;
-                position: static;
-                justify-self: end;
-            }
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            .track-right {
-                gap: 12px;
-                display: flex;
-            }
+        .action-btn:hover {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
 
-            .more:hover {
-                transform: scale(1.1);
-                color: #ffffff;
-            }
+        .action-btn svg {
+            width: 24px;
+            height: 24px;
+        }
 
-            .track-list-container {
-                padding: 100px 42px 100px 0px;
-            }
+        /* 트랙리스트 */
+        .more {
+            width: 20px;
+            padding-left: 0;
+            margin-left: 0;
+            position: static;
+            justify-self: end;
+        }
 
-            .track-item {
-                display: grid;
-                grid-template-columns: 50px 1fr 200px 100px auto;
-                gap: 16px;
-                padding: 12px 0px;
-                border-radius: 4px;
-                transition: all 0.3s;
-                cursor: pointer;
-                align-items: center;
-                width: 80%;
-            }
+        .track-right {
+            gap: 12px;
+            display: flex;
+        }
 
-            .track-item:hover {
-                background: rgba(255, 149, 0, 0.2);
-            }
+        .more:hover {
+            transform: scale(1.1);
+            color: #ffffff;
+        }
 
-            .track-item:hover .track-number {
-                display: none;
-            }
+        .track-list-container {
+            padding: 100px 42px 100px 0px;
+        }
 
-            .track-play-btn {
-                display: none;
-                background: none;
-                border: none;
-                color: #ffffff;
-                cursor: pointer;
-                width: 20px;
-                height: 20px;
-                margin: 0 auto;
-            }
+        .track-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 200px 100px auto;
+            gap: 16px;
+            padding: 12px 0px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            cursor: pointer;
+            align-items: center;
+            width: 80%;
+        }
 
-            .track-item:hover .track-play-btn {
-                display: block;
-            }
+        .track-item:hover {
+            background: rgba(255, 149, 0, 0.2);
+        }
 
-            .track-info {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                width: 150px;
-            }
+        .track-item:hover .track-number {
+            display: none;
+        }
 
-            .track-thumbnail {
-                width: 40px;
-                height: 40px;
-                border-radius: 4px;
-                object-fit: cover;
-            }
+        .track-play-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            margin: 0 auto;
+        }
 
-            .track-details h4 {
-                font-size: 14px;
-                font-weight: 500;
-                margin-bottom: 4px;
-            }
+        .track-item:hover .track-play-btn {
+            display: block;
+        }
 
-            .track-details p {
-                font-size: 13px;
-                color: #b3b3b3;
-            }
+        .track-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 150px;
+        }
 
-            .track-duration {
-                font-size: 14px;
-                color: #b3b3b3;
-                text-align: right;
-                padding-left: 250px;
-                justify-self: end;
-            }
+        .track-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
 
-            .track-item.no-album {
-                grid-template-columns: 50px 1fr auto auto;
-            }
+        .track-details h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
 
-            .track-add {
-                position: relative;
-                left: 35%;
+        .track-details p {
+            font-size: 13px;
+            color: #b3b3b3;
+        }
 
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
+        .track-duration {
+            font-size: 14px;
+            color: #b3b3b3;
+            text-align: right;
+            padding-left: 250px;
+            justify-self: end;
+        }
 
-                padding: 5px 14px;
-                border: 1px dashed #404040;
-                border-radius: 10px;
-                background: rgba(255, 149, 0, 0.06);
+        .track-item.no-album {
+            grid-template-columns: 50px 1fr auto auto;
+        }
 
-                color: #ffffff;
-                font-weight: 700;
-                letter-spacing: 0.2px;
-                cursor: pointer;
-                user-select: none;
-                margin-top: 7px;
-            }
+        .track-add {
+            position: relative;
+            left: 35%;
 
-            .track-add:hover {
-                color: #ff9500;
-                background: rgba(255, 149, 0, 0.12);
-                border-color: #ff9500;
-                transform: translateY(-1px);
-                box-shadow: 4px rgba(255, 149, 0, 0.3);
-            }
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
 
-            .track-add:active {
-                transform: translateY(0);
-                background: rgba(255, 149, 0, 0.18);
-            }
+            padding: 5px 14px;
+            border: 1px dashed #404040;
+            border-radius: 10px;
+            background: rgba(255, 149, 0, 0.06);
 
-            .track-add img {
-                width: 22px;
-                height: 22px;
-                display: block;
-            }
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 7px;
+        }
 
-            
+        .track-add:hover {
+            color: #ff9500;
+            background: rgba(255, 149, 0, 0.12);
+            border-color: #ff9500;
+            transform: translateY(-1px);
+            box-shadow: 4px rgba(255, 149, 0, 0.3);
+        }
 
-            /* 플레이리스트 추가 팝업의 css */
-            .main-content {
-                display: block;
-                height: calc(100vh - 90px);
-                        }
+        .track-add:active {
+            transform: translateY(0);
+            background: rgba(255, 149, 0, 0.18);
+        }
 
-            .popup-overlay {
+        .track-add img {
+            width: 22px;
+            height: 22px;
+            display: block;
+        }
+
+
+
+        /* 플레이리스트 추가 팝업의 css */
+        .main-content {
+            display: block;
+            height: calc(100vh - 90px);
+        }
+
+        .popup-overlay {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             backdrop-filter: blur(3px);
             display: none;
             z-index: 900;
+        }
+
+        .popup-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-30%, -50%);
+            display: none;
+            z-index: 999;
+        }
+
+        /* 팝업 카드 전체 */
+        .add-popup {
+            background: #181818;
+            border-radius: 20px;
+            width: 420px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        /* 상단 헤더 */
+        .add-header {
+            margin: 0 25px;
+            display: flex;
+            align-items: center;
+            padding: 21px 18px 8px 18px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .add-title {
+            flex: 1;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* 검색 영역 */
+        .search-button {
+            padding: 7px 100px;
+            border-radius: 10px;
+            border: none;
+            background: #2a2a2a;
+            color: #bfbfbf;
+            gap: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 41px;
+            width: 338px;
+            margin-top: 20px;
+        }
+
+        .search-button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .search-button:hover {
+            background: #343434;
+        }
+
+        /* 캐러셀 전체 래퍼 */
+        .carousel-wrapper {
+            display: flex;
+            align-items: stretch;
+            padding: 10px 10px 6px 10px;
+            flex: 1;
+            min-height: 0;
+            /* flex 안에서 스크롤 정상 동작 */
+        }
+
+        .carousel-nav {
+            width: 32px;
+            border: none;
+            background: transparent;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .carousel-nav:hover {
+            opacity: 1;
+        }
+
+        .carousel-window {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 16px;
+            width: 400px;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 200%;
+            /* 슬라이드 2개 */
+            height: 100%;
+            transform: translateX(0);
+            transition: transform 0.35s ease;
+        }
+
+        .carousel-slide {
+            width: 50%;
+            background: #202020;
+            padding: 16px 20px 12px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .song-list {
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            min-width: 0;
+        }
+
+        .song-cover {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            background: #3a3a3a;
+            margin-right: 10px;
+        }
+
+        .song-info {
+            flex: 1;
+
+            overflow: hidden;
+            width: 100px;
+        }
+
+        .song-title {
+            font-size: 14px;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-artist {
+            font-size: 12px;
+            color: #b3b3b3;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .add-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid #bfbfbf;
+            background: transparent;
+            color: #ffffff;
+            font-size: 18px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .add-btn:hover {
+            transition: 0.25s ease;
+            background: #2f2f2f;
+            border: 1.5px solid #ffcc00;
+            color: #ffcc00;
+            box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+        }
+
+        /* 하단 페이지 인디케이터 */
+        .carousel-dots {
+            padding: 6px 0 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .carousel-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: none;
+            background: #4c4c4c;
+            cursor: pointer;
+        }
+
+        .carousel-dot.active {
+            background: #ffffff;
+        }
+
+        /* 토스트 메시지 */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(40, 40, 40, 0.95);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 18px;
+            font-size: 13px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .add-close-btn {
+            background: #3e3e3e;
+            color: #ffffff;
+            border: none;
+            border-radius: 24px;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            left: 300px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            text-decoration: none;
+        }
+
+        .add-close-btn:hover {
+            background: #484848;
+        }
+
+        /* 커스텀 툴팁 */
+        .action-btn[data-tooltip] {
+            position: relative;
+        }
+
+        .action-btn[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(40, 40, 40, 0.95);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .45s ease;
+        }
+
+        .action-btn[data-tooltip]:hover::after {
+            opacity: 1;
+        }
+
+        /* ===== 좋아요 하트 애니메이션 ===== */
+        .heart-btn.liked .heart-icon {
+            fill: #ff9500;
+            transform: scale(1.2);
+            transition: fill 0.2s ease, transform 0.2s ease;
+        }
+
+        .heart-btn .heart-icon {
+            transition: fill 0.2s ease, transform 0.2s ease;
+        }
+
+        /* 인스타 하트 팡 애니메이션 */
+        @keyframes heart-pop {
+            0% {
+                transform: scale(1);
             }
 
-            .popup-container {
-                position: fixed;
-                top: 50%; left: 50%;
-                transform: translate(-30%, -50%);
-                display: none;
-                z-index: 999;
+            40% {
+                transform: scale(1.35);
             }
 
-            /* 팝업 카드 전체 */
-            .add-popup {
-                background: #181818;
-                border-radius: 20px;
-                width: 420px;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 14px 36px rgba(0, 0, 0, 0.7);
-                overflow: hidden;
+            100% {
+                transform: scale(1);
             }
+        }
 
-            /* 상단 헤더 */
-            .add-header {
-                margin: 0 25px;
-                display: flex;
-                align-items: center;
-                padding: 21px 18px 8px 18px;
-                border-bottom: 1px solid #2a2a2a;
-            }
+        .heart-btn.liked .heart-icon {
+            animation: heart-pop 0.3s ease;
+        }
+    </style>
+</head>
 
-            .add-title {
-                flex: 1;
-                text-align: center;
-                font-size: 22px;
-                font-weight: 600;
-                color: #ffffff;
-            }
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <a href="1_에쁠킬라_Home.html" style="text-decoration: none">
+                <div class="service-name">SoundLetter</div>
+            </a>
+            <a href="1_에쁠킬라_Home.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+                홈
+            </a>
+            <a href="1_에쁠킬라_Playlist.html" class="nav-item active">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z" />
+                </svg>
+                플레이리스트
+            </a>
+            <a href="1_에쁠킬라_PlayRecord.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+                </svg>
+                재생기록
+            </a>
+            <a href="1_에쁠킬라_TimeCapsule.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z" />
+                </svg>
+                타임캡슐
+            </a>
+            <a href="1_에쁠킬라_Map.html" class="nav-item">
+                <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                    <path
+                        d="M480-388q54-50 84-80t47-50q16-20 22.5-37t6.5-37q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 21 6 37t22 36q17 20 46 50t86 81Zm0 202q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
+                </svg>
+                지도
+            </a>
+            <a href="1_에쁠킬라_Sharing.html" class="nav-item">
+                <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                    <path
+                        d="M560-160q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T640-458v-342h240v120H720v360q0 66-47 113t-113 47ZM80-320q0-99 38-186.5T221-659q65-65 152.5-103T560-800v80q-82 0-155 31.5t-127.5 86q-54.5 54.5-86 127T160-320H80Zm160 0q0-66 25.5-124.5t69-102Q378-590 436-615t124-25v80q-100 0-170 70t-70 170h-80Z" />
+                </svg>
+                쉐어링
+            </a>
+            <a href="1_에쁠킬라_MyPage.html" class="nav-item">
+                <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                    <path
+                        d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z" />
+                </svg>
+                마이페이지
+            </a>
+        </nav>
 
-            /* 검색 영역 */
-            .search-button {
-                padding: 7px 100px;
-                border-radius: 10px;
-                border: none;
-                background: #2a2a2a;
-                color: #bfbfbf;
-                gap: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-left: 41px;
-                width: 338px;
-                margin-top: 20px;
-            }
-
-            .search-button svg {
-                width: 18px;
-                height: 18px;
-            }
-
-            .search-button:hover {
-                background: #343434;
-            }
-
-            /* 캐러셀 전체 래퍼 */
-            .carousel-wrapper {
-                display: flex;
-                align-items: stretch;
-                padding: 10px 10px 6px 10px;
-                flex: 1;
-                min-height: 0; /* flex 안에서 스크롤 정상 동작 */
-            }
-
-            .carousel-nav {
-                width: 32px;
-                border: none;
-                background: transparent;
-                color: #ffffff;
-                font-size: 20px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                opacity: 0.7;
-                transition: opacity 0.2s;
-            }
-
-            .carousel-nav:hover {
-                opacity: 1;
-            }
-
-            .carousel-window {
-                flex: 1;
-                overflow: hidden;
-                border-radius: 16px;
-                width: 400px;
-            }
-
-            .carousel-track {
-                display: flex;
-                width: 200%; /* 슬라이드 2개 */
-                height: 100%;
-                transform: translateX(0);
-                transition: transform 0.35s ease;
-            }
-
-            .carousel-slide {
-                width: 50%;
-                background: #202020;
-                padding: 16px 20px 12px 20px;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .slide-title {
-                font-size: 15px;
-                font-weight: 600;
-                margin-bottom: 10px;
-                color: #ffffff;
-            }
-
-            .song-list {
-                overflow-y: auto;
-                padding-right: 4px;
-            }
-
-            .song-item {
-                display: flex;
-                align-items: center;
-                padding: 8px 0;
-                min-width: 0;
-            }
-
-            .song-cover {
-                width: 44px;
-                height: 44px;
-                border-radius: 6px;
-                flex-shrink: 0;
-                background: #3a3a3a;
-                margin-right: 10px;
-            }
-
-            .song-info {
-                flex: 1;
-
-                overflow: hidden;
-                width: 100px;
-            }
-
-            .song-title {
-                font-size: 14px;
-                color: #ffffff;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .song-artist {
-                font-size: 12px;
-                color: #b3b3b3;
-                margin-top: 2px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .add-btn { 
-                width: 28px; 
-                height: 28px; 
-                border-radius: 50%; 
-                border: 1.5px solid #bfbfbf; 
-                background: transparent; 
-                color: #ffffff; 
-                font-size: 18px; 
-                flex-shrink: 0; 
-                display: flex; 
-                align-items: center; 
-                justify-content: center; 
-                cursor: pointer; 
-                flex-shrink: 0; }
-
-            .add-btn:hover {
-                transition: 0.25s ease;
-                background: #2f2f2f;
-                border: 1.5px solid #ffcc00 ;
-                color:   #ffcc00 ;
-                box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
-            }
-
-            /* 하단 페이지 인디케이터 */
-            .carousel-dots {
-                padding: 6px 0 10px 0;
-                display: flex;
-                justify-content: center;
-                gap: 8px;
-            }
-
-            .carousel-dot {
-                width: 7px;
-                height: 7px;
-                border-radius: 50%;
-                border: none;
-                background: #4c4c4c;
-                cursor: pointer;
-            }
-
-            .carousel-dot.active {
-                background: #ffffff;
-            }
-
-            /* 토스트 메시지 */
-            .toast {
-                position: fixed;
-                bottom: 90px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(40, 40, 40, 0.95);
-                color: #ffffff;
-                padding: 10px 18px;
-                border-radius: 18px;
-                font-size: 13px;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.25s ease;
-                z-index: 9999;
-            }
-
-            .toast.show {
-                opacity: 1;
-            }
-
-            .add-close-btn {
-                background: #3e3e3e;
-                color: #ffffff;
-                border: none;
-                border-radius: 24px;
-                padding: 12px 28px;
-                font-size: 15px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s;
-                position: relative;
-                left: 300px;
-                display: flex;
-                justify-content: center;
-                margin-bottom: 30px;
-                text-decoration: none;
-            }
-
-            .add-close-btn:hover {
-                background: #484848;
-            }
-
-            /* 커스텀 툴팁 */
-            .action-btn[data-tooltip] {
-                position: relative;
-            }
-
-            .action-btn[data-tooltip]::after {
-                content: attr(data-tooltip);
-                position: absolute;
-                bottom: -40px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(40, 40, 40, 0.95);
-                color: #fff;
-                padding: 6px 12px;
-                border-radius: 8px;
-                font-size: 12px;
-                white-space: nowrap;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity .45s ease;
-            }
-
-            .action-btn[data-tooltip]:hover::after {
-                opacity: 1;
-            }
-
-            /* ===== 좋아요 하트 애니메이션 ===== */
-            .heart-btn.liked .heart-icon {
-                fill: #ff9500;
-                transform: scale(1.2);
-                transition: fill 0.2s ease, transform 0.2s ease;
-            }
-
-            .heart-btn .heart-icon {
-                transition: fill 0.2s ease, transform 0.2s ease;
-            }
-
-            /* 인스타 하트 팡 애니메이션 */
-            @keyframes heart-pop {
-                0% { transform: scale(1); }
-                40% { transform: scale(1.35); }
-                100% { transform: scale(1); }
-            }
-
-            .heart-btn.liked .heart-icon {
-                animation: heart-pop 0.3s ease;
-            }
-
-            
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <nav class="nav-bar">
-                <a href="1_에쁠킬라_Home.html" style="text-decoration: none">
-                    <div class="service-name">SoundLetter</div>
-                </a>
-                <a href="1_에쁠킬라_Home.html" class="nav-item">
-                    <svg
-                        class="nav-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <!-- 헤더 -->
+            <header class="top-header">
+                <a href="1_에쁠킬라_Playlist.html" class="back-button" style="margin-left: 10px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
                     </svg>
-                    홈
+                    뒤로가기
                 </a>
-                <a href="1_에쁠킬라_Playlist.html" class="nav-item active">
-                    <svg
-                        class="nav-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path
-                            d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"
-                        />
-                    </svg>
-                    플레이리스트
-                </a>
-                <a href="1_에쁠킬라_PlayRecord.html" class="nav-item">
-                    <svg
-                        class="nav-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path
-                            d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
-                        />
-                    </svg>
-                    재생기록
-                </a>
-                <a href="1_에쁠킬라_TimeCapsule.html" class="nav-item">
-                    <svg
-                        class="nav-icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path
-                            d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"
-                        />
-                    </svg>
-                    타임캡슐
-                </a>
-                <a href="1_에쁠킬라_Map.html" class="nav-item">
-                    <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-388q54-50 84-80t47-50q16-20 22.5-37t6.5-37q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 21 6 37t22 36q17 20 46 50t86 81Zm0 202q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
-                    지도
-                </a>
-                <a href="1_에쁠킬라_Sharing.html" class="nav-item">
-                    <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-160q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T640-458v-342h240v120H720v360q0 66-47 113t-113 47ZM80-320q0-99 38-186.5T221-659q65-65 152.5-103T560-800v80q-82 0-155 31.5t-127.5 86q-54.5 54.5-86 127T160-320H80Zm160 0q0-66 25.5-124.5t69-102Q378-590 436-615t124-25v80q-100 0-170 70t-70 170h-80Z"/></svg>
-                    쉐어링
-                </a>
-                <a href="1_에쁠킬라_MyPage.html" class="nav-item">
-                    <svg class="nav-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                        <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/></svg>
-                    마이페이지
-                </a>
-            </nav>
-
-            <!-- Main Content -->
-            <main class="main-content">
-                <!-- Top Header -->
-                <!-- 헤더 -->
-                <header class="top-header">
-                    <a href="1_에쁠킬라_Playlist.html" class="back-button" style="margin-left: 10px;">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
+                <div class="header-right">
+                    <div class="search-bar">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
                             <path
-                                d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
-                            />
+                                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                         </svg>
-                        뒤로가기
-                    </a>
-                    <div class="header-right">
-                        <div class="search-bar">
-                            <svg
-                                class="search-icon"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                            >
-                                <path
-                                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                                />
-                            </svg>
-                            <input type="text" placeholder="검색" />
-                        </div>
-                        <div class="user-profile" id="userProfile">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                                <path
-                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                                />
-                            </svg>
-                            <div class="profile-dropdown" id="profileDropdown">
-                                <button class="profile-close-btn" id="closeProfile">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                                </svg>
-                                </button>
-                                <!-- 회원가입에서 받아오는 실제 닉네임 -->
-                                <a href="1_에쁠킬라_MyPage.html" style="text-decoration: none; color: inherit;">
-                                    <div class="profile-nickname">차은우님 ></div> 
-                                </a>
-                                <button class="logout-btn" onclick="handleLogout()">로그아웃</button>
-                            </div>
-                            </div>
-                        </a>
+                        <input type="text" placeholder="검색" />
                     </div>
-                </header>
-                <div class="center">
-                    <div class="left">
-                        <!-- Playlist Header -->
-                        <div class="playlist-header">
-                            <img
-                                src="src\img\1_allbum.png"
-                                alt="Playlist Cover"
-                                class="playlist-cover-large"
-                            />
-                            <div class="playlist-header-info">
-                                <div class="playlist-type">playlist</div>
-                                <h1 class="playlist-title">
-                                    요즘 많이 듣는 노래
-                                </h1>
-                                <div class="playlist-stats">
-                                    <span>내가 만듦</span>
-                                    <span>•</span>
-                                    <span>6곡</span>
-                                    <span>•</span>
-                                    <span>21분</span>
-                                    <button class="play-main-btn play-toggle">
-    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M8 5v14l11-7z"/>
-    </svg>
-    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-    </svg>
-</button>
-                                </div>
+                    <div class="user-profile" id="userProfile">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <button class="profile-close-btn" id="closeProfile">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                                </svg>
+                            </button>
+                            <!-- 회원가입에서 받아오는 실제 닉네임 -->
+                            <a href="1_에쁠킬라_MyPage.html" style="text-decoration: none; color: inherit;">
+                                <div class="profile-nickname">차은우님 ></div>
+                            </a>
+                            <button class="logout-btn" onclick="handleLogout()">로그아웃</button>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </header>
+            <div class="center">
+                <div class="left">
+                    <!-- Playlist Header -->
+                    <div class="playlist-header">
+                        <img src="src\img\1_allbum.png" alt="Playlist Cover" class="playlist-cover-large" />
+                        <div class="playlist-header-info">
+                            <div class="playlist-type">playlist</div>
+                            <h1 class="playlist-title">
+                                요즘 많이 듣는 노래
+                            </h1>
+                            <div class="playlist-stats">
+                                <span>내가 만듦</span>
+                                <span>•</span>
+                                <span>6곡</span>
+                                <span>•</span>
+                                <span>21분</span>
+                                <button class="play-main-btn play-toggle">
+                                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"
+                                        style="display:none;">
+                                        <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                                    </svg>
+                                </button>
                             </div>
-                            <!-- Action Bar -->
-                            <div class="action-bar">
-                                <button
-                                    class="action-btn heart-btn" 
-                                    aria-label="좋아요"
-                                    data-tooltip="좋아요"
-                                >
-                                    <svg
-                                        class="heart-icon"
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
+                        </div>
+                        <!-- Action Bar -->
+                        <div class="action-bar">
+                            <button class="action-btn heart-btn" aria-label="좋아요" data-tooltip="좋아요">
+                                <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </button>
+                            <button class="action-btn" aria-label="오프라인 저장" data-tooltip="오프라인 저장">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                    aria-hidden="true">
+                                    <path d="M5 20h14a2 2 0 0 0 2-2v-3" />
+                                    <path d="M12 3v12" />
+                                    <path d="M8 11l4 4 4-4" />
+                                    <path d="M3 15v3a2 2 0 0 0 2 2" />
+                                </svg>
+                            </button>
+
+                            <a href="1_에쁠킬라_PlaylistShare.html"><button class="action-btn" aria-label="공유하기"
+                                    data-tooltip="공유하기">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
                                         <path
-                                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                                        />
-                                    </svg>
-                                </button>
-                                <button
-                                    class="action-btn"
-                                    aria-label="오프라인 저장"
-                                    data-tooltip="오프라인 저장"
-                                >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M5 20h14a2 2 0 0 0 2-2v-3" />
-                                        <path d="M12 3v12" />
-                                        <path d="M8 11l4 4 4-4" />
-                                        <path d="M3 15v3a2 2 0 0 0 2 2" />
-                                    </svg>
-                                </button>
-                                
-                                <a href="1_에쁠킬라_PlaylistShare.html"><button
-                                    class="action-btn"
-                                    aria-label="공유하기"
-                                    data-tooltip="공유하기"
-                                >
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
-                                        />
+                                            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
                                     </svg>
                                 </button></a>
 
-                                <a href="1_에쁠킬라_Gift.html" data-tooltip="이 플레이리스트 선물하기" class="action-btn" aria-label="이 플레이리스트 선물하기">
-                                    <!-- gift icon -->
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        width="24"
-                                        height="24"
-                                        aria-hidden="true"
-                                    >
-                                        <rect
-                                            x="3"
-                                            y="9"
-                                            width="18"
-                                            height="12"
-                                            rx="2"
-                                        ></rect>
-                                        <path d="M12 9v12"></path>
-                                        <path d="M3 9h18"></path>
-                                        <path
-                                            d="M12 9V6a2.5 2.5 0 0 0-5 0c0 1.66 1.34 3 3 3h2"
-                                        ></path>
-                                        <path
-                                            d="M12 9V6a2.5 2.5 0 1 1 5 0c0 1.66-1.34 3-3 3h-2"
-                                        ></path>
-                                    </svg>
+                            <a href="1_에쁠킬라_Gift.html" data-tooltip="이 플레이리스트 선물하기" class="action-btn"
+                                aria-label="이 플레이리스트 선물하기">
+                                <!-- gift icon -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round" width="24" height="24"
+                                    aria-hidden="true">
+                                    <rect x="3" y="9" width="18" height="12" rx="2"></rect>
+                                    <path d="M12 9v12"></path>
+                                    <path d="M3 9h18"></path>
+                                    <path d="M12 9V6a2.5 2.5 0 0 0-5 0c0 1.66 1.34 3 3 3h2"></path>
+                                    <path d="M12 9V6a2.5 2.5 0 1 1 5 0c0 1.66-1.34 3-3 3h-2"></path>
+                                </svg>
                                 </button>
                                 <!-- 타임캡슐(캡슐) 버튼 -->
-                                <a href="1_에쁠킬라_TimeCapsule.html"
-                                    ><button
-                                        class="action-btn time"
-                                        aria-label="이 플레이리스트로 타임캡슐 만들기"
-                                        data-tooltip="이 플레이리스트로 타임캡슐 만들기"
-                                    >
-                                        <svg
-                                            viewBox="0 0 24 24"
-                                            width="24"
-                                            height="24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            aria-hidden="true"
-                                        >
+                                <a href="1_에쁠킬라_TimeCapsule.html"><button class="action-btn time"
+                                        aria-label="이 플레이리스트로 타임캡슐 만들기" data-tooltip="이 플레이리스트로 타임캡슐 만들기">
+                                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
+                                            stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                            stroke-linejoin="round" aria-hidden="true">
                                             <path d="M6 3h12M6 21h12" />
-                                            <path
-                                                d="M8 3c0 4 8 5 8 9s-8 5-8 9"
-                                            />
-                                            <path
-                                                d="M16 3c0 4-8 5-8 9s8 5 8 9"
-                                            />
+                                            <path d="M8 3c0 4 8 5 8 9s-8 5-8 9" />
+                                            <path d="M16 3c0 4-8 5-8 9s8 5 8 9" />
                                             <path d="M9.5 7.5c1 .8 4 .8 5 0" />
                                             <path d="M9.5 16.5c1 .8 4 .8 5 0" />
                                             <path d="M12 11v2" />
-                                        </svg></button
-                                ></a>
+                                        </svg></button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track List -->
+                <div class="track-list-container right">
+                    <div class="track-item">
+                        <div style="position: relative; text-align: center">
+                            <span class="track-number">1</span>
+                            <button class="track-play-btn play-toggle">
+                                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="track-info">
+                            <img src="src\img\1_smart.png" alt="Track" class="track-thumbnail" />
+                            <div class="track-details">
+                                <h4>Smart</h4>
+                                <p>LE SSERAFIM</p>
+                            </div>
+                        </div>
+                        <div class="track-right">
+                            <div class="track-duration">2:46</div>
+                            <div class="more">
+                                <img alt="더보기" width="20" height="8"
+                                    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
                             </div>
                         </div>
                     </div>
 
-                    <!-- Track List -->
-                    <div class="track-list-container right">
-                        <div class="track-item">
-                            <div style="position: relative; text-align: center">
-                                <span class="track-number">1</span>
-                                <button class="track-play-btn play-toggle">
-                                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="track-info">
-                                <img
-                                    src="src\img\1_smart.png"
-                                    alt="Track"
-                                    class="track-thumbnail"
-                                />
-                                <div class="track-details">
-                                    <h4>Smart</h4>
-                                    <p>LE SSERAFIM</p>
-                                </div>
-                            </div>
-                            <div class="track-right">
-                                <div class="track-duration">2:46</div>
-                                <div class="more">
-                                    <img
-                                        alt="더보기"
-                                        width="20"
-                                        height="8"
-                                        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>"
-                                    />
-                                </div>
+                    <div class="track-item">
+                        <div style="position: relative; text-align: center">
+                            <span class="track-number">2</span>
+                            <button class="track-play-btn play-toggle">
+                                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="track-info">
+                            <img src="src\img\1_siren.png" alt="Track" class="track-thumbnail" />
+                            <div class="track-details">
+                                <h4>Siren</h4>
+                                <p>RIIZE</p>
                             </div>
                         </div>
 
-                        <div class="track-item">
-                            <div style="position: relative; text-align: center">
-                                <span class="track-number">2</span>
-                                <button class="track-play-btn play-toggle">
-                                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="track-info">
-                                <img
-                                    src="src\img\1_siren.png"
-                                    alt="Track"
-                                    class="track-thumbnail"
-                                />
-                                <div class="track-details">
-                                    <h4>Siren</h4>
-                                    <p>RIIZE</p>
-                                </div>
-                            </div>
-
-                            <div class="track-right">
-                                <div class="track-duration">2:28</div>
-                                <div class="more">
-                                    <img
-                                        alt="더보기"
-                                        width="20"
-                                        height="8"
-                                        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>"
-                                    />
-                                </div>
+                        <div class="track-right">
+                            <div class="track-duration">2:28</div>
+                            <div class="more">
+                                <img alt="더보기" width="20" height="8"
+                                    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
                             </div>
                         </div>
-
-                        <div class="track-item">
-                            <div style="position: relative; text-align: center">
-                                <span class="track-number">3</span>
-                                <button class="track-play-btn play-toggle">
-                                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="track-info">
-                                <img
-                                    src="src\img\1_GETUP.jpg"
-                                    alt="Track"
-                                    class="track-thumbnail"
-                                />
-                                <div class="track-details">
-                                    <h4>ETA</h4>
-                                    <p>NewJeans</p>
-                                </div>
-                            </div>
-                            <div class="track-right">
-                                <div class="track-duration">2:31</div>
-                                <div class="more">
-                                    <img
-                                        alt="더보기"
-                                        width="20"
-                                        height="8"
-                                        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="track-item">
-                            <div style="position: relative; text-align: center">
-                                <span class="track-number">4</span>
-                                <button class="track-play-btn play-toggle">
-                                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="track-info">
-                                <img
-                                    src="src\img\1_howsweet.png"
-                                    alt="Track"
-                                    class="track-thumbnail"
-                                />
-                                <div class="track-details">
-                                    <h4>How Sweet</h4>
-                                    <p>NewJeans</p>
-                                </div>
-                            </div>
-
-                            <div class="track-right">
-                                <div class="track-duration">3:38</div>
-                                <div class="more">
-                                    <img
-                                        alt="더보기"
-                                        width="20"
-                                        height="8"
-                                        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="track-item">
-                            <div style="position: relative; text-align: center">
-                                <span class="track-number">5</span>
-                                <button class="track-play-btn play-toggle">
-                                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="track-info">
-                                <img
-                                    src="src\img\1_supernova.png"
-                                    alt="Track"
-                                    class="track-thumbnail"
-                                />
-                                <div class="track-details">
-                                    <h4>Supernova</h4>
-                                    <p>aespa</p>
-                                </div>
-                            </div>
-
-                            <div class="track-right">
-                                <div class="track-duration">2:59</div>
-                                <div class="more">
-                                    <img
-                                        alt="더보기"
-                                        width="20"
-                                        height="8"
-                                        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="track-item">
-                            <div style="position: relative; text-align: center">
-                                <span class="track-number">6</span>
-                                <button class="track-play-btn play-toggle">
-                                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="track-info">
-                                <img
-                                    src="src\img\1_lovewinsall.png"
-                                    alt="Track"
-                                    class="track-thumbnail"
-                                />
-                                <div class="track-details">
-                                    <h4>Love wins all</h4>
-                                    <p>IU</p>
-                                </div>
-                            </div>
-
-                            <div class="track-right">
-                                <div class="track-duration">4:31</div>
-                                <div class="more">
-                                    <img
-                                        alt="더보기"
-                                        width="20"
-                                        height="8"
-                                        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="track-add" id = openAddPopup>
-                            <img
-                                alt="추가"
-                                width="22"
-                                height="22"
-                                src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M12 5v14M5 12h14' stroke='%23b3b3b3' stroke-width='2' stroke-linecap='round'/></svg>"
-                            />추가
-                        </div>
-                        
                     </div>
 
+                    <div class="track-item">
+                        <div style="position: relative; text-align: center">
+                            <span class="track-number">3</span>
+                            <button class="track-play-btn play-toggle">
+                                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="track-info">
+                            <img src="src\img\1_GETUP.jpg" alt="Track" class="track-thumbnail" />
+                            <div class="track-details">
+                                <h4>ETA</h4>
+                                <p>NewJeans</p>
+                            </div>
+                        </div>
+                        <div class="track-right">
+                            <div class="track-duration">2:31</div>
+                            <div class="more">
+                                <img alt="더보기" width="20" height="8"
+                                    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <div style="position: relative; text-align: center">
+                            <span class="track-number">4</span>
+                            <button class="track-play-btn play-toggle">
+                                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="track-info">
+                            <img src="src\img\1_howsweet.png" alt="Track" class="track-thumbnail" />
+                            <div class="track-details">
+                                <h4>How Sweet</h4>
+                                <p>NewJeans</p>
+                            </div>
+                        </div>
+
+                        <div class="track-right">
+                            <div class="track-duration">3:38</div>
+                            <div class="more">
+                                <img alt="더보기" width="20" height="8"
+                                    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <div style="position: relative; text-align: center">
+                            <span class="track-number">5</span>
+                            <button class="track-play-btn play-toggle">
+                                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="track-info">
+                            <img src="src\img\1_supernova.png" alt="Track" class="track-thumbnail" />
+                            <div class="track-details">
+                                <h4>Supernova</h4>
+                                <p>aespa</p>
+                            </div>
+                        </div>
+
+                        <div class="track-right">
+                            <div class="track-duration">2:59</div>
+                            <div class="more">
+                                <img alt="더보기" width="20" height="8"
+                                    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="track-item">
+                        <div style="position: relative; text-align: center">
+                            <span class="track-number">6</span>
+                            <button class="track-play-btn play-toggle">
+                                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="track-info">
+                            <img src="src\img\1_lovewinsall.png" alt="Track" class="track-thumbnail" />
+                            <div class="track-details">
+                                <h4>Love wins all</h4>
+                                <p>IU</p>
+                            </div>
+                        </div>
+
+                        <div class="track-right">
+                            <div class="track-duration">4:31</div>
+                            <div class="more">
+                                <img alt="더보기" width="20" height="8"
+                                    src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="track-add" id=openAddPopup>
+                        <img alt="추가" width="22" height="22"
+                            src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M12 5v14M5 12h14' stroke='%23b3b3b3' stroke-width='2' stroke-linecap='round'/></svg>" />추가
+                    </div>
 
                 </div>
-            </main>
-        </div>
 
-        <div class="player-bar">
+
+            </div>
+        </main>
+    </div>
+
+    <div class="player-bar">
         <div class="now-playing">
             <img src="src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image">
             <div class="now-playing-info">
@@ -1239,20 +1114,21 @@
             <div class="control-buttons">
                 <button class="control-btn prev-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                     </svg>
                 </button>
                 <button class="control-btn play-toggle">
                     <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z"/>
+                        <path d="M8 5v14l11-7z" />
                     </svg>
-                    <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-                        <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+                    <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+                        style="display:none;">
+                        <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
                     </svg>
                 </button>
                 <button class="control-btn next-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                     </svg>
                 </button>
             </div>
@@ -1267,7 +1143,7 @@
 
         <div class="volume-control">
             <svg class="volume-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
             </svg>
             <div class="volume-slider">
                 <div class="volume-filled"></div>
@@ -1280,466 +1156,454 @@
 
     <div class="popup-container" id="popupContainer">
         <div class="add-popup">
-                    <!-- 헤더 -->
-                    <div class="add-header">
-                        <div class="add-title">이 플레이리스트에 추가</div>
-                    </div>
+            <!-- 헤더 -->
+            <div class="add-header">
+                <div class="add-title">이 플레이리스트에 추가</div>
+            </div>
 
-                    <!-- 검색 버튼 -->
-                    <div class="search-bar">
-                        <button class="search-button" id="searchBtn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L19 20.49 20.49 19 15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                                />
-                            </svg>
-                            <span>검색하기</span>
-                        </button>
-                    </div>
+            <!-- 검색 버튼 -->
+            <div class="search-bar">
+                <button class="search-button" id="searchBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L19 20.49 20.49 19 15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                    <span>검색하기</span>
+                </button>
+            </div>
 
-                    <!-- 캐러셀 + 리스트 -->
-                    <div class="carousel-wrapper">
-                        <button class="carousel-nav" id="prevBtn">&lt;</button>
+            <!-- 캐러셀 + 리스트 -->
+            <div class="carousel-wrapper">
+                <button class="carousel-nav" id="prevBtn">&lt;</button>
 
-                        <div class="carousel-window">
-                            <div class="carousel-track" id="carouselTrack">
-                                <!-- 슬라이드 1: 추천곡 -->
-                                <section class="carousel-slide">
-                                    <div class="slide-title">추천곡</div>
-                                    <div class="song-list">
-                                        <div class="song-item">
-                                            <div
-                                                class="song-cover"
-                                                style="
+                <div class="carousel-window">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- 슬라이드 1: 추천곡 -->
+                        <section class="carousel-slide">
+                            <div class="slide-title">추천곡</div>
+                            <div class="song-list">
+                                <div class="song-item">
+                                    <div class="song-cover" style="
                                                     background: url('src/img/1_CruelSummer.jpg')
                                                         center/cover;
-                                                "
-                                            ></div>
-                                            <div class="song-info">
-                                                <div class="song-title">
-                                                    Cruel Summer
-                                                </div>
-                                                <div class="song-artist">
-                                                    Taylor Swift
-                                                </div>
-                                            </div>
-                                            <button class="add-btn">+</button>
+                                                "></div>
+                                    <div class="song-info">
+                                        <div class="song-title">
+                                            Cruel Summer
                                         </div>
+                                        <div class="song-artist">
+                                            Taylor Swift
+                                        </div>
+                                    </div>
+                                    <button class="add-btn">+</button>
+                                </div>
 
-                                        <div class="song-item">
-                                            <div
-                                                class="song-cover"
-                                                style="
+                                <div class="song-item">
+                                    <div class="song-cover" style="
                                                     background: url('src/img/1_SOS.jpg')
                                                         center/cover;
-                                                "
-                                            ></div>
-                                            <div class="song-info">
-                                                <div class="song-title">
-                                                    SOS
-                                                </div>
-                                                <div class="song-artist">
-                                                    Travis Scott
-                                                </div>
-                                            </div>
-                                            <button class="add-btn">+</button>
+                                                "></div>
+                                    <div class="song-info">
+                                        <div class="song-title">
+                                            SOS
                                         </div>
+                                        <div class="song-artist">
+                                            Travis Scott
+                                        </div>
+                                    </div>
+                                    <button class="add-btn">+</button>
+                                </div>
 
-                                        <div class="song-item">
-                                            <div
-                                                class="song-cover"
-                                                style="
+                                <div class="song-item">
+                                    <div class="song-cover" style="
                                                     background: url('src/img/1_Trip.jpg')
                                                         center/cover;
-                                                "
-                                            ></div>
-                                            <div class="song-info">
-                                                <div class="song-title">
-                                                    Trip
-                                                </div>
-                                                <div class="song-artist">
-                                                    Leellamarz (feat.Hannah)
-                                                </div>
-                                            </div>
-                                            <button class="add-btn">+</button>
+                                                "></div>
+                                    <div class="song-info">
+                                        <div class="song-title">
+                                            Trip
+                                        </div>
+                                        <div class="song-artist">
+                                            Leellamarz (feat.Hannah)
                                         </div>
                                     </div>
-                                </section>
+                                    <button class="add-btn">+</button>
+                                </div>
+                            </div>
+                        </section>
 
-                                <!-- 슬라이드 2: 최근 재생한 항목 -->
-                                <section class="carousel-slide">
-                                    <div class="slide-title">
-                                        최근 재생한 항목
-                                    </div>
-                                    <div class="song-list">
-                                        <div class="song-list">
-                                            <div class="song-item">
-                                                <div
-                                                    class="song-cover"
-                                                    style="
+                        <!-- 슬라이드 2: 최근 재생한 항목 -->
+                        <section class="carousel-slide">
+                            <div class="slide-title">
+                                최근 재생한 항목
+                            </div>
+                            <div class="song-list">
+                                <div class="song-list">
+                                    <div class="song-item">
+                                        <div class="song-cover" style="
                                                         background: url('src/img/1_DontLookBackInAnger.jpg')
                                                             center/cover;
-                                                    "
-                                                ></div>
-                                                <div class="song-info">
-                                                    <div class="song-title">
-                                                        Don't Look Back In Anger
-                                                    </div>
-                                                    <div class="song-artist">
-                                                        Oasis
-                                                    </div>
-                                                </div>
-                                                <button class="add-btn">
-                                                    +
-                                                </button>
+                                                    "></div>
+                                        <div class="song-info">
+                                            <div class="song-title">
+                                                Don't Look Back In Anger
                                             </div>
-
-                                            <div class="song-item">
-                                                <div
-                                                    class="song-cover"
-                                                    style="
-                                                        background: url('src/img/1_GETUP.jpg')
-                                                            center/cover;
-                                                    "
-                                                ></div>
-                                                <div class="song-info">
-                                                    <div class="song-title">
-                                                        Get Up
-                                                    </div>
-                                                    <div class="song-artist">
-                                                        Newjeans
-                                                    </div>
-                                                </div>
-                                                <button class="add-btn">
-                                                    +
-                                                </button>
-                                            </div>
-
-                                            <div class="song-item">
-                                                <div
-                                                    class="song-cover"
-                                                    style="
-                                                        background: url('src/img/1_LeaveBeforeYouLoveMe.jpg')
-                                                            center/cover;
-                                                    "
-                                                ></div>
-                                                <div class="song-info">
-                                                    <div class="song-title">
-                                                        Leave Before You Love Me
-                                                    </div>
-                                                    <div class="song-artist">
-                                                        Marshmello
-                                                    </div>
-                                                </div>
-                                                <button class="add-btn">
-                                                    +
-                                                </button>
-                                            </div>
-                                            <div class="song-item">
-                                                <div
-                                                    class="song-cover"
-                                                    style="
-                                                        background: url('src/img/1_Love_on_the_canvas.jpg')
-                                                            center/cover;
-                                                    "
-                                                ></div>
-                                                <div class="song-info">
-                                                    <div class="song-title">
-                                                        Love on the canvas
-                                                    </div>
-                                                    <div class="song-artist">
-                                                        Don Toliver
-                                                    </div>
-                                                </div>
-                                                <button class="add-btn">
-                                                    +
-                                                </button>
+                                            <div class="song-artist">
+                                                Oasis
                                             </div>
                                         </div>
+                                        <button class="add-btn">
+                                            +
+                                        </button>
                                     </div>
-                                </section>
+
+                                    <div class="song-item">
+                                        <div class="song-cover" style="
+                                                        background: url('src/img/1_GETUP.jpg')
+                                                            center/cover;
+                                                    "></div>
+                                        <div class="song-info">
+                                            <div class="song-title">
+                                                Get Up
+                                            </div>
+                                            <div class="song-artist">
+                                                Newjeans
+                                            </div>
+                                        </div>
+                                        <button class="add-btn">
+                                            +
+                                        </button>
+                                    </div>
+
+                                    <div class="song-item">
+                                        <div class="song-cover" style="
+                                                        background: url('src/img/1_LeaveBeforeYouLoveMe.jpg')
+                                                            center/cover;
+                                                    "></div>
+                                        <div class="song-info">
+                                            <div class="song-title">
+                                                Leave Before You Love Me
+                                            </div>
+                                            <div class="song-artist">
+                                                Marshmello
+                                            </div>
+                                        </div>
+                                        <button class="add-btn">
+                                            +
+                                        </button>
+                                    </div>
+                                    <div class="song-item">
+                                        <div class="song-cover" style="
+                                                        background: url('src/img/1_Love_on_the_canvas.jpg')
+                                                            center/cover;
+                                                    "></div>
+                                        <div class="song-info">
+                                            <div class="song-title">
+                                                Love on the canvas
+                                            </div>
+                                            <div class="song-artist">
+                                                Don Toliver
+                                            </div>
+                                        </div>
+                                        <button class="add-btn">
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <button class="carousel-nav" id="nextBtn">&gt;</button>
-                    </div>
-
-                    <!-- 페이지 인디케이터 -->
-                    <div class="carousel-dots">
-                        <button
-                            class="carousel-dot active"
-                            data-index="0"
-                        ></button>
-                        <button class="carousel-dot" data-index="1"></button>
-                    </div>
-                    <!-- 취소버튼 -->
-                    <div>
-                        <a href="1_에쁠킬라_PlaylistDetail.html"
-                            ><button
-                                class="add-close-btn"
-                                id="closeAdd"
-                                aria-label="취소"
-                            >
-                                취소
-                            </button></a
-                        >
+                        </section>
                     </div>
                 </div>
+
+                <button class="carousel-nav" id="nextBtn">&gt;</button>
+            </div>
+
+            <!-- 페이지 인디케이터 -->
+            <div class="carousel-dots">
+                <button class="carousel-dot active" data-index="0"></button>
+                <button class="carousel-dot" data-index="1"></button>
+            </div>
+            <!-- 취소버튼 -->
+            <div>
+                <a href="1_에쁠킬라_PlaylistDetail.html"><button class="add-close-btn" id="closeAdd" aria-label="취소">
+                        취소
+                    </button></a>
+            </div>
+        </div>
         <div class="toast" id="toast">플레이리스트에 추가되었습니다.</div>
 
     </div>
 
 
-        <script>
-            /* 1. 프로필 드롭다운 열기/닫기 */
-            const userProfile = document.getElementById("userProfile");
-            const profileDropdown = document.getElementById("profileDropdown");
-            const closeProfile = document.getElementById("closeProfile");
+    <script>
+        /* 1. 프로필 드롭다운 열기/닫기 */
+        const userProfile = document.getElementById("userProfile");
+        const profileDropdown = document.getElementById("profileDropdown");
+        const closeProfile = document.getElementById("closeProfile");
 
-            userProfile.addEventListener("click", (e) => {
-                e.stopPropagation();
-                profileDropdown.classList.toggle("active");
-            });
+        userProfile.addEventListener("click", (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle("active");
+        });
 
-            closeProfile.addEventListener("click", (e) => {
-                e.stopPropagation();
-                profileDropdown.classList.remove("active");
-            });
+        closeProfile.addEventListener("click", (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.remove("active");
+        });
 
-            document.addEventListener("click", () => {
-                profileDropdown.classList.remove("active");
-            });
+        document.addEventListener("click", () => {
+            profileDropdown.classList.remove("active");
+        });
 
 
-            /* 2. 로그아웃 버튼 */
+        /* 2. 로그아웃 버튼 */
 
-            function handleLogout() {
-                alert("로그아웃 되었습니다!");
-                window.location.href = "1_에쁠킬라_Login.html";
-            }
-            // 열기 버튼 (추가 버튼)
-            const openPopupBtn = document.getElementById("openAddPopup");
-            // 오버레이 + 팝업
-            const popupOverlay = document.getElementById("popupOverlay");
-            const popupContainer = document.getElementById("popupContainer");
+        function handleLogout() {
+            alert("로그아웃 되었습니다!");
+            window.location.href = "1_에쁠킬라_Login.html";
+        }
+        // 열기 버튼 (추가 버튼)
+        const openPopupBtn = document.getElementById("openAddPopup");
+        // 오버레이 + 팝업
+        const popupOverlay = document.getElementById("popupOverlay");
+        const popupContainer = document.getElementById("popupContainer");
 
-            // 팝업 열기
-            openPopupBtn.addEventListener("click", () => {
-                popupOverlay.style.display = "block";
-                popupContainer.style.display = "block";
-            });
+        // 팝업 열기
+        openPopupBtn.addEventListener("click", () => {
+            popupOverlay.style.display = "block";
+            popupContainer.style.display = "block";
+        });
 
-            // 팝업 닫기 (추가 화면 안의 취소버튼)
-            document.addEventListener("click", (e) => {
-                if (e.target.id === "closeAdd") {
-                    popupOverlay.style.display = "none";
-                    popupContainer.style.display = "none";
-                }
-            });
-
-            // 오버레이 클릭 → 닫기
-            popupOverlay.addEventListener("click", () => {
+        // 팝업 닫기 (추가 화면 안의 취소버튼)
+        document.addEventListener("click", (e) => {
+            if (e.target.id === "closeAdd") {
                 popupOverlay.style.display = "none";
                 popupContainer.style.display = "none";
+            }
+        });
+
+        // 오버레이 클릭 → 닫기
+        popupOverlay.addEventListener("click", () => {
+            popupOverlay.style.display = "none";
+            popupContainer.style.display = "none";
+        });
+
+        // 캐러셀 로직
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+        const slideCount = 2;
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentIndex * 50}%)`;
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentIndex);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        });
+
+        dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                currentIndex = Number(dot.dataset.index);
+                updateCarousel();
+            });
+        });
+
+        // 토스트 메시지
+        document.querySelectorAll('.add-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                alert('플레이리스트에 추가되었습니다.');
+            });
+        });
+
+        // 닫기 버튼 (원하는 페이지로 이동)
+        document
+            .getElementById('closeAdd')
+            .addEventListener('click', () => {
+                // 필요에 따라 이동 경로 수정
+                window.location.href = '1_에쁠킬라_PlaylistDetail.html';
             });
 
-            // 캐러셀 로직
-            const track = document.getElementById('carouselTrack');
-            const dots = document.querySelectorAll('.carousel-dot');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            let currentIndex = 0;
-            const slideCount = 2;
+        // 검색 버튼 (현재는 알림만)
+        document
+            .getElementById('searchBtn')
+            .addEventListener('click', () => {
+                alert('검색 기능은 추후 구현 예정입니다 :)');
+            });
 
-            function updateCarousel() {
-                track.style.transform = `translateX(-${currentIndex * 50}%)`;
-                dots.forEach((dot, idx) => {
-                    dot.classList.toggle('active', idx === currentIndex);
-                });
+
+        // 좋아요 하트 클릭 애니메이션
+        const heartBtn = document.querySelector(".heart-btn");
+
+        heartBtn.addEventListener("click", () => {
+            heartBtn.classList.toggle("liked");
+        });
+
+
+        // 재생/일시정지 토글 기능 (모든 재생 버튼 공통) 
+        document.querySelectorAll(".play-toggle").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const playIcon = btn.querySelector(".icon-play");
+                const pauseIcon = btn.querySelector(".icon-pause");
+
+                const isPlaying = pauseIcon.style.display === "block";
+
+                if (isPlaying) {
+                    pauseIcon.style.display = "none";
+                    playIcon.style.display = "block";
+                } else {
+                    pauseIcon.style.display = "block";
+                    playIcon.style.display = "none";
+                }
+            });
+        });
+
+
+        //  트랙 정보 수집 (track-add 제외)
+        const trackItems = document.querySelectorAll(".track-item");
+        let tracks = [];
+
+        // track-item 중에서 실제 곡만 수집
+        trackItems.forEach((item, index) => {
+            const thumbnail = item.querySelector(".track-thumbnail");
+            if (!thumbnail) return; // 추가 버튼(track-add)은 건너뜀
+
+            tracks.push({
+                img: thumbnail.src,
+                title: item.querySelector(".track-details h4").innerText,
+                artist: item.querySelector(".track-details p").innerText
+            });
+        });
+
+        // 하단 플레이어 요소
+        const nowImg = document.querySelector(".now-playing-image");
+        const nowTitle = document.querySelector(".now-playing-title");
+        const nowArtist = document.querySelector(".now-playing-artist");
+
+
+        let musicIndex = 0;
+
+
+        // 플레이어 업데이트 함수
+
+        function updatePlayerBar() {
+            const t = tracks[musicIndex];
+            nowImg.src = t.img;
+            nowTitle.innerText = t.title;
+            nowArtist.innerText = t.artist;
+
+            /*  모든 트랙 재생버튼 ▶로 초기화 */
+            document.querySelectorAll(".track-play-btn").forEach((b) => {
+                b.querySelector(".icon-play").style.display = "block";
+                b.querySelector(".icon-pause").style.display = "none";
+            });
+
+
+            /* 현재 재생 곡 버튼만 || 표시 */
+            const currentBtn = document.querySelectorAll(".track-play-btn")[musicIndex];
+            if (currentBtn) {
+                currentBtn.querySelector(".icon-play").style.display = "none";
+                currentBtn.querySelector(".icon-pause").style.display = "block";
             }
 
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
-                updateCarousel();
+            /* 하단 중앙 버튼도 || 표시 */
+            const centerPlayBtn = document.querySelector(".player-controls .play-toggle");
+            const centerPlayIcon = centerPlayBtn.querySelector(".icon-play");
+            const centerPauseIcon = centerPlayBtn.querySelector(".icon-pause");
+            centerPlayIcon.style.display = "none";
+            centerPauseIcon.style.display = "block";
+        }
+
+
+
+
+        // 개별 트랙 재생 버튼
+        document.querySelectorAll(".track-play-btn").forEach((btn, i) => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                musicIndex = i;
+                updatePlayerBar();
             });
+        });
 
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % slideCount;
-                updateCarousel();
-            });
+        // 플레이리스트 메인 재생 버튼 → Smart(1번 곡) 재생과 동일하게
+        const mainPlayBtn = document.querySelector(".playlist-header .play-main-btn");
 
-            dots.forEach((dot) => {
-                dot.addEventListener('click', () => {
-                    currentIndex = Number(dot.dataset.index);
-                    updateCarousel();
-                });
-            });
+        if (mainPlayBtn) {
+            mainPlayBtn.addEventListener("click", () => {
 
-            // 토스트 메시지
-            document.querySelectorAll('.add-btn').forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    alert('플레이리스트에 추가되었습니다.');
-                });
-            });
+                // Smart(0번 곡) 재생
+                musicIndex = 0;
 
-            // 닫기 버튼 (원하는 페이지로 이동)
-            document
-                .getElementById('closeAdd')
-                .addEventListener('click', () => {
-                    // 필요에 따라 이동 경로 수정
-                    window.location.href = '1_에쁠킬라_PlaylistDetail.html';
-                });
-
-            // 검색 버튼 (현재는 알림만)
-            document
-                .getElementById('searchBtn')
-                .addEventListener('click', () => {
-                    alert('검색 기능은 추후 구현 예정입니다 :)');
-                });
-
-
-            // 좋아요 하트 클릭 애니메이션
-            const heartBtn = document.querySelector(".heart-btn");
-
-            heartBtn.addEventListener("click", () => {
-                heartBtn.classList.toggle("liked");
-            });
-            
-
-            // 재생/일시정지 토글 기능 (모든 재생 버튼 공통) 
-                document.querySelectorAll(".play-toggle").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                        const playIcon = btn.querySelector(".icon-play");
-                        const pauseIcon = btn.querySelector(".icon-pause");
-
-                        const isPlaying = pauseIcon.style.display === "block";
-
-                        if (isPlaying) {
-                            pauseIcon.style.display = "none";
-                            playIcon.style.display = "block";
-                        } else {
-                            pauseIcon.style.display = "block";
-                            playIcon.style.display = "none";
-                        }
-                    });
-                });
-
-
-            //  트랙 정보 수집 (track-add 제외)
-            const trackItems = document.querySelectorAll(".track-item");
-            let tracks = [];
-
-            // track-item 중에서 실제 곡만 수집
-            trackItems.forEach((item, index) => {
-                const thumbnail = item.querySelector(".track-thumbnail");
-                if (!thumbnail) return; // 추가 버튼(track-add)은 건너뜀
-
-                tracks.push({
-                    img: thumbnail.src,
-                    title: item.querySelector(".track-details h4").innerText,
-                    artist: item.querySelector(".track-details p").innerText
-                });
-            });
-
-            // 하단 플레이어 요소
-            const nowImg = document.querySelector(".now-playing-image");
-            const nowTitle = document.querySelector(".now-playing-title");
-            const nowArtist = document.querySelector(".now-playing-artist");
-
-
-            let musicIndex = 0;
-
-
-            // 플레이어 업데이트 함수
-
-            function updatePlayerBar() {
-                const t = tracks[musicIndex];
+                // Smart 트랙 정보 불러오기
+                const t = tracks[0];
                 nowImg.src = t.img;
                 nowTitle.innerText = t.title;
                 nowArtist.innerText = t.artist;
 
-                /*  모든 트랙 재생버튼 ▶로 초기화 */
+                // 모든 트랙 버튼 ▶로 초기화
                 document.querySelectorAll(".track-play-btn").forEach((b) => {
                     b.querySelector(".icon-play").style.display = "block";
                     b.querySelector(".icon-pause").style.display = "none";
                 });
 
+                // Smart(1번 곡)만 || 표시
+                const smartBtn = document.querySelectorAll(".track-play-btn")[0];
+                smartBtn.querySelector(".icon-play").style.display = "none";
+                smartBtn.querySelector(".icon-pause").style.display = "block";
 
-                /* 현재 재생 곡 버튼만 || 표시 */
-                const currentBtn = document.querySelectorAll(".track-play-btn")[musicIndex];
-                if (currentBtn) {
-                    currentBtn.querySelector(".icon-play").style.display = "none";
-                    currentBtn.querySelector(".icon-pause").style.display = "block";
+                // 메인 버튼도 || 표시
+                mainPlayBtn.querySelector(".icon-play").style.display = "none";
+                mainPlayBtn.querySelector(".icon-pause").style.display = "block";
+
+                // 하단 재생바 중앙 버튼도 || 표시
+                const centerBtn = document.querySelector(".player-controls .play-toggle");
+                centerBtn.querySelector(".icon-play").style.display = "none";
+                centerBtn.querySelector(".icon-pause").style.display = "block";
+            });
+        }
+
+        document.querySelector(".next-btn").addEventListener("click", () => {
+            musicIndex = (musicIndex + 1) % tracks.length;
+            updatePlayerBar();
+        });
+
+        document.querySelector(".prev-btn").addEventListener("click", () => {
+            musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
+            updatePlayerBar();
+        });
+
+        // 로그인 체크 + 사용자 이름 표시
+        (function checkLogin() {
+            const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+            if (!loggedInUser) {
+                // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
+                alert('로그인이 필요한 서비스입니다.');
+                window.location.href = '1_에쁠킬라_Login.html';
+            } else {
+
+                const user = JSON.parse(loggedInUser);
+
+                // 프로필 드롭다운의 닉네임 표시
+                const profileNickname = document.querySelector('.profile-nickname');
+                if (profileNickname) {
+                    profileNickname.textContent = user.name + '님';
                 }
-
-                /* 하단 중앙 버튼도 || 표시 */
-                const centerPlayBtn = document.querySelector(".player-controls .play-toggle");
-                const centerPlayIcon = centerPlayBtn.querySelector(".icon-play");
-                const centerPauseIcon = centerPlayBtn.querySelector(".icon-pause");
-                centerPlayIcon.style.display = "none";
-                centerPauseIcon.style.display = "block";
             }
+        })();
+    </script>
+</body>
 
-
-
-
-            // 개별 트랙 재생 버튼
-            document.querySelectorAll(".track-play-btn").forEach((btn, i) => {
-                btn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    musicIndex = i;
-                    updatePlayerBar();
-                });
-            });
-
-            // 플레이리스트 메인 재생 버튼 → Smart(1번 곡) 재생과 동일하게
-            const mainPlayBtn = document.querySelector(".playlist-header .play-main-btn");
-
-            if (mainPlayBtn) {
-                mainPlayBtn.addEventListener("click", () => {
-
-                    // Smart(0번 곡) 재생
-                    musicIndex = 0;
-
-                    // Smart 트랙 정보 불러오기
-                    const t = tracks[0];
-                    nowImg.src = t.img;
-                    nowTitle.innerText = t.title;
-                    nowArtist.innerText = t.artist;
-
-                    // 모든 트랙 버튼 ▶로 초기화
-                    document.querySelectorAll(".track-play-btn").forEach((b) => {
-                        b.querySelector(".icon-play").style.display = "block";
-                        b.querySelector(".icon-pause").style.display = "none";
-                    });
-
-                    // Smart(1번 곡)만 || 표시
-                    const smartBtn = document.querySelectorAll(".track-play-btn")[0];
-                    smartBtn.querySelector(".icon-play").style.display = "none";
-                    smartBtn.querySelector(".icon-pause").style.display = "block";
-
-                    // 메인 버튼도 || 표시
-                    mainPlayBtn.querySelector(".icon-play").style.display = "none";
-                    mainPlayBtn.querySelector(".icon-pause").style.display = "block";
-
-                    // 하단 재생바 중앙 버튼도 || 표시
-                    const centerBtn = document.querySelector(".player-controls .play-toggle");
-                    centerBtn.querySelector(".icon-play").style.display = "none";
-                    centerBtn.querySelector(".icon-pause").style.display = "block";
-                });
-            }
-
-            document.querySelector(".next-btn").addEventListener("click", () => {
-                musicIndex = (musicIndex + 1) % tracks.length;
-                updatePlayerBar();
-            });
-
-            document.querySelector(".prev-btn").addEventListener("click", () => {
-                musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
-                updatePlayerBar();
-            });
-
-            
-        </script>
-    </body>
 </html>
