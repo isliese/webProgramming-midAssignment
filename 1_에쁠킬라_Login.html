@@ -321,6 +321,8 @@
           loginTime: new Date().toISOString()
         }));
 
+        sessionStorage.setItem('isLoggedIn', 'true');
+
         alert(`환영합니다, ${user.name}님!`);
         window.location.href = '1_에쁠킬라_Home.html';
       } else {
