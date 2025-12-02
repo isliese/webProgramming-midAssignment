@@ -446,6 +446,7 @@
             align-items: center;
             padding: 21px 18px 8px 18px;
             border-bottom: 1px solid #2a2a2a;
+            position: relative;
         }
 
         .add-title {
@@ -454,6 +455,30 @@
             font-size: 22px;
             font-weight: 600;
             color: #ffffff;
+        }
+
+        .popup-close-btn {
+            position: absolute;
+            right: 0;
+            top: 21px;
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .popup-close-btn:hover {
+            color: #ffffff;
+        }
+
+        .popup-close-btn svg {
+            width: 20px;
+            height: 20px;
         }
 
         /* 검색 영역 */
@@ -939,6 +964,7 @@
                         </div>
                         <div class="track-right">
                             <div class="track-duration">2:46</div>
+                            
                             <div class="more">
                                 <img alt="더보기" width="20" height="8"
                                     src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
@@ -1159,6 +1185,11 @@
             <!-- 헤더 -->
             <div class="add-header">
                 <div class="add-title">이 플레이리스트에 추가</div>
+                <button class="popup-close-btn" id="popupCloseBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
             </div>
 
             <!-- 검색 버튼 -->
@@ -1367,11 +1398,19 @@
         // 오버레이 + 팝업
         const popupOverlay = document.getElementById("popupOverlay");
         const popupContainer = document.getElementById("popupContainer");
+        // 팝업 닫기 버튼 (X 버튼)
+        const popupCloseBtn = document.getElementById("popupCloseBtn");
 
         // 팝업 열기
         openPopupBtn.addEventListener("click", () => {
             popupOverlay.style.display = "block";
             popupContainer.style.display = "block";
+        });
+
+        // 팝업 닫기 - X 버튼
+        popupCloseBtn.addEventListener("click", () => {
+            popupOverlay.style.display = "none";
+            popupContainer.style.display = "none";
         });
 
         // 팝업 닫기 (추가 화면 안의 취소버튼)
@@ -1451,20 +1490,75 @@
         });
 
 
-        // 재생/일시정지 토글 기능 (모든 재생 버튼 공통) 
-        document.querySelectorAll(".play-toggle").forEach(btn => {
-            btn.addEventListener("click", () => {
+        // 재생 상태 및 타이머 관리
+        let isPlaying = false;
+        let playTimer = null;
+        let currentTime = 0; // 초 단위
+        const totalTime = 210; // 3분 30초 = 210초 (임시값)
+
+        // 시간을 MM:SS 형식으로 변환
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // 프로그레스 바 및 시간 업데이트
+        function updateProgress() {
+            const progressBar = document.querySelector(".progress-filled");
+            const currentTimeEl = document.querySelector(".current-time");
+            
+            const percentage = (currentTime / totalTime) * 100;
+            progressBar.style.width = `${percentage}%`;
+            currentTimeEl.textContent = formatTime(currentTime);
+        }
+
+        // 재생 시작
+        function startPlayback() {
+            isPlaying = true;
+            playTimer = setInterval(() => {
+                currentTime++;
+                if (currentTime >= totalTime) {
+                    currentTime = 0; // 곡 끝나면 처음으로
+                }
+                updateProgress();
+            }, 1000);
+        }
+
+        // 재생 정지
+        function pausePlayback() {
+            isPlaying = false;
+            if (playTimer) {
+                clearInterval(playTimer);
+                playTimer = null;
+            }
+        }
+
+        // 모든 버튼의 아이콘 업데이트
+        function updateAllPlayIcons(playing) {
+            document.querySelectorAll(".play-toggle").forEach(btn => {
                 const playIcon = btn.querySelector(".icon-play");
                 const pauseIcon = btn.querySelector(".icon-pause");
-
-                const isPlaying = pauseIcon.style.display === "block";
-
-                if (isPlaying) {
-                    pauseIcon.style.display = "none";
-                    playIcon.style.display = "block";
-                } else {
-                    pauseIcon.style.display = "block";
+                
+                if (playing) {
                     playIcon.style.display = "none";
+                    pauseIcon.style.display = "block";
+                } else {
+                    playIcon.style.display = "block";
+                    pauseIcon.style.display = "none";
+                }
+            });
+        }
+
+        // 재생/일시정지 토글 기능 (메인 버튼 제외한 모든 재생 버튼) 
+        document.querySelectorAll(".play-toggle:not(.play-main-btn)").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (isPlaying) {
+                    pausePlayback();
+                    updateAllPlayIcons(false);
+                } else {
+                    startPlayback();
+                    updateAllPlayIcons(true);
                 }
             });
         });
@@ -1503,26 +1597,16 @@
             nowTitle.innerText = t.title;
             nowArtist.innerText = t.artist;
 
-            /*  모든 트랙 재생버튼 ▶로 초기화 */
-            document.querySelectorAll(".track-play-btn").forEach((b) => {
-                b.querySelector(".icon-play").style.display = "block";
-                b.querySelector(".icon-pause").style.display = "none";
-            });
+            // 곡 변경 시 시간 초기화
+            currentTime = 0;
+            updateProgress();
 
-
-            /* 현재 재생 곡 버튼만 || 표시 */
-            const currentBtn = document.querySelectorAll(".track-play-btn")[musicIndex];
-            if (currentBtn) {
-                currentBtn.querySelector(".icon-play").style.display = "none";
-                currentBtn.querySelector(".icon-pause").style.display = "block";
+            // 재생 중이었다면 계속 재생
+            if (isPlaying) {
+                updateAllPlayIcons(true);
+            } else {
+                updateAllPlayIcons(false);
             }
-
-            /* 하단 중앙 버튼도 || 표시 */
-            const centerPlayBtn = document.querySelector(".player-controls .play-toggle");
-            const centerPlayIcon = centerPlayBtn.querySelector(".icon-play");
-            const centerPauseIcon = centerPlayBtn.querySelector(".icon-pause");
-            centerPlayIcon.style.display = "none";
-            centerPauseIcon.style.display = "block";
         }
 
 
@@ -1532,56 +1616,73 @@
         document.querySelectorAll(".track-play-btn").forEach((btn, i) => {
             btn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                musicIndex = i;
-                updatePlayerBar();
+                
+                // 같은 곡 클릭 시 재생/일시정지 토글
+                if (musicIndex === i) {
+                    if (isPlaying) {
+                        pausePlayback();
+                        updateAllPlayIcons(false);
+                    } else {
+                        startPlayback();
+                        updateAllPlayIcons(true);
+                    }
+                } else {
+                    // 다른 곡 클릭 시 곡 변경 및 재생
+                    musicIndex = i;
+                    updatePlayerBar();
+                    if (!isPlaying) {
+                        startPlayback();
+                        updateAllPlayIcons(true);
+                    }
+                }
             });
         });
 
-        // 플레이리스트 메인 재생 버튼 → Smart(1번 곡) 재생과 동일하게
+        // 플레이리스트 메인 재생 버튼
         const mainPlayBtn = document.querySelector(".playlist-header .play-main-btn");
 
         if (mainPlayBtn) {
-            mainPlayBtn.addEventListener("click", () => {
-
-                // Smart(0번 곡) 재생
-                musicIndex = 0;
-
-                // Smart 트랙 정보 불러오기
-                const t = tracks[0];
-                nowImg.src = t.img;
-                nowTitle.innerText = t.title;
-                nowArtist.innerText = t.artist;
-
-                // 모든 트랙 버튼 ▶로 초기화
-                document.querySelectorAll(".track-play-btn").forEach((b) => {
-                    b.querySelector(".icon-play").style.display = "block";
-                    b.querySelector(".icon-pause").style.display = "none";
-                });
-
-                // Smart(1번 곡)만 || 표시
-                const smartBtn = document.querySelectorAll(".track-play-btn")[0];
-                smartBtn.querySelector(".icon-play").style.display = "none";
-                smartBtn.querySelector(".icon-pause").style.display = "block";
-
-                // 메인 버튼도 || 표시
-                mainPlayBtn.querySelector(".icon-play").style.display = "none";
-                mainPlayBtn.querySelector(".icon-pause").style.display = "block";
-
-                // 하단 재생바 중앙 버튼도 || 표시
-                const centerBtn = document.querySelector(".player-controls .play-toggle");
-                centerBtn.querySelector(".icon-play").style.display = "none";
-                centerBtn.querySelector(".icon-pause").style.display = "block";
+            mainPlayBtn.addEventListener("click", (e) => {
+                e.stopPropagation(); // 이벤트 버블링 방지
+                
+                // 재생 중이면 일시정지
+                if (isPlaying) {
+                    pausePlayback();
+                    updateAllPlayIcons(false);
+                } else {
+                    // 일시정지 상태면 재생 시작
+                    // 현재 곡이 없으면 첫 번째 곡으로 설정
+                    if (tracks.length > 0 && musicIndex === 0) {
+                        const t = tracks[0];
+                        nowImg.src = t.img;
+                        nowTitle.innerText = t.title;
+                        nowArtist.innerText = t.artist;
+                    }
+                    
+                    startPlayback();
+                    updateAllPlayIcons(true);
+                }
             });
         }
 
         document.querySelector(".next-btn").addEventListener("click", () => {
             musicIndex = (musicIndex + 1) % tracks.length;
             updatePlayerBar();
+            // 재생 중이었으면 계속 재생
+            if (isPlaying) {
+                currentTime = 0;
+                updateProgress();
+            }
         });
 
         document.querySelector(".prev-btn").addEventListener("click", () => {
             musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
             updatePlayerBar();
+            // 재생 중이었으면 계속 재생
+            if (isPlaying) {
+                currentTime = 0;
+                updateProgress();
+            }
         });
 
         // 로그인 체크 + 사용자 이름 표시
@@ -1603,6 +1704,110 @@
                 }
             }
         })();
+        const trackListContainer = document.querySelector(".track-list-container.right");
+
+        function updateTrackNumbers() {
+            const trackItems = trackListContainer.querySelectorAll(".track-item");
+            trackItems.forEach((item, idx) => {
+                const numSpan = item.querySelector(".track-number");
+                if (numSpan) numSpan.innerText = idx + 1;
+            });
+        }
+
+        document.querySelectorAll(".add-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+
+                const item = btn.closest(".song-item");
+
+                // 앨범 이미지 URL 추출
+                const cover = item.querySelector(".song-cover").style.backgroundImage;
+                const coverUrl = cover.replace('url("', '').replace('")', '');
+
+                const title = item.querySelector(".song-title").innerText;
+                const artist = item.querySelector(".song-artist").innerText;
+
+                // ----- 새로운 track-item 생성 -----
+                const newTrack = document.createElement("div");
+                newTrack.classList.add("track-item");
+
+                newTrack.innerHTML = `
+                    <div style="position: relative; text-align: center">
+                        <span class="track-number"></span>
+                        <button class="track-play-btn play-toggle">
+                            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                                <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="track-info">
+                        <img src="${coverUrl}" alt="Track" class="track-thumbnail" />
+                        <div class="track-details">
+                            <h4>${title}</h4>
+                            <p>${artist}</p>
+                        </div>
+                    </div>
+
+                    <div class="track-right">
+                        <div class="track-duration">3:00</div>
+                        <div class="more">
+                            <img alt="더보기" width="20" height="8"
+                                src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='14' viewBox='0 0 60 14'><circle cx='7' cy='7' r='5' fill='%23b3b3b3'/><circle cx='30' cy='7' r='5' fill='%23b3b3b3'/><circle cx='53' cy='7' r='5' fill='%23b3b3b3'/></svg>" />
+                        </div>
+                    </div>
+                `;
+
+                // ----- track-add 앞에 넣기 -----
+                const addButton = document.getElementById("openAddPopup").closest(".track-add");
+                trackListContainer.insertBefore(newTrack, addButton);
+
+                // 번호 다시 매기기
+                updateTrackNumbers();
+
+                // ----- tracks 배열에 추가 -----
+                tracks.push({
+                    img: coverUrl,
+                    title: title,
+                    artist: artist
+                });
+
+                const newIndex = tracks.length - 1;
+
+                // 재생 버튼 기능 연결
+                const playBtn = newTrack.querySelector(".track-play-btn");
+                playBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    
+                    // 같은 곡 클릭 시 재생/일시정지 토글
+                    if (musicIndex === newIndex) {
+                        if (isPlaying) {
+                            pausePlayback();
+                            updateAllPlayIcons(false);
+                        } else {
+                            startPlayback();
+                            updateAllPlayIcons(true);
+                        }
+                    } else {
+                        // 다른 곡 클릭 시 곡 변경 및 재생
+                        musicIndex = newIndex;
+                        updatePlayerBar();
+                        if (!isPlaying) {
+                            startPlayback();
+                            updateAllPlayIcons(true);
+                        }
+                    }
+                });
+
+                // 토스트 메시지
+                const toast = document.getElementById("toast");
+                toast.innerText = "플레이리스트에 추가되었습니다.";
+                toast.classList.add("show");
+                setTimeout(() => toast.classList.remove("show"), 1500);
+            });
+        });
     </script>
 </body>
 
