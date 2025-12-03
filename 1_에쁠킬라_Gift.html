@@ -373,53 +373,42 @@
                     src="src/img/1_DontLookBackInAnger.jpg"
                     alt="Now Playing"
                     class="now-playing-image"
+                    id="nowPlayingImg"
                 />
                 <div class="now-playing-info">
-                    <h4>Don't Look Back in Anger</h4>
-                    <p>Oasis</p>
+                    <h4 id="nowPlayingTitle">Don't Look Back in Anger</h4>
+                    <p id="nowPlayingArtist">Oasis</p>
                 </div>
             </div>
 
             <div class="player-controls">
                 <div class="control-buttons">
-                    <button class="control-btn">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
+                    <button class="control-btn" id="prevBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                         </svg>
                     </button>
-                    <button class="control-btn play">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-                            <path d="M8 5v14l11-7z" />
+                    <button class="control-btn play-btn" id="playBtn">
+                        <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                        <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                            <path d="M6 5h4v14H6zm8 0h4v14h-4z"></path>
                         </svg>
                     </button>
-                    <button class="control-btn">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
+                    <button class="control-btn" id="nextBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                         </svg>
                     </button>
                 </div>
 
                 <div class="progress-bar">
-                    <span class="time">2:15</span>
+                    <span class="time" id="currentTime">0:00</span>
                     <div class="progress">
-                        <div class="progress-filled"></div>
+                        <div class="progress-filled" id="progressFilled"></div>
                     </div>
-                    <span class="time">4:48</span>
+                    <span class="time" id="totalTime">3:30</span>
                 </div>
             </div>
 
@@ -440,5 +429,133 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            /* ==================== 재생바 관련 (PlayRecord와 동일) ==================== */
+            const playableTracks = [
+                { title: "Don't Look Back In Anger", artist: "Oasis", image: "src/img/1_DontLookBackInAnger.jpg" },
+                { title: "좋은 밤 좋은 꿈", artist: "SG 워너비", image: "src/img/1_좋은밤좋은꿈.jpg" },
+                { title: "에피소드", artist: "이무진", image: "src/img/1_에피소드.jpg" },
+                { title: "Trip", artist: "릴러말즈 (Feat. Hannah)", image: "src/img/1_Trip.jpg" },
+                { title: "How Sweet", artist: "NewJeans", image: "src/img/1_howsweet.png" },
+                { title: "한 페이지가 될 수 있게", artist: "Day6", image: "src/img/1_한페이지가될수있게_.jpg" },
+                { title: "Get Up", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "꿈의 버스", artist: "Day6", image: "src/img/1_꿈의버스.jpg" },
+                { title: "Please Please Please", artist: "Sabrina Carpenter", image: "src/img/1_please.png" },
+                { title: "ETA", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "사랑", artist: "최유리", image: "src/img/1_사랑.jpg" },
+                { title: "Leave Before You Love Me", artist: "Marshmello, Jonas Brothers", image: "src/img/1_LeaveBeforeYouLoveMe.jpg" },
+                { title: "Love Wins All", artist: "IU", image: "src/img/1_lovewinsall.png" },
+                { title: "Siren", artist: "RIIZE", image: "src/img/1_siren.png" },
+                { title: "Lose My Mind", artist: "Don Toliver (feat. Doja Cat)", image: "src/img/1_Lose_My_Mind.jpg" },
+                { title: "비 오는 날 듣기 좋은 노래", artist: "에픽하이 (Feat. Colde)", image: "src/img/1_비오는날에듣기좋은노래.jpg" },
+                { title: "Cool With You", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "Smart", artist: "LE SSERAFIM", image: "src/img/1_smart.png" },
+                { title: "Cruel Summer", artist: "Taylor Swift", image: "src/img/1_lover.jpg" },
+                { title: "눈사람", artist: "아티스트", image: "src/img/1_눈사람.jpg" },
+                { title: "Super Shy", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "Love on the Canvas", artist: "소희", image: "src/img/1_Love_on_the_canvas.jpg" },
+                { title: "Supernova", artist: "aespa", image: "src/img/1_supernova.png" },
+                { title: "너에게 못했던 내 마지막 말은", artist: "다비치", image: "src/img/1_너에게못했던내마지막말은.jpg" },
+                { title: "Celebrity", artist: "IU", image: "src/img/1_celebrity.png" },
+                { title: "Bubble Gum", artist: "NewJeans", image: "src/img/1_howsweet.png" },
+                { title: "NewJeans", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "Tell Us Bout Yourself", artist: "백예린", image: "src/img/1_tellusboutyourself.jpg" },
+                { title: "We Don't Talk Anymore", artist: "Charlie Puth", image: "src/img/1_we.png" },
+                { title: "Youth", artist: "다섯", image: "src/img/1_Youth.jpg" },
+                { title: "Kill Bill", artist: "SZA", image: "src/img/1_SOS.jpg" },
+                { title: "ASAP", artist: "NewJeans", image: "src/img/1_GETUP.jpg" }
+            ];
+
+            let currentIndex = 0;
+            let isPlaying = false;
+            let currentTime = 0;
+            const totalDuration = 210;
+            let playTimer = null;
+
+            const nowPlayingImg = document.getElementById('nowPlayingImg');
+            const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+            const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+            const playBtn = document.getElementById('playBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const iconPlay = document.querySelector('.icon-play');
+            const iconPause = document.querySelector('.icon-pause');
+            const progressFilled = document.getElementById('progressFilled');
+            const currentTimeSpan = document.getElementById('currentTime');
+            const totalTimeSpan = document.getElementById('totalTime');
+
+            function formatTime(seconds) {
+                const m = Math.floor(seconds / 60);
+                const s = Math.floor(seconds % 60);
+                return m + ':' + (s < 10 ? '0' : '') + s;
+            }
+
+            function updateProgress() {
+                const percent = (currentTime / totalDuration) * 100;
+                progressFilled.style.width = Math.min(percent, 100) + '%';
+                currentTimeSpan.textContent = formatTime(currentTime);
+            }
+
+            function startPlayTimer() {
+                if (playTimer) clearInterval(playTimer);
+                playTimer = setInterval(() => {
+                    if (!isPlaying) return;
+                    currentTime += 0.5;
+                    if (currentTime >= totalDuration) {
+                        currentTime = totalDuration;
+                        updateProgress();
+                        nextTrack();
+                    } else {
+                        updateProgress();
+                    }
+                }, 500);
+            }
+
+            function updateNowPlaying() {
+                const track = playableTracks[currentIndex];
+                nowPlayingImg.src = track.image;
+                nowPlayingTitle.textContent = track.title;
+                nowPlayingArtist.textContent = track.artist;
+            }
+
+            function togglePlay() {
+                isPlaying = !isPlaying;
+                if (isPlaying) {
+                    iconPlay.style.display = 'none';
+                    iconPause.style.display = 'block';
+                    startPlayTimer();
+                } else {
+                    iconPlay.style.display = 'block';
+                    iconPause.style.display = 'none';
+                    if (playTimer) {
+                        clearInterval(playTimer);
+                        playTimer = null;
+                    }
+                }
+            }
+
+            function prevTrack() {
+                currentIndex = (currentIndex - 1 + playableTracks.length) % playableTracks.length;
+                currentTime = 0;
+                updateNowPlaying();
+                updateProgress();
+            }
+
+            function nextTrack() {
+                currentIndex = (currentIndex + 1) % playableTracks.length;
+                currentTime = 0;
+                updateNowPlaying();
+                updateProgress();
+            }
+
+            playBtn.addEventListener('click', togglePlay);
+            prevBtn.addEventListener('click', prevTrack);
+            nextBtn.addEventListener('click', nextTrack);
+
+            // 초기화
+            totalTimeSpan.textContent = formatTime(totalDuration);
+            updateNowPlaying();
+        </script>
     </body>
 </html>
