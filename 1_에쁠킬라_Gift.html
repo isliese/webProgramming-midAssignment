@@ -103,6 +103,11 @@
                 background: #484848;
             }
 
+            .form-input.error,
+            .form-textarea.error {
+                border-color: #ff4444;
+            }
+
             .form-textarea {
                 resize: vertical;
                 min-height: 100px;
@@ -202,6 +207,54 @@
                 object-fit: cover;
                 box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             }
+
+            /* 경고 알림 스타일 */
+            .alert-message {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #ff4444;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+                display: none;
+                align-items: center;
+                gap: 10px;
+                z-index: 1000;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .alert-message.show {
+                display: flex;
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+
+            .alert-icon {
+                background: white;
+                color: #ff4444;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 16px;
+            }
         </style>
     </head>
 
@@ -297,6 +350,12 @@
             </nav>
 
             <main class="main-content">
+                <!-- 경고 알림 메시지 -->
+                <div class="alert-message" id="alertMessage">
+                    <span class="alert-icon">!</span>
+                    <span id="alertText">이 입력란을 작성하세요.</span>
+                </div>
+
                 <div class="gift-wrapper">
                     <!-- 왼쪽: 대표 이미지 + 플레이리스트 정보 -->
                     <div class="gift-playlist">
@@ -326,6 +385,7 @@
                                 <input
                                     type="text"
                                     class="form-input"
+                                    id="recipientInput"
                                     placeholder="아이디 또는 이메일 입력"
                                 />
                             </div>
@@ -334,6 +394,7 @@
                                 <label class="form-label">메시지</label>
                                 <textarea
                                     class="form-textarea"
+                                    id="messageInput"
                                     placeholder="마음을 담은 메시지를 적어보세요."
                                 ></textarea>
                             </div>
@@ -345,8 +406,8 @@
                                 class="btn-secondary"
                                 >취소</a
                             >
-                            <label for="popup-toggle" class="btn-primary"
-                                >보내기</label
+                            <button type="button" class="btn-primary" id="sendBtn"
+                                >보내기</button
                             >
                         </div>
                     </div>
@@ -431,6 +492,71 @@
         </div>
 
         <script>
+            /* ==================== 유효성 검사 및 보내기 기능 ==================== */
+            const sendBtn = document.getElementById('sendBtn');
+            const recipientInput = document.getElementById('recipientInput');
+            const messageInput = document.getElementById('messageInput');
+            const popupToggle = document.getElementById('popup-toggle');
+            const alertMessage = document.getElementById('alertMessage');
+            const alertText = document.getElementById('alertText');
+
+            function showAlert(message) {
+                alertText.textContent = message;
+                alertMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    alertMessage.classList.remove('show');
+                }, 3000);
+            }
+
+            function validateInputs() {
+                const recipient = recipientInput.value.trim();
+                const message = messageInput.value.trim();
+
+                // 에러 스타일 초기화
+                recipientInput.classList.remove('error');
+                messageInput.classList.remove('error');
+
+                if (!recipient && !message) {
+                    recipientInput.classList.add('error');
+                    messageInput.classList.add('error');
+                    showAlert('받는 사람과 메시지를 모두 입력하세요.');
+                    recipientInput.focus();
+                    return false;
+                }
+
+                if (!recipient) {
+                    recipientInput.classList.add('error');
+                    showAlert('받는 사람을 입력하세요.');
+                    recipientInput.focus();
+                    return false;
+                }
+
+                if (!message) {
+                    messageInput.classList.add('error');
+                    showAlert('메시지를 입력하세요.');
+                    messageInput.focus();
+                    return false;
+                }
+
+                return true;
+            }
+
+            sendBtn.addEventListener('click', function() {
+                if (validateInputs()) {
+                    popupToggle.checked = true;
+                }
+            });
+
+            // 입력 시 에러 스타일 제거
+            recipientInput.addEventListener('input', function() {
+                this.classList.remove('error');
+            });
+
+            messageInput.addEventListener('input', function() {
+                this.classList.remove('error');
+            });
+
             /* ==================== 재생바 관련 (PlayRecord와 동일) ==================== */
             const playableTracks = [
                 { title: "Don't Look Back In Anger", artist: "Oasis", image: "src/img/1_DontLookBackInAnger.jpg" },
