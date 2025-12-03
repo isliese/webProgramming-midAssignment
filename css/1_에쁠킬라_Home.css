@@ -1,0 +1,493 @@
+
+.random-phrase {
+    color:#ffaa00;
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 12px;
+    
+}
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+.main-content {
+    padding: 24px 32px 110px 32px !important;
+}
+
+/* 사용자 프로필 드롭다운 */
+.user-profile {
+    position: relative;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: #282828;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 100000;
+}
+
+.profile-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    z-index: 100000;
+}
+
+.profile-close-btn:hover {
+    color: #ffffff;
+    z-index: 100000;
+}
+
+.profile-nickname {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-right: 24px;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background: #ff9500;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: #ffaa00;
+    transform: translateY(-1px);
+}
+
+/* 음악 카드 기본 */
+.song-card {
+    background: #282828;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    min-width: 200px;
+    max-width: 200px;
+    height: 260px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.song-card:hover {
+    background: #3e3e3e;
+    transform: translateY(-4px);
+}
+
+.song-cover {
+    width: 100%;
+    height: 160px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.song-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.play-button-simple {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    background: #ff9500;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    cursor: pointer;
+}
+
+.song-card:hover .play-button-simple {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.play-button-simple svg {
+    width: 20px;
+    height: 20px;
+    fill: #000;
+}
+
+.song-info {
+    padding: 0 4px;
+}
+
+.song-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.song-artist {
+    font-size: 13px;
+    color: #b3b3b3;
+}
+
+.mood-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+/* 무드별 카드 고정 너비 */
+.card {
+    flex-shrink: 0;
+}
+
+/* 최신 앨범 카드 구조 */
+.card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-year {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.card-artist {
+    font-size: 13px;
+    color: #b3b3b3;
+}
+
+/* 섹션별 카드 크기 */
+.section-latest .cards-container .card {
+    width: 300px !important;
+    height: 420px !important;
+}
+
+.section-top-songs .cards-container .song-card {
+    width: 230px !important;
+    height: 290px !important;
+}
+
+.section-moods .cards-container .card {
+    width: 220px !important;
+    height: 360px !important;
+}
+
+/* 카드 이미지 비율 조정 */
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+    background-color: transparent !important;
+}
+
+/* 카드 뒤집기 시 뒷면 스크롤 */
+.card-back {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-back h3 {
+    margin-bottom: 8px;
+}
+
+.track-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    margin-top: 4px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.track-list li {
+    font-size: 13px;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+/* 플레이어 바 진행바 */
+.player-bar .progress .progress-filled {
+    width: 0%;
+    transition: width 0.2s linear;
+}
+
+.volume-slider {
+    position: relative;
+}
+
+.volume-filled {
+    width: 60%;
+}
+
+/* 카드 간 간격만 넓히기 (여백은 외부 CSS 그대로 사용) */
+.cards-container {
+    gap: 28px !important;
+}
+
+/* 노래 카드 이미지도 동일 */
+.song-cover img {
+    object-fit: cover !important;
+}
+/* 트랙리스트 투명 스크롤 */
+.track-list {
+    overflow-y: auto;
+    scrollbar-width: thin;        /* Firefox */
+    scrollbar-color: transparent transparent;
+}
+
+/* Chrome, Edge, Safari */
+.track-list::-webkit-scrollbar {
+    width: 6px;                   /* 스크롤 너비 */
+}
+
+.track-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15); /* 아주 희미하게 보이는 스크롤 */
+    border-radius: 10px;
+}
+
+.track-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.section-top-songs .cards-container {
+    display: flex;
+    flex-wrap: nowrap !important;  /* 줄바꿈 금지 */
+    overflow-x: auto !important;   /* 가로 스크롤 */
+    gap: 28px !important;
+    padding-bottom: 10px;
+}
+/* 최근 재생한 곡 섹션 */
+.recent-songs-container {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #ff9500 #282828;
+}
+
+.recent-songs-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.recent-songs-container::-webkit-scrollbar-track {
+    background: #282828;
+    border-radius: 4px;
+}
+
+.recent-songs-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #ff9500 0%, #ffcc00 100%);
+    border-radius: 4px;
+}
+
+.recent-songs-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #ffaa00 0%, #ffdd00 100%);
+}
+
+.recent-song-item {
+    display: flex;
+    align-items: center;
+    background: #282828;
+    border-radius: 12px;
+    padding: 10px;
+    min-width: 260px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.recent-song-item:hover {
+    background: #3e3e3e;
+    transform: translateY(-2px);
+}
+
+.recent-song-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.recent-song-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.recent-song-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.recent-song-artist {
+    font-size: 12px;
+    color: #b3b3b3;
+}
+
+.recent-play-btn {
+    width: 36px;
+    height: 36px;
+    background: #ff9500;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0;
+    flex-shrink: 0;
+}
+
+.recent-song-item:hover .recent-play-btn {
+    opacity: 1;
+}
+
+.recent-play-btn svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+}
+/* 음악 차트 섹션 */
+.chart-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    grid-auto-flow: column;
+    gap: 12px;
+}
+
+.chart-item {
+    display: flex;
+    align-items: center;
+    background: #282828;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.chart-item:hover {
+    background: #3e3e3e;
+    transform: translateX(4px);
+}
+
+.chart-rank {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff9500;
+    width: 40px;
+    text-align: center;
+    margin-right: 12px;
+}
+
+.chart-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.chart-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.chart-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chart-artist {
+    font-size: 13px;
+    color: #b3b3b3;
+}
+
+.chart-play-btn {
+    width: 36px;
+    height: 36px;
+    background: #ff9500;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0;
+    flex-shrink: 0;
+}
+
+.chart-item:hover .chart-play-btn {
+    opacity: 1;
+}
+
+.chart-play-btn svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+}
+/* 무드 카드 앞면 레이아웃 수정 */
+.section-moods .card-front {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.section-moods .card-front .card-image {
+    height: 280px !important;  /* 이미지 고정 높이 */
+    flex-shrink: 0;
+}
+
+.section-moods .card-front .card-info {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
