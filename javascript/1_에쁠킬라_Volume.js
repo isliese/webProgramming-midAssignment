@@ -73,3 +73,53 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+//  재생 진행바도 드래그되면 좋을 것 같아서 추가해요 
+
+document.addEventListener("DOMContentLoaded", () => {
+    const progressBar = document.querySelector(".progress");
+    const progressFilled = document.querySelector(".progress-filled");
+
+    if (!progressBar || !progressFilled) return;
+
+    let progress = 0.3; // 초기 재생 위치 (UI-only)
+
+    function updateProgressUI(p) {
+        p = Math.max(0, Math.min(1, p));
+        progress = p;
+        progressFilled.style.width = (p * 100) + "%";
+    }
+
+    // 초기 UI 세팅
+    updateProgressUI(progress);
+
+    // 클릭 이동
+    progressBar.addEventListener("click", (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const newProgress = (e.clientX - rect.left) / rect.width;
+        updateProgressUI(newProgress);
+    });
+
+    // 드래그 이동
+    let progressDragging = false;
+
+    progressBar.addEventListener("mousedown", (e) => {
+        progressDragging = true;
+        const rect = progressBar.getBoundingClientRect();
+        const newProgress = (e.clientX - rect.left) / rect.width;
+        updateProgressUI(newProgress);
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!progressDragging) return;
+        const rect = progressBar.getBoundingClientRect();
+        const newProgress = (e.clientX - rect.left) / rect.width;
+        updateProgressUI(newProgress);
+    });
+
+    document.addEventListener("mouseup", () => {
+        progressDragging = false;
+    });
+});
+
