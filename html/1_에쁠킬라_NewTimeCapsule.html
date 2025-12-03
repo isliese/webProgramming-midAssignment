@@ -5,324 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SoundLetter - 타임캡슐 생성</title>
         <link rel="stylesheet" href="../css/1_에쁠킬라_layout.css" />
+        <link rel="stylesheet" href="../css/1_에쁠킬라_NewTimeCapsule.css" />
         <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2">
-
-        <style>
-            /* 사용자 프로필 드롭다운 */
-            .user-profile {
-                position: relative;
-                cursor: pointer;
-                z-index: 100000;
-            }
-
-            .profile-dropdown {
-                position: absolute;
-                top: calc(100% + 12px);
-                right: 0;
-                background: #282828;
-                border-radius: 12px;
-                padding: 20px;
-                min-width: 200px;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-                z-index: 100000;
-                display: none;
-            }
-
-            .profile-dropdown.active {
-                display: block;
-            }
-
-            .profile-close-btn {
-                position: absolute;
-                top: 12px;
-                right: 12px;
-                background: none;
-                border: none;
-                color: #b3b3b3;
-                cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: color 0.2s;
-            }
-
-            .profile-close-btn:hover {
-                color: #ffffff;
-            }
-
-            .profile-nickname {
-                font-size: 16px;
-                font-weight: 600;
-                color: #ffffff;
-                margin-bottom: 16px;
-                padding-right: 24px;
-            }
-
-            .logout-btn {
-                width: 100%;
-                padding: 10px 16px;
-                background: #ff9500;
-                color: #000000;
-                border: none;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-
-            .logout-btn:hover {
-                background: #ffaa00;
-                transform: translateY(-1px);
-            }
-            .back-button {
-                background: none;
-                border: none;
-                color: #ffffff;
-                cursor: pointer;
-                padding: 8px;
-                margin: 22.07px;
-                display: flex;
-                align-items: center;
-                text-decoration: none;
-                gap: 8px;
-                font-size: 14px;
-                transition: all 0.3s;
-            }
-
-            .back-button:hover {
-                color: #ff9500;
-            }
-
-            /* 폼 컨테이너 */
-            .form-container {
-                max-width: 800px;
-                margin: 0 auto;
-            }
-
-            .page-title {
-                font-size: 32px;
-                font-weight: 700;
-                margin-bottom: 12px;
-            }
-
-            .main-content {
-                padding: 24px 32px 110px 32px !important;
-            }
-
-            .page-description {
-                font-size: 14px;
-                color: #b3b3b3;
-                margin-bottom: 40px;
-                line-height: 1.6;
-            }
-
-            .header-right {
-                margin-bottom: 32px;
-            }
-
-            /* 폼 */
-            .capsule-form {
-                background: #282828;
-                border-radius: 16px;
-                padding: 40px;
-                margin-bottom: 120px;
-            }
-
-            .form-section {
-                margin-bottom: 32px;
-            }
-
-            .form-section:last-child {
-                margin-bottom: 0;
-            }
-
-            .form-label {
-                display: block;
-                font-size: 15px;
-                font-weight: 600;
-                margin-bottom: 12px;
-                color: #ffffff;
-            }
-
-            .form-input {
-                width: 100%;
-                padding: 14px 16px;
-                background: #3e3e3e;
-                border: 2px solid transparent;
-                border-radius: 8px;
-                color: #ffffff;
-                font-size: 14px;
-                outline: none;
-                transition: all 0.3s;
-            }
-
-            .form-input:focus {
-                border-color: #ff9500;
-                background: #484848;
-            }
-
-            .form-textarea {
-                width: 100%;
-                padding: 14px 16px;
-                background: #3e3e3e;
-                border: 2px solid transparent;
-                border-radius: 8px;
-                color: #ffffff;
-                font-size: 14px;
-                outline: none;
-                transition: all 0.3s;
-                resize: vertical;
-                min-height: 120px;
-                font-family: inherit;
-            }
-
-            .form-textarea:focus {
-                border-color: #ff9500;
-                background: #484848;
-            }
-
-            /* 플레이리스트 선택 */
-            .playlist-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 16px;
-                margin-top: 12px;
-            }
-
-            .playlist-option {
-                background: #3e3e3e;
-                border-radius: 12px;
-                padding: 12px;
-                cursor: pointer;
-                transition: all 0.3s;
-                border: 2px solid transparent;
-                position: relative;
-            }
-
-            .playlist-option:hover {
-                background: #484848;
-            }
-
-            .playlist-option.selected {
-                border-color: #ff9500;
-                background: #484848;
-            }
-
-            .playlist-option-image {
-                width: 100%;
-                aspect-ratio: 1;
-                border-radius: 8px;
-                object-fit: cover;
-                margin-bottom: 8px;
-            }
-
-            .playlist-option-name {
-                font-size: 13px;
-                font-weight: 600;
-                margin-bottom: 4px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-
-            .playlist-option-meta {
-                font-size: 11px;
-                color: #b3b3b3;
-            }
-
-            .selected-indicator {
-                position: absolute;
-                top: 16px;
-                right: 16px;
-                width: 24px;
-                height: 24px;
-                background: #ff9500;
-                border-radius: 50%;
-                display: none;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .playlist-option.selected .selected-indicator {
-                display: flex;
-            }
-
-            .selected-indicator svg {
-                width: 14px;
-                height: 14px;
-                fill: #000;
-            }
-
-            /* Date Input */
-            input[type='date'] {
-                width: 100%;
-                padding: 14px 16px;
-                background: #3e3e3e;
-                border: 2px solid transparent;
-                border-radius: 8px;
-                color: #ffffff;
-                font-size: 14px;
-                outline: none;
-                transition: all 0.3s;
-                cursor: pointer;
-            }
-
-            input[type='date']:focus {
-                border-color: #ff9500;
-                background: #484848;
-            }
-
-            input[type='date']::-webkit-calendar-picker-indicator {
-                filter: invert(1);
-                cursor: pointer;
-            }
-
-            /* 버튼 */
-            .form-actions {
-                display: flex;
-                gap: 16px;
-                margin-top: 40px;
-            }
-
-            .btn {
-                flex: 1;
-                padding: 14px 32px;
-                border: none;
-                border-radius: 24px;
-                font-size: 15px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s;
-            }
-
-            .btn-primary {
-                background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-                color: #000;
-            }
-
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 16px rgba(255, 149, 0, 0.3);
-            }
-
-            .btn-secondary {
-                background: #3e3e3e;
-                color: #ffffff;
-            }
-
-            .btn-secondary:hover {
-                background: #484848;
-            }
-
-            /* 헬퍼 텍스트 */
-            .helper-text {
-                font-size: 12px;
-                color: #b3b3b3;
-                margin-top: 8px;
-            }
-        </style>
+   
     </head>
     <body>
         <div class="container">
@@ -483,7 +168,7 @@
                                         </svg>
                                     </div>
                                     <img
-                                        src="src\img\1_lover.jpg"
+                                        src="../src\img\1_lover.jpg"
                                         alt="Playlist"
                                         class="playlist-option-image"
                                     />
@@ -505,7 +190,7 @@
                                         </svg>
                                     </div>
                                     <img
-                                        src="src\img\1_tellusboutyourself.jpg"
+                                        src="../src\img\1_tellusboutyourself.jpg"
                                         alt="Playlist"
                                         class="playlist-option-image"
                                     />
@@ -527,7 +212,7 @@
                                         </svg>
                                     </div>
                                     <img
-                                        src="src\img\1_LeaveBeforeYouLoveMe.jpg"
+                                        src="../src\img\1_LeaveBeforeYouLoveMe.jpg"
                                         alt="Playlist"
                                         class="playlist-option-image"
                                     />
@@ -549,7 +234,7 @@
                                         </svg>
                                     </div>
                                     <img
-                                        src="src\img\1_GETUP.jpg"
+                                        src="../src\img\1_GETUP.jpg"
                                         alt="Playlist"
                                         class="playlist-option-image"
                                     />
@@ -571,7 +256,7 @@
                                         </svg>
                                     </div>
                                     <img
-                                        src="src\img\1_SOS.jpg"
+                                        src="../src\img\1_SOS.jpg"
                                         alt="Playlist"
                                         class="playlist-option-image"
                                     />
@@ -593,7 +278,7 @@
                                         </svg>
                                     </div>
                                     <img
-                                        src="src\img\1_Lose_My_Mind.jpg"
+                                        src="../src\img\1_Lose_My_Mind.jpg"
                                         alt="Playlist"
                                         class="playlist-option-image"
                                     />
@@ -650,7 +335,7 @@
         <div class="player-bar">
             <div class="now-playing">
                 <img
-                    src="src\img\1_DontLookBackInAnger.jpg"
+                    src="../src\img\1_DontLookBackInAnger.jpg"
                     alt="Now Playing"
                     class="now-playing-image"
                 />
@@ -716,154 +401,5 @@
             </div>
         </div>
     </body>
-    <script>
-        /* 1. 프로필 드롭다운 열기/닫기 */
-
-      const userProfile = document.getElementById("userProfile");
-      const profileDropdown = document.getElementById("profileDropdown");
-      const closeProfile = document.getElementById("closeProfile");
-
-      userProfile.addEventListener("click", (e) => {
-        e.stopPropagation();
-        profileDropdown.classList.toggle("active");
-      });
-
-      closeProfile.addEventListener("click", (e) => {
-        e.stopPropagation();
-        profileDropdown.classList.remove("active");
-      });
-
-      document.addEventListener("click", () => {
-        profileDropdown.classList.remove("active");
-      });
-
-
-      /* 2. 로그아웃 버튼 */
-
-      function handleLogout() {
-        alert("로그아웃 되었습니다!");
-        window.location.href = "1_에쁠킬라_Login.html";
-      }
-
-
-      // 재생바 기능 구현
-      /* 1. 재생 가능한 트랙 목록*/
-      const playableTracks = [
-        { title: "Celebrity", artist: "아이유", image: "src/img/1_celebrity.png" },
-        { title: "눈사람", artist: "정승환", image: "src/img/1_눈사람.jpg" },
-        { title: "Trip", artist: "릴러말즈", image: "src/img/1_Trip.jpg" },
-        { title: "한페이지가 될 수 있게", artist: "DAY6", image: "src/img/1_한페이지가될수있게_.jpg" },
-        { title: "좋은밤 좋은꿈", artist: "너드커넥션", image: "src/img/1_좋은밤좋은꿈.jpg" },
-        { title: "Lover", artist: "Taylor Swift", image: "src/img/1_lover.jpg" },
-        { title: "너에게 못했던 내 마지막 말은", artist: "다비치", image: "src/img/1_너에게못했던내마지막말은.jpg" }
-      ];
-
-      /* 2. 재생 상태 변수*/
-      let currentIndex = 0;
-      let isPlaying = false;
-      let currentTime = 0;
-      const totalDuration = 210; // 3분 30초 = 210초
-      let playTimer = null;
-
-      /* 3. DOM 요소 참조*/
-      const nowPlayingImg = document.querySelector('.now-playing-image');
-      const nowPlayingTitle = document.querySelector('.now-playing-info h4');
-      const nowPlayingArtist = document.querySelector('.now-playing-info p');
-      const progressFilled = document.querySelector('.progress-filled');
-
-      const timeSpans = document.querySelectorAll('.time');
-      const currentTimeSpan = timeSpans[0];
-      const totalTimeSpan = timeSpans[1];
-
-      const playBtn = document.querySelector('.control-btn.play-btn');
-
-      /* 4. 유틸 – 시간 포맷*/
-      function formatTime(sec) {
-        const m = Math.floor(sec / 60);
-        const s = Math.floor(sec % 60);
-        return m + ':' + (s < 10 ? '0' + s : s);
-      }
-
-      /* 5. 진행 바 업데이트*/
-      function updateProgress() {
-        const percent = (currentTime / totalDuration) * 100;
-        progressFilled.style.width = Math.min(percent, 100) + '%';
-        currentTimeSpan.textContent = formatTime(currentTime);
-      }
-
-      /* 6. 타이머 시작*/
-      function startPlayTimer() {
-        if (playTimer) clearInterval(playTimer);
-        playTimer = setInterval(() => {
-          if (!isPlaying) return;
-
-          currentTime += 0.5;
-
-          if (currentTime >= totalDuration) {
-            currentTime = totalDuration;
-            updateProgress();
-            pause();
-            return;
-          }
-          updateProgress();
-        }, 500);
-      }
-
-      /* 7. 재생*/
-      function play() {
-        isPlaying = true;
-        document.querySelector('.icon-play').style.display = 'none';
-        document.querySelector('.icon-pause').style.display = 'inline';
-        startPlayTimer();
-      }
-
-      /* 8. 일시정지*/
-      function pause() {
-        isPlaying = false;
-        document.querySelector('.icon-play').style.display = 'inline';
-        document.querySelector('.icon-pause').style.display = 'none';
-        if (playTimer) clearInterval(playTimer);
-      }
-
-      /* 9. 트랙 선택*/
-      function selectTrack(index) {
-        if (index < 0 || index >= playableTracks.length) return;
-
-        currentIndex = index;
-        const track = playableTracks[index];
-
-        nowPlayingImg.src = track.image;
-        nowPlayingTitle.textContent = track.title;
-        nowPlayingArtist.textContent = track.artist;
-
-        currentTime = 0;
-        updateProgress();
-
-        play();
-      }
-
-      /* 10. 버튼 이벤트 등록*/
-      playBtn.addEventListener('click', () => {
-        if (!isPlaying) play();
-        else pause();
-      });
-
-      document.querySelector('.prev-btn').addEventListener('click', () => {
-        selectTrack((currentIndex - 1 + playableTracks.length) % playableTracks.length);
-      });
-
-      document.querySelector('.next-btn').addEventListener('click', () => {
-        selectTrack((currentIndex + 1) % playableTracks.length);
-      });
-
-      /* 11. 초기 시간 세팅*/
-      totalTimeSpan.textContent = formatTime(totalDuration);
-      currentTimeSpan.textContent = formatTime(0);
-
-      /* 12. 초기 렌더링 설정*/
-      currentTime = 0;
-      progressFilled.style.width = '0%';
-      currentTimeSpan.textContent = formatTime(0);
-      totalTimeSpan.textContent = formatTime(totalDuration);
-    </script>
+    <script src="../javascript/1_에쁠킬라_NewTimeCapsule.js"></script>
 </html>

@@ -1,0 +1,284 @@
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.main-content {
+    padding: 24px 32px 110px 32px !important;
+    height: calc(100vh - 110px);
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.header-right {
+    margin-bottom: 22px;
+}
+
+/* 설명 */
+.page-description {
+    font-size: 14px;
+    color: #b3b3b3;
+    line-height: 1.6;
+}
+
+/* 사용자 프로필 드롭다운 */
+.user-profile {
+    position: relative;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: #282828;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 100000;
+    display: none;
+}
+
+.profile-dropdown.active {
+    display: block;
+}
+
+.profile-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.profile-close-btn:hover {
+    color: #ffffff;
+}
+
+.profile-nickname {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-right: 24px;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background: #ff9500;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: #ffaa00;
+    transform: translateY(-1px);
+}
+
+/* 플레이어 바 진행바 */
+.player-bar .progress .progress-filled {
+    width: 0%;
+    transition: width 0.2s linear;
+}
+
+.volume-slider {
+    position: relative;
+}
+
+.volume-filled {
+    width: 60%;
+}
+
+/* 환영 메시지 */
+.welcome-message {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-top: 8px;
+}
+
+/* 컨텐츠 카드 */
+.content-card {
+    background: #181818;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 28px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.view-all-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.view-all-btn:hover {
+    color: #ffffff;
+    background: #282828;
+}
+
+/* 사용자 정보 카드 */
+.user-info-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.user-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff9500;
+}
+
+.user-details h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.user-details p {
+    font-size: 14px;
+    color: #b3b3b3;
+    margin-bottom: 4px;
+}
+
+.user-details-head {
+    display: flex;
+    gap: 12px;
+}
+
+.profile-logout-btn {
+    border-radius: 8px;
+    margin: 2px;
+    background-color: #181818;
+    color: #ffffff;
+    border: 1px solid #181818;
+}
+
+.profile-logout-btn:hover {
+    background-color: #282828;
+}
+
+.user-stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ff9500;
+    display: block;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #b3b3b3;
+    margin-top: 4px;
+}
+
+/* 앨범 스크롤 */
+.albums-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #ff9500 #282828;
+}
+
+.albums-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.albums-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.albums-scroll::-webkit-scrollbar-thumb {
+    background: #282828;
+    border-radius: 4px;
+}
+
+.albums-scroll::-webkit-scrollbar-thumb:hover {
+    background: #383838;
+}
+
+.album-item {
+    min-width: 160px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.album-item:hover {
+    transform: scale(1.05);
+}
+
+.album-cover {
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.album-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.album-artist {
+    font-size: 12px;
+    color: #b3b3b3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

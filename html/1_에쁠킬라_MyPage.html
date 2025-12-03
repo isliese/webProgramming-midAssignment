@@ -6,294 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SoundLetter - 마이페이지</title>
   <link rel="stylesheet" href="../css/1_에쁠킬라_layout.css" />
+  <link rel="stylesheet" href="../css/1_에쁠킬라_MyPage.css" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2">
-
-  <style>
-    .page-title {
-      font-size: 32px;
-      font-weight: 700;
-    }
-
-    .main-content {
-      padding: 24px 32px 110px 32px !important;
-      height: calc(100vh - 110px);
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
-
-    .header-right {
-      margin-bottom: 22px;
-    }
-
-    /* 설명 */
-    .page-description {
-      font-size: 14px;
-      color: #b3b3b3;
-      line-height: 1.6;
-    }
-
-    /* 사용자 프로필 드롭다운 */
-    .user-profile {
-      position: relative;
-      cursor: pointer;
-      z-index: 100000;
-    }
-
-    .profile-dropdown {
-      position: absolute;
-      top: calc(100% + 12px);
-      right: 0;
-      background: #282828;
-      border-radius: 12px;
-      padding: 20px;
-      min-width: 200px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      z-index: 100000;
-      display: none;
-    }
-
-    .profile-dropdown.active {
-      display: block;
-    }
-
-    .profile-close-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: none;
-      border: none;
-      color: #b3b3b3;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.2s;
-    }
-
-    .profile-close-btn:hover {
-      color: #ffffff;
-    }
-
-    .profile-nickname {
-      font-size: 16px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 16px;
-      padding-right: 24px;
-    }
-
-    .logout-btn {
-      width: 100%;
-      padding: 10px 16px;
-      background: #ff9500;
-      color: #000000;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .logout-btn:hover {
-      background: #ffaa00;
-      transform: translateY(-1px);
-    }
-
-    /* 플레이어 바 진행바 */
-    .player-bar .progress .progress-filled {
-      width: 0%;
-      transition: width 0.2s linear;
-    }
-
-    .volume-slider {
-      position: relative;
-    }
-
-    .volume-filled {
-      width: 60%;
-    }
-
-    /* 환영 메시지 */
-    .welcome-message {
-      font-size: 20px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 16px;
-      padding-top: 8px;
-    }
-
-    /* 컨텐츠 카드 */
-    .content-card {
-      background: #181818;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 28px;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .card-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .view-all-btn {
-      background: none;
-      border: none;
-      color: #b3b3b3;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 8px 16px;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-
-    .view-all-btn:hover {
-      color: #ffffff;
-      background: #282828;
-    }
-
-    /* 사용자 정보 카드 */
-    .user-info-card {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .user-avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #ff9500;
-    }
-
-    .user-details h2 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
-    }
-
-    .user-details p {
-      font-size: 14px;
-      color: #b3b3b3;
-      margin-bottom: 4px;
-    }
-
-    .user-details-head {
-      display: flex;
-      gap: 12px;
-    }
-
-    .profile-logout-btn {
-      border-radius: 8px;
-      margin: 2px;
-      background-color: #181818;
-      color: #ffffff;
-      border: 1px solid #181818;
-    }
-
-    .profile-logout-btn:hover {
-      background-color: #282828;
-    }
-
-    .user-stats {
-      display: flex;
-      gap: 24px;
-      margin-top: 16px;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 20px;
-      font-weight: 700;
-      color: #ff9500;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: #b3b3b3;
-      margin-top: 4px;
-    }
-
-    /* 앨범 스크롤 */
-    .albums-scroll {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      scrollbar-width: thin;
-      scrollbar-color: #ff9500 #282828;
-    }
-
-    .albums-scroll::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .albums-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .albums-scroll::-webkit-scrollbar-thumb {
-      background: #282828;
-      border-radius: 4px;
-    }
-
-    .albums-scroll::-webkit-scrollbar-thumb:hover {
-      background: #383838;
-    }
-
-    .album-item {
-      min-width: 160px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .album-item:hover {
-      transform: scale(1.05);
-    }
-
-    .album-cover {
-      width: 160px;
-      height: 160px;
-      border-radius: 8px;
-      object-fit: cover;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .album-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .album-artist {
-      font-size: 12px;
-      color: #b3b3b3;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  </style>
 </head>
 
 <body>
@@ -400,7 +114,7 @@
       <!-- 사용자 정보 카드 -->
       <div class="content-card">
         <div class="user-info-card">
-          <img src="src/img/1ser-avatar.jpg" alt="User Avatar" class="user-avatar"
+          <img src="../src/img/1ser-avatar.jpg" alt="User Avatar" class="user-avatar"
             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22%3E%3Ccircle cx=%2260%22 cy=%2260%22 r=%2260%22 fill=%22%23282828%22/%3E%3Cpath d=%22M60 60c11 0 20-9 20-20s-9-20-20-20-20 9-20 20 9 20 20 20zm0 10c-13.33 0-40 6.67-40 20v10h80v-10c0-13.33-26.67-20-40-20z%22 fill=%22%23b3b3b3%22/%3E%3C/svg%3E'">
           <div class="user-details">
             <div class="user-details-head">
@@ -434,42 +148,42 @@
         </div>
         <div class="albums-scroll">
           <div class="album-item" onclick="playAlbum('Oasis', 'Don\'t Look Back in Anger')">
-            <img src="src/img/1_DontLookBackInAnger.jpg" alt="Album" class="album-cover">
+            <img src="../src/img/1_DontLookBackInAnger.jpg" alt="Album" class="album-cover">
             <div class="album-title">Don't Look Back in Anger</div>
             <div class="album-artist">Oasis</div>
           </div>
           <div class="album-item" onclick="playAlbum('Taylor Swift', 'Lover')">
-            <img src="src/img/1_lover.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_lover.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Lover</div>
             <div class="album-artist">Taylor Swift</div>
           </div>
           <div class="album-item" onclick="playAlbum('SZA', 'SOS')">
-            <img src="src/img/1_SOS.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_SOS.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">SOS</div>
             <div class="album-artist">SZA</div>
           </div>
           <div class="album-item" onclick="playAlbum('NewJeans', 'Get Up')">
-            <img src="src/img/1_GetUp.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_GetUp.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Get Up</div>
             <div class="album-artist">NewJeans</div>
           </div>
           <div class="album-item" onclick="playAlbum('IU', 'Celebrity')">
-            <img src="src/img/1_celebrity.png" alt="Album" class="album-cover"
+            <img src="../src/img/1_celebrity.png" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Celebrity</div>
             <div class="album-artist">IU</div>
           </div>
           <div class="album-item" onclick="playAlbum('다섯', 'Youth')">
-            <img src="src/img/1_Youth.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_Youth.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Youth</div>
             <div class="album-artist">다섯</div>
           </div>
           <div class="album-item" onclick="playAlbum('Love on the canvas', '소희(SOHEE)')">
-            <img src="src/img/1_Love_on_the_canvas.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_Love_on_the_canvas.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">소희(SOHEE)</div>
             <div class="album-artist">Love on the Canvas</div>
@@ -485,42 +199,42 @@
         </div>
         <div class="albums-scroll">
           <div class="album-item" onclick="playAlbum('RIIZE', 'Siren')">
-            <img src="src/img/1_siren.png" alt="Album" class="album-cover"
+            <img src="../src/img/1_siren.png" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Siren</div>
             <div class="album-artist">RIIZE</div>
           </div>
           <div class="album-item" onclick="playAlbum('NewJeans', 'Super Shy')">
-            <img src="src/img/1_GetUp.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_GetUp.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Super Shy</div>
             <div class="album-artist">NewJeans</div>
           </div>
           <div class="album-item" onclick="playAlbum('Oasis', 'Wonderwall')">
-            <img src="src/img/1_DontLookBackInAnger.jpg" alt="Album" class="album-cover">
+            <img src="../src/img/1_DontLookBackInAnger.jpg" alt="Album" class="album-cover">
             <div class="album-title">Wonderwall</div>
             <div class="album-artist">Oasis</div>
           </div>
           <div class="album-item" onclick="playAlbum('Taylor Swift', 'Cruel Summer')">
-            <img src="src/img/1_Lover.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_Lover.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Cruel Summer</div>
             <div class="album-artist">Taylor Swift</div>
           </div>
           <div class="album-item" onclick="playAlbum('SZA', 'Kill Bill')">
-            <img src="src/img/1_SOS.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_SOS.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Kill Bill</div>
             <div class="album-artist">SZA</div>
           </div>
           <div class="album-item" onclick="playAlbum('Doja Cat', 'Lose My Mind')">
-            <img src="src/img/1_Lose_My_Mind.jpg" alt="Album" class="album-cover"
+            <img src="../src/img/1_Lose_My_Mind.jpg" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Lose My Mind</div>
             <div class="album-artist">Doja Cat</div>
           </div>
           <div class="album-item" onclick="playAlbum('LE SSERAFIM', 'Smart')">
-            <img src="src/img/1_smart.png" alt="Album" class="album-cover"
+            <img src="../src/img/1_smart.png" alt="Album" class="album-cover"
               onerror="this.src='https://via.placeholder.com/160x160/282828/ffffff?text=Album'">
             <div class="album-title">Smart</div>
             <div class="album-artist">LE SSERAFIM</div>
@@ -532,7 +246,7 @@
 
   <div class="player-bar">
     <div class="now-playing">
-      <img src="src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image">
+      <img src="../src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image">
       <div class="now-playing-info">
         <h4 class="now-playing-title">Don't Look Back in Anger</h4>
         <p class="now-playing-artist">Oasis</p>
@@ -578,132 +292,7 @@
       </div>
     </div>
   </div>
-  <script>
-    // 로그인 체크 + 사용자 이름 표시
-    (function checkLogin() {
-      const loggedInUser = sessionStorage.getItem('loggedInUser');
-
-      if (!loggedInUser) {
-        // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
-        alert('로그인이 필요한 서비스입니다.');
-        window.location.href = '1_에쁠킬라_Login.html';
-      } else {
-        const user = JSON.parse(loggedInUser);
-
-        // 프로필 드롭다운의 닉네임 표시
-        const profileNickname = document.querySelector('.profile-nickname');
-        if (profileNickname) {
-          profileNickname.textContent = user.name + '님';
-        }
-
-        // 환영 메시지 이름 표시
-        const welcomeMessage = document.querySelector('.welcome-message');
-        if (welcomeMessage) {
-          welcomeMessage.textContent = `${user.name}님, 오늘도 음악을 즐길 준비 되셨나요?`;
-        }
-
-        // 사용자 이름 표시
-        const userDetailsName = document.querySelector('.user-details h2');
-        if (userDetailsName) {
-          userDetailsName.textContent = user.name;
-        }
-
-        // 사용자 이메일 표시
-        const userDetailsId = document.querySelector('.user-details p');
-        if (userDetailsId) {
-          userDetailsId.textContent = user.email;
-        }
-
-        // 가입일 표시
-        const userDetailsJoinDate = document.querySelectorAll('.user-details p')[1];
-        if (userDetailsJoinDate && user.loginTime) {
-          const joinDate = new Date(user.loginTime);
-          const year = joinDate.getFullYear();
-          const month = joinDate.getMonth() + 1;
-          const day = joinDate.getDate();
-          userDetailsJoinDate.textContent = `가입일: ${year}년 ${month}월 ${day}일`;
-        }
-      }
-    })();
-
-    /* 1. 프로필 드롭다운 열기/닫기 */
-
-    const userProfile = document.getElementById("userProfile");
-    const profileDropdown = document.getElementById("profileDropdown");
-    const closeProfile = document.getElementById("closeProfile");
-
-    userProfile.addEventListener("click", (e) => {
-      e.stopPropagation();
-      profileDropdown.classList.toggle("active");
-    });
-
-    closeProfile.addEventListener("click", (e) => {
-      e.stopPropagation();
-      profileDropdown.classList.remove("active");
-    });
-
-    document.addEventListener("click", () => {
-      profileDropdown.classList.remove("active");
-    });
-
-
-    /* 2. 로그아웃 버튼 */
-
-    function handleLogout() {
-      alert("로그아웃 되었습니다!");
-      window.location.href = "1_에쁠킬라_Login.html";
-    }
-
-
-    /* 3. 앨범 재생 함수 */
-
-    function playAlbum(artist, title) {
-      document.getElementById("playerTitle").textContent = title;
-      document.getElementById("playerArtist").textContent = artist;
-      alert(`🎵 '${title}' 재생을 시작합니다!`);
-    }
-
-
-    /* 4. 전체보기 버튼 */
-
-    function viewAllLiked() {
-      window.location.href = "1_에쁠킬라_LikedAlbums.html";
-    }
-
-    function viewAllOffline() {
-      window.location.href = "1_에쁠킬라_OfflineMusic.html";
-    }
-
-
-    /* 5. 플레이/일시정지 토글 */
-
-    const playPauseBtn = document.getElementById("playPauseBtn");
-    let isPlaying = false;
-
-    playPauseBtn.addEventListener("click", () => {
-      isPlaying = !isPlaying;
-      playPauseBtn.textContent = isPlaying ? "⏸" : "▶";
-    });
-
-
-    /* 6. 가짜 진행바 애니메이션 */
-
-    const progressBar = document.getElementById("playerProgress");
-
-    function animateProgress() {
-      let width = 0;
-      setInterval(() => {
-        if (isPlaying) {
-          width += 1;
-          if (width > 100) width = 0;
-          progressBar.style.width = width + "%";
-        }
-      }, 500);
-    }
-
-    animateProgress();
-  </script>
 </body>
-
+<script src="../javascript/1_에쁠킬라_MyPage.js"></script>
 </html>
             
