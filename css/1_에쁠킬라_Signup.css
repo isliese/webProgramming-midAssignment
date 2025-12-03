@@ -1,0 +1,219 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 640px;
+            padding: 20px;
+        }
+
+        /* 회원가입 박스 */
+        .signup-box {
+            background: rgba(24, 24, 24, 0.9);
+            border-radius: 16px;
+            padding: 48px;
+        }
+
+        .signup-title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 입력 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #b3b3b3;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: #3a3a3a;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ff9500;
+            background: #404040;
+        }
+
+        .form-input::placeholder {
+            color: #666;
+        }
+
+        /* 비밀번호 보기 버튼 */
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .toggle-password:hover {
+            color: #fff;
+        }
+
+        /* 비밀번호 확인 메시지 */
+        .password-match {
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .password-match.show {
+            display: block;
+        }
+
+        .password-match.error {
+            color: #ff4444;
+        }
+
+        .password-match.success {
+            color: #4CAF50;
+        }
+
+        /* 회원가입 버튼 */
+        .signup-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 32px;
+        }
+
+        .signup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 149, 0, 0.3);
+        }
+
+        .signup-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 로그인 버튼 */
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+
+        .login-link a {
+            color: #ff9500;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* 약관 동의 */
+        .terms-group {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #404040;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #ff9500;
+        }
+
+        .checkbox-wrapper label {
+            font-size: 14px;
+            color: #b3b3b3;
+            cursor: pointer;
+        }
+
+        .checkbox-wrapper.all label {
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        /* 뒤로가기 버튼 */
+        .back-button {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            color: #ff9500;
+        }
+
+        .welcome-message {
+            text-align: center;
+            font-size: 14px;
+            color: #b3b3b3;
+            margin-top: -30px;
+            margin-bottom: 40px;
+        }
