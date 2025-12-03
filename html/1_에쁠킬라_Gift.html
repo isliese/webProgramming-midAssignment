@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SoundLetter - 플레이리스트 선물하기</title>
-        <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
-        <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
+        <link rel="stylesheet" href="css/1_에쁠킬라_layout.css" />
+        <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2" />
 
         <style>
             .main-content {
@@ -101,6 +101,11 @@
             .form-textarea:focus {
                 border-color: #ff9500;
                 background: #484848;
+            }
+
+            .form-input.error,
+            .form-textarea.error {
+                border-color: #ff4444;
             }
 
             .form-textarea {
@@ -202,6 +207,54 @@
                 object-fit: cover;
                 box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             }
+
+            /* 경고 알림 스타일 */
+            .alert-message {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #ff4444;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+                display: none;
+                align-items: center;
+                gap: 10px;
+                z-index: 1000;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .alert-message.show {
+                display: flex;
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+
+            .alert-icon {
+                background: white;
+                color: #ff4444;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 16px;
+            }
         </style>
     </head>
 
@@ -297,6 +350,12 @@
             </nav>
 
             <main class="main-content">
+                <!-- 경고 알림 메시지 -->
+                <div class="alert-message" id="alertMessage">
+                    <span class="alert-icon">!</span>
+                    <span id="alertText">이 입력란을 작성하세요.</span>
+                </div>
+
                 <div class="gift-wrapper">
                     <!-- 왼쪽: 대표 이미지 + 플레이리스트 정보 -->
                     <div class="gift-playlist">
@@ -326,6 +385,7 @@
                                 <input
                                     type="text"
                                     class="form-input"
+                                    id="recipientInput"
                                     placeholder="아이디 또는 이메일 입력"
                                 />
                             </div>
@@ -334,6 +394,7 @@
                                 <label class="form-label">메시지</label>
                                 <textarea
                                     class="form-textarea"
+                                    id="messageInput"
                                     placeholder="마음을 담은 메시지를 적어보세요."
                                 ></textarea>
                             </div>
@@ -345,8 +406,8 @@
                                 class="btn-secondary"
                                 >취소</a
                             >
-                            <label for="popup-toggle" class="btn-primary"
-                                >보내기</label
+                            <button type="button" class="btn-primary" id="sendBtn"
+                                >보내기</button
                             >
                         </div>
                     </div>
@@ -373,53 +434,42 @@
                     src="src/img/1_DontLookBackInAnger.jpg"
                     alt="Now Playing"
                     class="now-playing-image"
+                    id="nowPlayingImg"
                 />
                 <div class="now-playing-info">
-                    <h4>Don't Look Back in Anger</h4>
-                    <p>Oasis</p>
+                    <h4 id="nowPlayingTitle">Don't Look Back in Anger</h4>
+                    <p id="nowPlayingArtist">Oasis</p>
                 </div>
             </div>
 
             <div class="player-controls">
                 <div class="control-buttons">
-                    <button class="control-btn">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
+                    <button class="control-btn" id="prevBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                         </svg>
                     </button>
-                    <button class="control-btn play">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-                            <path d="M8 5v14l11-7z" />
+                    <button class="control-btn play-btn" id="playBtn">
+                        <svg class="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                        <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                            <path d="M6 5h4v14H6zm8 0h4v14h-4z"></path>
                         </svg>
                     </button>
-                    <button class="control-btn">
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
+                    <button class="control-btn" id="nextBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                         </svg>
                     </button>
                 </div>
 
                 <div class="progress-bar">
-                    <span class="time">2:15</span>
+                    <span class="time" id="currentTime">0:00</span>
                     <div class="progress">
-                        <div class="progress-filled"></div>
+                        <div class="progress-filled" id="progressFilled"></div>
                     </div>
-                    <span class="time">4:48</span>
+                    <span class="time" id="totalTime">3:30</span>
                 </div>
             </div>
 
@@ -440,5 +490,198 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            /* ==================== 유효성 검사 및 보내기 기능 ==================== */
+            const sendBtn = document.getElementById('sendBtn');
+            const recipientInput = document.getElementById('recipientInput');
+            const messageInput = document.getElementById('messageInput');
+            const popupToggle = document.getElementById('popup-toggle');
+            const alertMessage = document.getElementById('alertMessage');
+            const alertText = document.getElementById('alertText');
+
+            function showAlert(message) {
+                alertText.textContent = message;
+                alertMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    alertMessage.classList.remove('show');
+                }, 3000);
+            }
+
+            function validateInputs() {
+                const recipient = recipientInput.value.trim();
+                const message = messageInput.value.trim();
+
+                // 에러 스타일 초기화
+                recipientInput.classList.remove('error');
+                messageInput.classList.remove('error');
+
+                if (!recipient && !message) {
+                    recipientInput.classList.add('error');
+                    messageInput.classList.add('error');
+                    showAlert('받는 사람과 메시지를 모두 입력하세요.');
+                    recipientInput.focus();
+                    return false;
+                }
+
+                if (!recipient) {
+                    recipientInput.classList.add('error');
+                    showAlert('받는 사람을 입력하세요.');
+                    recipientInput.focus();
+                    return false;
+                }
+
+                if (!message) {
+                    messageInput.classList.add('error');
+                    showAlert('메시지를 입력하세요.');
+                    messageInput.focus();
+                    return false;
+                }
+
+                return true;
+            }
+
+            sendBtn.addEventListener('click', function() {
+                if (validateInputs()) {
+                    popupToggle.checked = true;
+                }
+            });
+
+            // 입력 시 에러 스타일 제거
+            recipientInput.addEventListener('input', function() {
+                this.classList.remove('error');
+            });
+
+            messageInput.addEventListener('input', function() {
+                this.classList.remove('error');
+            });
+
+            /* ==================== 재생바 관련 (PlayRecord와 동일) ==================== */
+            const playableTracks = [
+                { title: "Don't Look Back In Anger", artist: "Oasis", image: "src/img/1_DontLookBackInAnger.jpg" },
+                { title: "좋은 밤 좋은 꿈", artist: "SG 워너비", image: "src/img/1_좋은밤좋은꿈.jpg" },
+                { title: "에피소드", artist: "이무진", image: "src/img/1_에피소드.jpg" },
+                { title: "Trip", artist: "릴러말즈 (Feat. Hannah)", image: "src/img/1_Trip.jpg" },
+                { title: "How Sweet", artist: "NewJeans", image: "src/img/1_howsweet.png" },
+                { title: "한 페이지가 될 수 있게", artist: "Day6", image: "src/img/1_한페이지가될수있게_.jpg" },
+                { title: "Get Up", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "꿈의 버스", artist: "Day6", image: "src/img/1_꿈의버스.jpg" },
+                { title: "Please Please Please", artist: "Sabrina Carpenter", image: "src/img/1_please.png" },
+                { title: "ETA", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "사랑", artist: "최유리", image: "src/img/1_사랑.jpg" },
+                { title: "Leave Before You Love Me", artist: "Marshmello, Jonas Brothers", image: "src/img/1_LeaveBeforeYouLoveMe.jpg" },
+                { title: "Love Wins All", artist: "IU", image: "src/img/1_lovewinsall.png" },
+                { title: "Siren", artist: "RIIZE", image: "src/img/1_siren.png" },
+                { title: "Lose My Mind", artist: "Don Toliver (feat. Doja Cat)", image: "src/img/1_Lose_My_Mind.jpg" },
+                { title: "비 오는 날 듣기 좋은 노래", artist: "에픽하이 (Feat. Colde)", image: "src/img/1_비오는날에듣기좋은노래.jpg" },
+                { title: "Cool With You", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "Smart", artist: "LE SSERAFIM", image: "src/img/1_smart.png" },
+                { title: "Cruel Summer", artist: "Taylor Swift", image: "src/img/1_lover.jpg" },
+                { title: "눈사람", artist: "아티스트", image: "src/img/1_눈사람.jpg" },
+                { title: "Super Shy", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "Love on the Canvas", artist: "소희", image: "src/img/1_Love_on_the_canvas.jpg" },
+                { title: "Supernova", artist: "aespa", image: "src/img/1_supernova.png" },
+                { title: "너에게 못했던 내 마지막 말은", artist: "다비치", image: "src/img/1_너에게못했던내마지막말은.jpg" },
+                { title: "Celebrity", artist: "IU", image: "src/img/1_celebrity.png" },
+                { title: "Bubble Gum", artist: "NewJeans", image: "src/img/1_howsweet.png" },
+                { title: "NewJeans", artist: "NewJeans", image: "src/img/1_GETUP.jpg" },
+                { title: "Tell Us Bout Yourself", artist: "백예린", image: "src/img/1_tellusboutyourself.jpg" },
+                { title: "We Don't Talk Anymore", artist: "Charlie Puth", image: "src/img/1_we.png" },
+                { title: "Youth", artist: "다섯", image: "src/img/1_Youth.jpg" },
+                { title: "Kill Bill", artist: "SZA", image: "src/img/1_SOS.jpg" },
+                { title: "ASAP", artist: "NewJeans", image: "src/img/1_GETUP.jpg" }
+            ];
+
+            let currentIndex = 0;
+            let isPlaying = false;
+            let currentTime = 0;
+            const totalDuration = 210;
+            let playTimer = null;
+
+            const nowPlayingImg = document.getElementById('nowPlayingImg');
+            const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+            const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+            const playBtn = document.getElementById('playBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const iconPlay = document.querySelector('.icon-play');
+            const iconPause = document.querySelector('.icon-pause');
+            const progressFilled = document.getElementById('progressFilled');
+            const currentTimeSpan = document.getElementById('currentTime');
+            const totalTimeSpan = document.getElementById('totalTime');
+
+            function formatTime(seconds) {
+                const m = Math.floor(seconds / 60);
+                const s = Math.floor(seconds % 60);
+                return m + ':' + (s < 10 ? '0' : '') + s;
+            }
+
+            function updateProgress() {
+                const percent = (currentTime / totalDuration) * 100;
+                progressFilled.style.width = Math.min(percent, 100) + '%';
+                currentTimeSpan.textContent = formatTime(currentTime);
+            }
+
+            function startPlayTimer() {
+                if (playTimer) clearInterval(playTimer);
+                playTimer = setInterval(() => {
+                    if (!isPlaying) return;
+                    currentTime += 0.5;
+                    if (currentTime >= totalDuration) {
+                        currentTime = totalDuration;
+                        updateProgress();
+                        nextTrack();
+                    } else {
+                        updateProgress();
+                    }
+                }, 500);
+            }
+
+            function updateNowPlaying() {
+                const track = playableTracks[currentIndex];
+                nowPlayingImg.src = track.image;
+                nowPlayingTitle.textContent = track.title;
+                nowPlayingArtist.textContent = track.artist;
+            }
+
+            function togglePlay() {
+                isPlaying = !isPlaying;
+                if (isPlaying) {
+                    iconPlay.style.display = 'none';
+                    iconPause.style.display = 'block';
+                    startPlayTimer();
+                } else {
+                    iconPlay.style.display = 'block';
+                    iconPause.style.display = 'none';
+                    if (playTimer) {
+                        clearInterval(playTimer);
+                        playTimer = null;
+                    }
+                }
+            }
+
+            function prevTrack() {
+                currentIndex = (currentIndex - 1 + playableTracks.length) % playableTracks.length;
+                currentTime = 0;
+                updateNowPlaying();
+                updateProgress();
+            }
+
+            function nextTrack() {
+                currentIndex = (currentIndex + 1) % playableTracks.length;
+                currentTime = 0;
+                updateNowPlaying();
+                updateProgress();
+            }
+
+            playBtn.addEventListener('click', togglePlay);
+            prevBtn.addEventListener('click', prevTrack);
+            nextBtn.addEventListener('click', nextTrack);
+
+            // 초기화
+            totalTimeSpan.textContent = formatTime(totalDuration);
+            updateNowPlaying();
+        </script>
     </body>
 </html>

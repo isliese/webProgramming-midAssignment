@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="1_에쁠킬라_layout.css" />
     <title>SoundLetter - 플레이리스트 상세</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2">
 
     <style>
         /* a 태그 기본 밑줄 / 눌렀을 때 선 제거 */
@@ -444,41 +444,16 @@
             margin: 0 25px;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 21px 18px 8px 18px;
             border-bottom: 1px solid #2a2a2a;
-            position: relative;
         }
 
         .add-title {
-            flex: 1;
             text-align: center;
             font-size: 22px;
             font-weight: 600;
             color: #ffffff;
-        }
-
-        .popup-close-btn {
-            position: absolute;
-            right: 0;
-            top: 21px;
-            background: none;
-            border: none;
-            color: #b3b3b3;
-            cursor: pointer;
-            padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.2s;
-        }
-
-        .popup-close-btn:hover {
-            color: #ffffff;
-        }
-
-        .popup-close-btn svg {
-            width: 20px;
-            height: 20px;
         }
 
         /* 검색 영역 */
@@ -691,7 +666,7 @@
             left: 300px;
             display: flex;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 0 auto 30px;
             text-decoration: none;
         }
 
@@ -1185,11 +1160,6 @@
             <!-- 헤더 -->
             <div class="add-header">
                 <div class="add-title">이 플레이리스트에 추가</div>
-                <button class="popup-close-btn" id="popupCloseBtn">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                    </svg>
-                </button>
             </div>
 
             <!-- 검색 버튼 -->
@@ -1356,9 +1326,9 @@
             </div>
             <!-- 취소버튼 -->
             <div>
-                <a href="1_에쁠킬라_PlaylistDetail.html"><button class="add-close-btn" id="closeAdd" aria-label="취소">
-                        취소
-                    </button></a>
+                <button class="add-close-btn" id="closeAdd" aria-label="닫기">
+                    닫기
+                </button>
             </div>
         </div>
         <div class="toast" id="toast">플레이리스트에 추가되었습니다.</div>
@@ -1398,19 +1368,11 @@
         // 오버레이 + 팝업
         const popupOverlay = document.getElementById("popupOverlay");
         const popupContainer = document.getElementById("popupContainer");
-        // 팝업 닫기 버튼 (X 버튼)
-        const popupCloseBtn = document.getElementById("popupCloseBtn");
-
+        
         // 팝업 열기
         openPopupBtn.addEventListener("click", () => {
             popupOverlay.style.display = "block";
             popupContainer.style.display = "block";
-        });
-
-        // 팝업 닫기 - X 버튼
-        popupCloseBtn.addEventListener("click", () => {
-            popupOverlay.style.display = "none";
-            popupContainer.style.display = "none";
         });
 
         // 팝업 닫기 (추가 화면 안의 취소버튼)
@@ -1458,21 +1420,6 @@
                 updateCarousel();
             });
         });
-
-        // 토스트 메시지
-        document.querySelectorAll('.add-btn').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                alert('플레이리스트에 추가되었습니다.');
-            });
-        });
-
-        // 닫기 버튼 (원하는 페이지로 이동)
-        document
-            .getElementById('closeAdd')
-            .addEventListener('click', () => {
-                // 필요에 따라 이동 경로 수정
-                window.location.href = '1_에쁠킬라_PlaylistDetail.html';
-            });
 
         // 검색 버튼 (현재는 알림만)
         document
@@ -1534,13 +1481,15 @@
             }
         }
 
-        // 모든 버튼의 아이콘 업데이트
+        // 모든 버튼의 아이콘 업데이트 - 현재 재생 중인 곡만 || 표시
         function updateAllPlayIcons(playing) {
-            document.querySelectorAll(".play-toggle").forEach(btn => {
+            // 1. 트랙 리스트의 재생 버튼들 업데이트
+            document.querySelectorAll(".track-play-btn").forEach((btn, index) => {
                 const playIcon = btn.querySelector(".icon-play");
                 const pauseIcon = btn.querySelector(".icon-pause");
                 
-                if (playing) {
+                // 현재 재생 중인 곡의 인덱스와 일치하는 버튼만 상태 변경
+                if (index === musicIndex && playing) {
                     playIcon.style.display = "none";
                     pauseIcon.style.display = "block";
                 } else {
@@ -1548,20 +1497,39 @@
                     pauseIcon.style.display = "none";
                 }
             });
-        }
 
-        // 재생/일시정지 토글 기능 (메인 버튼 제외한 모든 재생 버튼) 
-        document.querySelectorAll(".play-toggle:not(.play-main-btn)").forEach(btn => {
-            btn.addEventListener("click", () => {
-                if (isPlaying) {
-                    pausePlayback();
-                    updateAllPlayIcons(false);
+            // 2. 하단 재생바의 재생 버튼 업데이트
+            const playerPlayBtn = document.querySelector(".player-controls .play-toggle");
+            if (playerPlayBtn) {
+                const playerPlayIcon = playerPlayBtn.querySelector(".icon-play");
+                const playerPauseIcon = playerPlayBtn.querySelector(".icon-pause");
+                
+                if (playing) {
+                    playerPlayIcon.style.display = "none";
+                    playerPauseIcon.style.display = "block";
                 } else {
-                    startPlayback();
-                    updateAllPlayIcons(true);
+                    playerPlayIcon.style.display = "block";
+                    playerPauseIcon.style.display = "none";
                 }
-            });
-        });
+            }
+
+            // 3. 메인 재생 버튼 업데이트
+            const mainPlayBtn = document.querySelector(".playlist-header .play-main-btn");
+            if (mainPlayBtn) {
+                const mainPlayIcon = mainPlayBtn.querySelector(".icon-play");
+                const mainPauseIcon = mainPlayBtn.querySelector(".icon-pause");
+                
+                if (mainPlayIcon && mainPauseIcon) {
+                    if (playing) {
+                        mainPlayIcon.style.display = "none";
+                        mainPauseIcon.style.display = "block";
+                    } else {
+                        mainPlayIcon.style.display = "block";
+                        mainPauseIcon.style.display = "none";
+                    }
+                }
+            }
+        }
 
 
         //  트랙 정보 수집 (track-add 제외)
@@ -1586,7 +1554,7 @@
         const nowArtist = document.querySelector(".now-playing-artist");
 
 
-        let musicIndex = 0;
+        let musicIndex = -1;
 
 
         // 플레이어 업데이트 함수
@@ -1618,7 +1586,7 @@
                 e.stopPropagation();
                 
                 // 같은 곡 클릭 시 재생/일시정지 토글
-                if (musicIndex === i) {
+                if (musicIndex === i && musicIndex !== -1) {
                     if (isPlaying) {
                         pausePlayback();
                         updateAllPlayIcons(false);
@@ -1627,13 +1595,14 @@
                         updateAllPlayIcons(true);
                     }
                 } else {
-                    // 다른 곡 클릭 시 곡 변경 및 재생
+                    // 다른 곡 클릭 시 또는 처음 클릭 시 곡 변경 및 재생
                     musicIndex = i;
                     updatePlayerBar();
+                    // 재생 중이 아닐 때만 재생 시작
                     if (!isPlaying) {
                         startPlayback();
-                        updateAllPlayIcons(true);
                     }
+                    updateAllPlayIcons(true);
                 }
             });
         });
@@ -1652,11 +1621,9 @@
                 } else {
                     // 일시정지 상태면 재생 시작
                     // 현재 곡이 없으면 첫 번째 곡으로 설정
-                    if (tracks.length > 0 && musicIndex === 0) {
-                        const t = tracks[0];
-                        nowImg.src = t.img;
-                        nowTitle.innerText = t.title;
-                        nowArtist.innerText = t.artist;
+                    if (tracks.length > 0 && musicIndex === -1) {
+                        musicIndex = 0;
+                        updatePlayerBar();
                     }
                     
                     startPlayback();
@@ -1665,8 +1632,35 @@
             });
         }
 
+        // 하단 재생바의 재생 버튼
+        const playerPlayBtn = document.querySelector(".player-controls .play-toggle");
+        if (playerPlayBtn) {
+            playerPlayBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                
+                if (isPlaying) {
+                    pausePlayback();
+                    updateAllPlayIcons(false);
+                } else {
+                    // 일시정지 상태면 재생 시작
+                    if (tracks.length > 0) {
+                        if (musicIndex === -1) {
+                            musicIndex = 0;
+                            updatePlayerBar();
+                        }
+                        startPlayback();
+                        updateAllPlayIcons(true);
+                    }
+                }
+            });
+        }
+
         document.querySelector(".next-btn").addEventListener("click", () => {
-            musicIndex = (musicIndex + 1) % tracks.length;
+            if (musicIndex === -1) {
+                musicIndex = 0;
+            } else {
+                musicIndex = (musicIndex + 1) % tracks.length;
+            }
             updatePlayerBar();
             // 재생 중이었으면 계속 재생
             if (isPlaying) {
@@ -1676,7 +1670,11 @@
         });
 
         document.querySelector(".prev-btn").addEventListener("click", () => {
-            musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
+            if (musicIndex === -1) {
+                musicIndex = tracks.length - 1;
+            } else {
+                musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
+            }
             updatePlayerBar();
             // 재생 중이었으면 계속 재생
             if (isPlaying) {
@@ -1794,10 +1792,11 @@
                         // 다른 곡 클릭 시 곡 변경 및 재생
                         musicIndex = newIndex;
                         updatePlayerBar();
+                        // 재생 중이 아닐 때만 재생 시작
                         if (!isPlaying) {
                             startPlayback();
-                            updateAllPlayIcons(true);
                         }
+                        updateAllPlayIcons(true);
                     }
                 });
 
