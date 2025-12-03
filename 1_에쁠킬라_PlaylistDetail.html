@@ -1421,13 +1421,6 @@
             });
         });
 
-        // 토스트 메시지
-        document.querySelectorAll('.add-btn').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                alert('플레이리스트에 추가되었습니다.');
-            });
-        });
-
         // 검색 버튼 (현재는 알림만)
         document
             .getElementById('searchBtn')
@@ -1488,13 +1481,15 @@
             }
         }
 
-        // 모든 버튼의 아이콘 업데이트
+        // 모든 버튼의 아이콘 업데이트 - 현재 재생 중인 곡만 || 표시
         function updateAllPlayIcons(playing) {
-            document.querySelectorAll(".play-toggle").forEach(btn => {
+            // 1. 트랙 리스트의 재생 버튼들 업데이트
+            document.querySelectorAll(".track-play-btn").forEach((btn, index) => {
                 const playIcon = btn.querySelector(".icon-play");
                 const pauseIcon = btn.querySelector(".icon-pause");
                 
-                if (playing) {
+                // 현재 재생 중인 곡의 인덱스와 일치하는 버튼만 상태 변경
+                if (index === musicIndex && playing) {
                     playIcon.style.display = "none";
                     pauseIcon.style.display = "block";
                 } else {
@@ -1502,20 +1497,39 @@
                     pauseIcon.style.display = "none";
                 }
             });
-        }
 
-        // 재생/일시정지 토글 기능 (메인 버튼 제외한 모든 재생 버튼) 
-        document.querySelectorAll(".play-toggle:not(.play-main-btn)").forEach(btn => {
-            btn.addEventListener("click", () => {
-                if (isPlaying) {
-                    pausePlayback();
-                    updateAllPlayIcons(false);
+            // 2. 하단 재생바의 재생 버튼 업데이트
+            const playerPlayBtn = document.querySelector(".player-controls .play-toggle");
+            if (playerPlayBtn) {
+                const playerPlayIcon = playerPlayBtn.querySelector(".icon-play");
+                const playerPauseIcon = playerPlayBtn.querySelector(".icon-pause");
+                
+                if (playing) {
+                    playerPlayIcon.style.display = "none";
+                    playerPauseIcon.style.display = "block";
                 } else {
-                    startPlayback();
-                    updateAllPlayIcons(true);
+                    playerPlayIcon.style.display = "block";
+                    playerPauseIcon.style.display = "none";
                 }
-            });
-        });
+            }
+
+            // 3. 메인 재생 버튼 업데이트
+            const mainPlayBtn = document.querySelector(".playlist-header .play-main-btn");
+            if (mainPlayBtn) {
+                const mainPlayIcon = mainPlayBtn.querySelector(".icon-play");
+                const mainPauseIcon = mainPlayBtn.querySelector(".icon-pause");
+                
+                if (mainPlayIcon && mainPauseIcon) {
+                    if (playing) {
+                        mainPlayIcon.style.display = "none";
+                        mainPauseIcon.style.display = "block";
+                    } else {
+                        mainPlayIcon.style.display = "block";
+                        mainPauseIcon.style.display = "none";
+                    }
+                }
+            }
+        }
 
 
         //  트랙 정보 수집 (track-add 제외)
@@ -1540,7 +1554,7 @@
         const nowArtist = document.querySelector(".now-playing-artist");
 
 
-        let musicIndex = 0;
+        let musicIndex = -1;
 
 
         // 플레이어 업데이트 함수
@@ -1572,7 +1586,7 @@
                 e.stopPropagation();
                 
                 // 같은 곡 클릭 시 재생/일시정지 토글
-                if (musicIndex === i) {
+                if (musicIndex === i && musicIndex !== -1) {
                     if (isPlaying) {
                         pausePlayback();
                         updateAllPlayIcons(false);
@@ -1581,13 +1595,14 @@
                         updateAllPlayIcons(true);
                     }
                 } else {
-                    // 다른 곡 클릭 시 곡 변경 및 재생
+                    // 다른 곡 클릭 시 또는 처음 클릭 시 곡 변경 및 재생
                     musicIndex = i;
                     updatePlayerBar();
+                    // 재생 중이 아닐 때만 재생 시작
                     if (!isPlaying) {
                         startPlayback();
-                        updateAllPlayIcons(true);
                     }
+                    updateAllPlayIcons(true);
                 }
             });
         });
@@ -1606,11 +1621,9 @@
                 } else {
                     // 일시정지 상태면 재생 시작
                     // 현재 곡이 없으면 첫 번째 곡으로 설정
-                    if (tracks.length > 0 && musicIndex === 0) {
-                        const t = tracks[0];
-                        nowImg.src = t.img;
-                        nowTitle.innerText = t.title;
-                        nowArtist.innerText = t.artist;
+                    if (tracks.length > 0 && musicIndex === -1) {
+                        musicIndex = 0;
+                        updatePlayerBar();
                     }
                     
                     startPlayback();
@@ -1619,8 +1632,35 @@
             });
         }
 
+        // 하단 재생바의 재생 버튼
+        const playerPlayBtn = document.querySelector(".player-controls .play-toggle");
+        if (playerPlayBtn) {
+            playerPlayBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                
+                if (isPlaying) {
+                    pausePlayback();
+                    updateAllPlayIcons(false);
+                } else {
+                    // 일시정지 상태면 재생 시작
+                    if (tracks.length > 0) {
+                        if (musicIndex === -1) {
+                            musicIndex = 0;
+                            updatePlayerBar();
+                        }
+                        startPlayback();
+                        updateAllPlayIcons(true);
+                    }
+                }
+            });
+        }
+
         document.querySelector(".next-btn").addEventListener("click", () => {
-            musicIndex = (musicIndex + 1) % tracks.length;
+            if (musicIndex === -1) {
+                musicIndex = 0;
+            } else {
+                musicIndex = (musicIndex + 1) % tracks.length;
+            }
             updatePlayerBar();
             // 재생 중이었으면 계속 재생
             if (isPlaying) {
@@ -1630,7 +1670,11 @@
         });
 
         document.querySelector(".prev-btn").addEventListener("click", () => {
-            musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
+            if (musicIndex === -1) {
+                musicIndex = tracks.length - 1;
+            } else {
+                musicIndex = (musicIndex - 1 + tracks.length) % tracks.length;
+            }
             updatePlayerBar();
             // 재생 중이었으면 계속 재생
             if (isPlaying) {
@@ -1748,10 +1792,11 @@
                         // 다른 곡 클릭 시 곡 변경 및 재생
                         musicIndex = newIndex;
                         updatePlayerBar();
+                        // 재생 중이 아닐 때만 재생 시작
                         if (!isPlaying) {
                             startPlayback();
-                            updateAllPlayIcons(true);
                         }
+                        updateAllPlayIcons(true);
                     }
                 });
 
