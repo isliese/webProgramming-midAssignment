@@ -444,41 +444,16 @@
             margin: 0 25px;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 21px 18px 8px 18px;
             border-bottom: 1px solid #2a2a2a;
-            position: relative;
         }
 
         .add-title {
-            flex: 1;
             text-align: center;
             font-size: 22px;
             font-weight: 600;
             color: #ffffff;
-        }
-
-        .popup-close-btn {
-            position: absolute;
-            right: 0;
-            top: 21px;
-            background: none;
-            border: none;
-            color: #b3b3b3;
-            cursor: pointer;
-            padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.2s;
-        }
-
-        .popup-close-btn:hover {
-            color: #ffffff;
-        }
-
-        .popup-close-btn svg {
-            width: 20px;
-            height: 20px;
         }
 
         /* 검색 영역 */
@@ -691,7 +666,7 @@
             left: 300px;
             display: flex;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 0 auto 30px;
             text-decoration: none;
         }
 
@@ -1185,11 +1160,6 @@
             <!-- 헤더 -->
             <div class="add-header">
                 <div class="add-title">이 플레이리스트에 추가</div>
-                <button class="popup-close-btn" id="popupCloseBtn">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                    </svg>
-                </button>
             </div>
 
             <!-- 검색 버튼 -->
@@ -1356,9 +1326,9 @@
             </div>
             <!-- 취소버튼 -->
             <div>
-                <a href="1_에쁠킬라_PlaylistDetail.html"><button class="add-close-btn" id="closeAdd" aria-label="취소">
-                        취소
-                    </button></a>
+                <button class="add-close-btn" id="closeAdd" aria-label="닫기">
+                    닫기
+                </button>
             </div>
         </div>
         <div class="toast" id="toast">플레이리스트에 추가되었습니다.</div>
@@ -1398,19 +1368,11 @@
         // 오버레이 + 팝업
         const popupOverlay = document.getElementById("popupOverlay");
         const popupContainer = document.getElementById("popupContainer");
-        // 팝업 닫기 버튼 (X 버튼)
-        const popupCloseBtn = document.getElementById("popupCloseBtn");
-
+        
         // 팝업 열기
         openPopupBtn.addEventListener("click", () => {
             popupOverlay.style.display = "block";
             popupContainer.style.display = "block";
-        });
-
-        // 팝업 닫기 - X 버튼
-        popupCloseBtn.addEventListener("click", () => {
-            popupOverlay.style.display = "none";
-            popupContainer.style.display = "none";
         });
 
         // 팝업 닫기 (추가 화면 안의 취소버튼)
@@ -1465,14 +1427,6 @@
                 alert('플레이리스트에 추가되었습니다.');
             });
         });
-
-        // 닫기 버튼 (원하는 페이지로 이동)
-        document
-            .getElementById('closeAdd')
-            .addEventListener('click', () => {
-                // 필요에 따라 이동 경로 수정
-                window.location.href = '1_에쁠킬라_PlaylistDetail.html';
-            });
 
         // 검색 버튼 (현재는 알림만)
         document
