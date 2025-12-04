@@ -1,123 +1,244 @@
-    // 로그인 체크 + 사용자 이름 표시
-    (function checkLogin() {
-      const loggedInUser = sessionStorage.getItem('loggedInUser');
+// 재생바 기능 구현
+/* 1. 재생 가능한 트랙 목록*/
+const playableTracks = [
+{ title: "Celebrity", artist: "아이유", image: "../src/img/1_celebrity.png" },
+{ title: "눈사람", artist: "정승환", image: "../src/img/1_눈사람.jpg" },
+{ title: "Trip", artist: "릴러말즈", image: "../src/img/1_Trip.jpg" },
+{ title: "한페이지가 될 수 있게", artist: "DAY6", image: "../src/img/1_한페이지가될수있게_.jpg" },
+{ title: "좋은밤 좋은꿈", artist: "너드커넥션", image: "../src/img/1_좋은밤좋은꿈.jpg" },
+{ title: "Lover", artist: "Taylor Swift", image: "../src/img/1_lover.jpg" },
+{ title: "너에게 못했던 내 마지막 말은", artist: "다비치", image: "../src/img/1_너에게못했던내마지막말은.jpg" }
+];
 
-      if (!loggedInUser) {
-        // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
-        alert('로그인이 필요한 서비스입니다.');
-        window.location.href = '1_에쁠킬라_Login.html';
-      } else {
-        const user = JSON.parse(loggedInUser);
+/* 2. 재생 상태 변수*/
+let currentIndex = 0;
+let isPlaying = false;
+let currentTime = 0;
+const totalDuration = 210; // 3분 30초 = 210초
+let playTimer = null;
 
-        // 프로필 드롭다운의 닉네임 표시
-        const profileNickname = document.querySelector('.profile-nickname');
-        if (profileNickname) {
-          profileNickname.textContent = user.name + '님';
-        }
+/* 3. DOM 요소 참조*/
+const nowPlayingImg = document.querySelector('.now-playing-image');
+const nowPlayingTitle = document.querySelector('.now-playing-info h4');
+const nowPlayingArtist = document.querySelector('.now-playing-info p');
+const progressFilled = document.querySelector('.progress-filled');
 
-        // 환영 메시지 이름 표시
-        const welcomeMessage = document.querySelector('.welcome-message');
-        if (welcomeMessage) {
-          welcomeMessage.textContent = `${user.name}님, 오늘도 음악을 즐길 준비 되셨나요?`;
-        }
+const timeSpans = document.querySelectorAll('.time');
+const currentTimeSpan = timeSpans[0];
+const totalTimeSpan = timeSpans[1];
 
-        // 사용자 이름 표시
-        const userDetailsName = document.querySelector('.user-details h2');
-        if (userDetailsName) {
-          userDetailsName.textContent = user.name;
-        }
+const playBtn = document.querySelector('.control-btn.play-btn');
 
-        // 사용자 이메일 표시
-        const userDetailsId = document.querySelector('.user-details p');
-        if (userDetailsId) {
-          userDetailsId.textContent = user.email;
-        }
+/* 4. 유틸 – 시간 포맷*/
+function formatTime(sec) {
+const m = Math.floor(sec / 60);
+const s = Math.floor(sec % 60);
+return m + ':' + (s < 10 ? '0' + s : s);
+}
 
-        // 가입일 표시
-        const userDetailsJoinDate = document.querySelectorAll('.user-details p')[1];
-        if (userDetailsJoinDate && user.loginTime) {
-          const joinDate = new Date(user.loginTime);
-          const year = joinDate.getFullYear();
-          const month = joinDate.getMonth() + 1;
-          const day = joinDate.getDate();
-          userDetailsJoinDate.textContent = `가입일: ${year}년 ${month}월 ${day}일`;
-        }
-      }
-    })();
+/* 5. 진행 바 업데이트*/
+function updateProgress() {
+const percent = (currentTime / totalDuration) * 100;
+progressFilled.style.width = Math.min(percent, 100) + '%';
+currentTimeSpan.textContent = formatTime(currentTime);
+}
 
-    /* 1. 프로필 드롭다운 열기/닫기 */
+/* 6. 타이머 시작*/
+function startPlayTimer() {
+if (playTimer) clearInterval(playTimer);
+playTimer = setInterval(() => {
+    if (!isPlaying) return;
 
-    const userProfile = document.getElementById("userProfile");
-    const profileDropdown = document.getElementById("profileDropdown");
-    const closeProfile = document.getElementById("closeProfile");
+    currentTime += 0.5;
 
-    userProfile.addEventListener("click", (e) => {
-      e.stopPropagation();
-      profileDropdown.classList.toggle("active");
-    });
+    if (currentTime >= totalDuration) {
+    currentTime = totalDuration;
+    updateProgress();
+    pause();
+    return;
+    }
+    updateProgress();
+}, 500);
+}
 
-    closeProfile.addEventListener("click", (e) => {
-      e.stopPropagation();
-      profileDropdown.classList.remove("active");
-    });
+/* 7. 재생*/
+function play() {
+isPlaying = true;
+document.querySelector('.icon-play').style.display = 'none';
+document.querySelector('.icon-pause').style.display = 'inline';
+startPlayTimer();
+}
 
-    document.addEventListener("click", () => {
-      profileDropdown.classList.remove("active");
-    });
+/* 8. 일시정지*/
+function pause() {
+isPlaying = false;
+document.querySelector('.icon-play').style.display = 'inline';
+document.querySelector('.icon-pause').style.display = 'none';
+if (playTimer) clearInterval(playTimer);
+}
+
+/* 9. 트랙 선택*/
+function selectTrack(index) {
+if (index < 0 || index >= playableTracks.length) return;
+
+currentIndex = index;
+const track = playableTracks[index];
+
+nowPlayingImg.src = track.image;
+nowPlayingTitle.textContent = track.title;
+nowPlayingArtist.textContent = track.artist;
+
+currentTime = 0;
+updateProgress();
+
+play();
+}
+
+/* 10. 버튼 이벤트 등록*/
+playBtn.addEventListener('click', () => {
+if (!isPlaying) play();
+else pause();
+});
+
+document.querySelector('.prev-btn').addEventListener('click', () => {
+selectTrack((currentIndex - 1 + playableTracks.length) % playableTracks.length);
+});
+
+document.querySelector('.next-btn').addEventListener('click', () => {
+selectTrack((currentIndex + 1) % playableTracks.length);
+});
 
 
-    /* 2. 로그아웃 버튼 */
+/* 11. 초기 렌더링 설정*/
+currentTime = 0;
+progressFilled.style.width = '0%';
+currentTimeSpan.textContent = formatTime(0);
+totalTimeSpan.textContent = formatTime(totalDuration);
 
-    function handleLogout() {
-      alert("로그아웃 되었습니다!");
-      window.location.href = "1_에쁠킬라_Login.html";
+
+
+
+// 로그인 체크 + 사용자 이름 표시
+(function checkLogin() {
+  const loggedInUser = sessionStorage.getItem('loggedInUser');
+
+  if (!loggedInUser) {
+    // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
+    alert('로그인이 필요한 서비스입니다.');
+    window.location.href = '1_에쁠킬라_Login.html';
+  } else {
+    const user = JSON.parse(loggedInUser);
+
+    // 프로필 드롭다운의 닉네임 표시
+    const profileNickname = document.querySelector('.profile-nickname');
+    if (profileNickname) {
+      profileNickname.textContent = user.name + '님';
     }
 
-
-    /* 3. 앨범 재생 함수 */
-
-    function playAlbum(artist, title) {
-      document.getElementById("playerTitle").textContent = title;
-      document.getElementById("playerArtist").textContent = artist;
-      alert(`🎵 '${title}' 재생을 시작합니다!`);
+    // 환영 메시지 이름 표시
+    const welcomeMessage = document.querySelector('.welcome-message');
+    if (welcomeMessage) {
+      welcomeMessage.textContent = `${user.name}님, 오늘도 음악을 즐길 준비 되셨나요?`;
     }
 
-
-    /* 4. 전체보기 버튼 */
-
-    function viewAllLiked() {
-      window.location.href = "1_에쁠킬라_LikedAlbums.html";
+    // 사용자 이름 표시
+    const userDetailsName = document.querySelector('.user-details h2');
+    if (userDetailsName) {
+      userDetailsName.textContent = user.name;
     }
 
-    function viewAllOffline() {
-      window.location.href = "1_에쁠킬라_OfflineMusic.html";
+    // 사용자 이메일 표시
+    const userDetailsId = document.querySelector('.user-details p');
+    if (userDetailsId) {
+      userDetailsId.textContent = user.email;
     }
 
-
-    /* 5. 플레이/일시정지 토글 */
-
-    const playPauseBtn = document.getElementById("playPauseBtn");
-    let isPlaying = false;
-
-    playPauseBtn.addEventListener("click", () => {
-      isPlaying = !isPlaying;
-      playPauseBtn.textContent = isPlaying ? "⏸" : "▶";
-    });
-
-
-    /* 6. 가짜 진행바 애니메이션 */
-
-    const progressBar = document.getElementById("playerProgress");
-
-    function animateProgress() {
-      let width = 0;
-      setInterval(() => {
-        if (isPlaying) {
-          width += 1;
-          if (width > 100) width = 0;
-          progressBar.style.width = width + "%";
-        }
-      }, 500);
+    // 가입일 표시
+    const userDetailsJoinDate = document.querySelectorAll('.user-details p')[1];
+    if (userDetailsJoinDate && user.loginTime) {
+      const joinDate = new Date(user.loginTime);
+      const year = joinDate.getFullYear();
+      const month = joinDate.getMonth() + 1;
+      const day = joinDate.getDate();
+      userDetailsJoinDate.textContent = `가입일: ${year}년 ${month}월 ${day}일`;
     }
+  }
+})();
 
-    animateProgress();
+/* 1. 프로필 드롭다운 열기/닫기 */
+
+const userProfile = document.getElementById("userProfile");
+const profileDropdown = document.getElementById("profileDropdown");
+const closeProfile = document.getElementById("closeProfile");
+
+userProfile.addEventListener("click", (e) => {
+  e.stopPropagation();
+  profileDropdown.classList.toggle("active");
+});
+
+closeProfile.addEventListener("click", (e) => {
+  e.stopPropagation();
+  profileDropdown.classList.remove("active");
+});
+
+document.addEventListener("click", () => {
+  profileDropdown.classList.remove("active");
+});
+
+
+/* 2. 로그아웃 버튼 */
+
+function handleLogout() {
+  sessionStorage.removeItem('loggedInUser');
+  sessionStorage.removeItem('isLoggedIn');
+  alert("로그아웃 되었습니다!");
+  window.location.href = "1_에쁠킬라_Login.html";
+}
+
+
+/* 3. 앨범 재생 함수 */
+
+function playAlbum(artist, title) {
+  nowPlayingTitle.textContent = title;
+  nowPlayingArtist.textContent = artist;
+}
+
+
+
+/* 4. 전체보기 버튼 */
+
+function viewAllLiked() {
+  window.location.href = "1_에쁠킬라_LikedAlbums.html";
+}
+
+function viewAllOffline() {
+  window.location.href = "1_에쁠킬라_OfflineMusic.html";
+}
+
+
+/* 5. 플레이/일시정지 토글 */
+
+const playPauseBtn = document.getElementById("playPauseBtn");
+
+playPauseBtn.addEventListener("click", () => {
+  isPlaying = !isPlaying;
+  playPauseBtn.textContent = isPlaying ? "⏸" : "▶";
+});
+
+
+/* 6. 가짜 진행바 애니메이션 */
+
+const progressBar = document.querySelector(".progress-filled");
+
+function animateProgress() {
+  let width = 0;
+  setInterval(() => {
+    if (isPlaying) {
+      width += 1;
+      if (width > 100) width = 0;
+      progressBar.style.width = width + "%";
+    }
+  }, 500);
+}
+
+animateProgress();

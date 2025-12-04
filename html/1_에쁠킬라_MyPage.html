@@ -119,7 +119,7 @@
           <div class="user-details">
             <div class="user-details-head">
               <h2>차은우</h2>
-              <button class="profile-logout-btn">로그아웃</button>
+              <button class="profile-logout-btn" onclick="handleLogout()">로그아웃</button>
             </div>
             <p>@eunwoo_97</p>
             <div class="user-stats">
@@ -144,7 +144,7 @@
       <div class="content-card">
         <div class="card-header">
           <h3 class="card-title">좋아요한 앨범</h3>
-          <button class="view-all-btn" onclick="viewAllLiked()">전체보기</button>
+          <button class="view-all-btn">전체보기</button>
         </div>
         <div class="albums-scroll">
           <div class="album-item" onclick="playAlbum('Oasis', 'Don\'t Look Back in Anger')">
@@ -195,7 +195,7 @@
       <div class="content-card">
         <div class="card-header">
           <h3 class="card-title">오프라인 저장 음악</h3>
-          <button class="view-all-btn" onclick="viewAllOffline()">전체보기</button>
+          <button class="view-all-btn">전체보기</button>
         </div>
         <div class="albums-scroll">
           <div class="album-item" onclick="playAlbum('RIIZE', 'Siren')">
@@ -244,6 +244,7 @@
     </main>
   </div>
 
+  <!-- 재생바 -->
   <div class="player-bar">
     <div class="now-playing">
       <img src="../src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image">
@@ -252,7 +253,7 @@
         <p class="now-playing-artist">Oasis</p>
       </div>
     </div>
-
+    
     <div class="player-controls">
       <div class="control-buttons">
         <button class="control-btn prev-btn">
@@ -294,5 +295,7 @@
   </div>
 </body>
 <script src="../javascript/1_에쁠킬라_MyPage.js"></script>
+<script src="../javascript/1_에쁠킬라_Login.js"></script>
+<script src="../javascript/1_에쁠킬라_Volume.js"></script>
 </html>
             
