@@ -175,6 +175,47 @@
         </div>
     </div>
 
+
+    <!-- 달력 팝업 -->
+    <div class="calendar-popup-overlay" id="calendarPopup">
+        <div class="calendar-popup">
+            <div class="calendar-header">
+                <h2 class="calendar-title">날짜 선택</h2>
+                <button class="calendar-close-btn" id="calendarCloseBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="calendar-nav">
+                <button id="prevMonth">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                </button>
+                <div class="calendar-current" id="currentMonth"></div>
+                <button id="nextMonth">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- 요일 헤더 -->
+                <div class="calendar-day-header">일</div>
+                <div class="calendar-day-header">월</div>
+                <div class="calendar-day-header">화</div>
+                <div class="calendar-day-header">수</div>
+                <div class="calendar-day-header">목</div>
+                <div class="calendar-day-header">금</div>
+                <div class="calendar-day-header">토</div>
+                <!-- 날짜들은 JavaScript로 동적 생성 -->
+            </div>
+        </div>
+    </div>
+
     <script src="../javascript/1_에쁠킬라_PlayRecord.js"></script>
     <script src="../javascript/1_에쁠킬라_Volume.js"></script>
 </body>

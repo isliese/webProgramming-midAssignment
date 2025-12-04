@@ -334,3 +334,126 @@ profileNickname.textContent = user.name + '님';
 }
 }
 })();
+// 달력 기능
+let currentCalendarYear = new Date().getFullYear();
+let currentCalendarMonth = new Date().getMonth();
+
+const calendarPopup = document.getElementById('calendarPopup');
+const calendarCloseBtn = document.getElementById('calendarCloseBtn');
+const filterBtn = document.querySelector('.filter-btn');
+const prevMonthBtn = document.getElementById('prevMonth');
+const nextMonthBtn = document.getElementById('nextMonth');
+const currentMonthDisplay = document.getElementById('currentMonth');
+const calendarGrid = document.getElementById('calendarGrid');
+
+// 달력 버튼 클릭 시 팝업 열기
+filterBtn.addEventListener('click', () => {
+    calendarPopup.classList.add('active');
+    renderCalendar();
+});
+
+// 닫기 버튼
+calendarCloseBtn.addEventListener('click', () => {
+    calendarPopup.classList.remove('active');
+});
+
+// 오버레이 클릭 시 닫기
+calendarPopup.addEventListener('click', (e) => {
+    if (e.target === calendarPopup) {
+        calendarPopup.classList.remove('active');
+    }
+});
+
+// 이전 달
+prevMonthBtn.addEventListener('click', () => {
+    currentCalendarMonth--;
+    if (currentCalendarMonth < 0) {
+        currentCalendarMonth = 11;
+        currentCalendarYear--;
+    }
+    renderCalendar();
+});
+
+// 다음 달
+nextMonthBtn.addEventListener('click', () => {
+    currentCalendarMonth++;
+    if (currentCalendarMonth > 11) {
+        currentCalendarMonth = 0;
+        currentCalendarYear++;
+    }
+    renderCalendar();
+});
+
+// 달력 렌더링
+function renderCalendar() {
+    const year = currentCalendarYear;
+    const month = currentCalendarMonth;
+    
+    // 월 표시
+    const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+    currentMonthDisplay.textContent = `${year}년 ${monthNames[month]}`;
+    
+    // 해당 월의 첫 날과 마지막 날
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const firstDayOfWeek = firstDay.getDay();
+    const daysInMonth = lastDay.getDate();
+    
+    // 이전 달의 마지막 날
+    const prevMonthLastDay = new Date(year, month, 0).getDate();
+    
+    // 요일 헤더 유지하면서 날짜들만 다시 생성
+    const dayHeaders = calendarGrid.querySelectorAll('.calendar-day-header');
+    calendarGrid.innerHTML = '';
+    dayHeaders.forEach(header => calendarGrid.appendChild(header));
+    
+    // 오늘 날짜
+    const today = new Date();
+    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+    const todayDate = today.getDate();
+    
+    // 이전 달의 날짜들 (회색)
+    for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+        const day = document.createElement('div');
+        day.className = 'calendar-day other-month';
+        day.textContent = prevMonthLastDay - i;
+        calendarGrid.appendChild(day);
+    }
+    
+    // 현재 달의 날짜들
+    for (let date = 1; date <= daysInMonth; date++) {
+        const day = document.createElement('div');
+        day.className = 'calendar-day';
+        day.textContent = date;
+        
+        // 오늘 날짜 표시
+        if (isCurrentMonth && date === todayDate) {
+            day.classList.add('today');
+        }
+        
+        // 날짜 클릭 이벤트
+        day.addEventListener('click', () => {
+            // 기존 선택 제거 (모든 날짜에서)
+            document.querySelectorAll('.calendar-day.selected').forEach(d => {
+                d.classList.remove('selected');
+            });
+            
+            // 새로운 선택
+            day.classList.add('selected');
+            
+            // 여기에 날짜 선택 후 동작 추가 가능
+            console.log(`선택된 날짜: ${year}년 ${month + 1}월 ${date}일`);
+        });
+        
+        calendarGrid.appendChild(day);
+    }
+    
+    // 다음 달의 날짜들 (회색)
+    const remainingDays = 42 - (firstDayOfWeek + daysInMonth); // 6주 표시
+    for (let date = 1; date <= remainingDays; date++) {
+        const day = document.createElement('div');
+        day.className = 'calendar-day other-month';
+        day.textContent = date;
+        calendarGrid.appendChild(day);
+    }
+}
