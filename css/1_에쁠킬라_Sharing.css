@@ -104,9 +104,9 @@ margin-bottom:22px;
 
 /* 중앙 원형 그라데이션 - 원형으로 변경 */
 .center-gradient-circle {
-    width: 600px;
-    /* aspect-ratio: 1 / 1;*/
-    height: 600px;
+    width: 420px;
+    aspect-ratio: 1 / 1;
+    height: 420px;
     border-radius: 50%;
     background: radial-gradient(circle at center, 
         rgba(255, 200, 120, 0.18) 0%,
