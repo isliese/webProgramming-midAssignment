@@ -7,236 +7,6 @@
   <title>SoundLetter - Playlist</title>
   <link rel="stylesheet" href="../css/1_에쁠킬라_layout.css" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=2">
-
-  <style>
-    .page-title {
-      font-size: 32px;
-      font-weight: 700;
-    }
-
-    .main-content {
-      padding: 24px 32px 110px 32px;
-    }
-
-    /* 사용자 프로필 드롭다운 */
-    .user-profile {
-      position: relative;
-      cursor: pointer;
-      z-index: 100000;
-    }
-
-    .profile-dropdown {
-      position: absolute;
-      top: calc(100% + 12px);
-      right: 0;
-      background: #282828;
-      border-radius: 12px;
-      padding: 20px;
-      min-width: 200px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      z-index: 100000;
-      display: none;
-    }
-
-    .profile-dropdown.active {
-      display: block;
-    }
-
-    .profile-close-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: none;
-      border: none;
-      color: #b3b3b3;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.2s;
-    }
-
-    .profile-close-btn:hover {
-      color: #ffffff;
-    }
-
-    .profile-nickname {
-      font-size: 16px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 16px;
-      padding-right: 24px;
-    }
-
-    .logout-btn {
-      width: 100%;
-      padding: 10px 16px;
-      background: #ff9500;
-      color: #000000;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .logout-btn:hover {
-      background: #ffaa00;
-      transform: translateY(-1px);
-    }
-
-    /* 플레이리스트 버튼 */
-    .create-playlist-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-      border: none;
-      border-radius: 24px;
-      color: #000;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-bottom: 32px;
-      margin-top: 16px;
-    }
-
-    .create-playlist-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 16px rgba(255, 149, 0, 0.3);
-    }
-
-    /* 플레이리스트 그리드 */
-    .playlists-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 24px;
-    }
-
-    /*플레이리스트 카드 */
-    .playlist-card {
-      background: #282828;
-      border-radius: 12px;
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .playlist-card:hover {
-      background: #3e3e3e;
-      transform: translateY(-4px);
-    }
-
-    .playlist-cover {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 8px;
-      object-fit: cover;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .playlist-cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .playlist-cover-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .playlist-cover svg {
-      width: 60px;
-      height: 60px;
-      fill: rgba(0, 0, 0, 0.3);
-    }
-
-    .play-button {
-      position: absolute;
-      bottom: 110px;
-      right: 25px;
-      width: 48px;
-      height: 48px;
-      background: #ff9500;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.3s;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      border: none;
-      cursor: pointer;
-    }
-
-    .playlist-card:hover .play-button {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .play-button svg {
-      width: 20px;
-      height: 20px;
-      fill: #000;
-    }
-
-    .playlist-info {
-      padding: 0 4px;
-    }
-
-    .playlist-name {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .playlist-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #b3b3b3;
-      margin-bottom: 4px;
-    }
-
-    .playlist-creator {
-      font-size: 13px;
-      color: #b3b3b3;
-    }
-
-    /* 재생바 */
-    .player-bar .progress .progress-filled {
-      width: 0%;
-      transition: width 0.2s linear;
-    }
-
-    .volume-slider {
-      position: relative;
-    }
-
-    .volume-filled {
-      width: 60%;
-    }
-  </style>
 </head>
 
 <body>
@@ -347,7 +117,7 @@
         <div class="playlist-card" data-playlist="요즘 많이 듣는 노래">
           <a href="1_에쁠킬라_PlaylistDetail.html" style="text-decoration: none; color: inherit;">
             <div class="playlist-cover">
-              <img src="src/img/1_allbum.png" alt="Playlist" />
+              <img src="../src/img/1_allbum.png" alt="Playlist" />
             </div>
             <div class="playlist-info">
               <div class="playlist-name">요즘 많이 듣는 노래</div>
@@ -369,7 +139,7 @@
         <!-- 플레이리스트 카드 2 -->
         <div class="playlist-card" data-playlist="밤공기 playlist">
           <div class="playlist-cover">
-            <img src="src/img/1_눈사람.jpg" alt="Playlist" />
+            <img src="../src/img/1_눈사람.jpg" alt="Playlist" />
           </div>
           <div class="playlist-info">
             <div class="playlist-name">밤공기 playlist</div>
@@ -390,7 +160,7 @@
         <!-- 플레이리스트 카드 3 -->
         <div class="playlist-card" data-playlist="드라이브 mood">
           <div class="playlist-cover">
-            <img src="src/img/1_Trip.jpg" alt="Playlist" />
+            <img src="../src/img/1_Trip.jpg" alt="Playlist" />
           </div>
           <div class="playlist-info">
             <div class="playlist-name">드라이브 mood</div>
@@ -411,7 +181,7 @@
         <!-- 플레이리스트 카드 4 -->
         <div class="playlist-card" data-playlist="힐링하고 싶을 때">
           <div class="playlist-cover">
-            <img src="src/img/1_한페이지가될수있게_.jpg" alt="Playlist" />
+            <img src="../src/img/1_한페이지가될수있게_.jpg" alt="Playlist" />
           </div>
           <div class="playlist-info">
             <div class="playlist-name">힐링하고 싶을 때</div>
@@ -432,7 +202,7 @@
         <!-- 플레이리스트 카드 5 -->
         <div class="playlist-card" data-playlist="공부할 때 듣는 음악">
           <div class="playlist-cover">
-            <img src="src/img/1_좋은밤좋은꿈.jpg" alt="Playlist" />
+            <img src="../src/img/1_좋은밤좋은꿈.jpg" alt="Playlist" />
           </div>
           <div class="playlist-info">
             <div class="playlist-name">공부할 때 듣는 음악</div>
@@ -453,7 +223,7 @@
         <!-- 플레이리스트 카드 6 -->
         <div class="playlist-card" data-playlist="운동할 때">
           <div class="playlist-cover">
-            <img src="src/img/1_CruelSummer.jpg" alt="Playlist" />
+            <img src="../src/img/1_CruelSummer.jpg" alt="Playlist" />
           </div>
           <div class="playlist-info">
             <div class="playlist-name">운동할 때</div>
@@ -474,7 +244,7 @@
         <!-- 플레이리스트 카드 7 -->
         <div class="playlist-card" data-playlist="카페에서 듣기 좋은">
           <div class="playlist-cover">
-            <img src="src/img/1_너에게못했던내마지막말은.jpg" alt="Playlist" />
+            <img src="../src/img/1_너에게못했던내마지막말은.jpg" alt="Playlist" />
           </div>
           <div class="playlist-info">
             <div class="playlist-name">카페에서 듣기 좋은</div>
@@ -498,7 +268,7 @@
   <!-- 재생바 -->
   <div class="player-bar">
     <div class="now-playing">
-      <img src="src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image" />
+      <img src="../src/img/1_DontLookBackInAnger.jpg" alt="Now Playing" class="now-playing-image" />
       <div class="now-playing-info">
         <h4 class="now-playing-title">Don't Look Back in Anger</h4>
         <p class="now-playing-artist">Oasis</p>
@@ -545,181 +315,8 @@
     </div>
   </div>
 
-
-  <script>
-    const playableTracks = [
-      { title: "Smart", artist: "LE SSERAFIM", image: "src/img/1_smart.png" },
-      { title: "눈사람", artist: "정승환", image: "src/img/1_눈사람.jpg" },
-      { title: "Trip", artist: "릴러말즈", image: "src/img/1_Trip.jpg" },
-      { title: "한페이지가 될 수 있게", artist: "DAY6", image: "src/img/1_한페이지가될수있게_.jpg" },
-      { title: "좋은밤 좋은꿈", artist: "너드커넥션", image: "src/img/1_좋은밤좋은꿈.jpg" },
-      { title: "Lover", artist: "Taylor Swift", image: "src/img/1_lover.jpg" },
-      { title: "너에게 못했던 내 마지막 말은", artist: "다비치", image: "src/img/1_너에게못했던내마지막말은.jpg" }
-    ];
-
-    let currentIndex = 0;
-    let isPlaying = false;
-    let currentTime = 0;
-    const totalDuration = 210;
-    let playTimer = null;
-
-    const nowPlayingImg = document.querySelector('.now-playing-image');
-    const nowPlayingTitle = document.querySelector('.now-playing-info h4');
-    const nowPlayingArtist = document.querySelector('.now-playing-info p');
-    const progressFilled = document.querySelector('.progress-filled');
-    const currentTimeSpan = document.querySelectorAll('.time')[0];
-    const totalTimeSpan = document.querySelectorAll('.time')[1];
-    const playBtn = document.querySelector('.control-btn.play-btn');
-
-    function formatTime(sec) {
-      const m = Math.floor(sec / 60);
-      const s = Math.floor(sec % 60);
-      return m + ':' + (s < 10 ? '0' + s : s);
-    }
-
-    function updateProgress() {
-      const percent = (currentTime / totalDuration) * 100;
-      progressFilled.style.width = Math.min(percent, 100) + '%';
-      currentTimeSpan.textContent = formatTime(currentTime);
-    }
-
-    function startPlayTimer() {
-      if (playTimer) clearInterval(playTimer);
-      playTimer = setInterval(() => {
-        if (!isPlaying) return;
-        currentTime += 0.5;
-        if (currentTime >= totalDuration) {
-          currentTime = totalDuration;
-          updateProgress();
-          pause();
-          return;
-        }
-        updateProgress();
-      }, 500);
-    }
-
-    function play() {
-      isPlaying = true;
-      document.querySelector('.icon-play').style.display = 'none';
-      document.querySelector('.icon-pause').style.display = 'inline';
-      startPlayTimer();
-    }
-
-    function pause() {
-      isPlaying = false;
-      document.querySelector('.icon-play').style.display = 'inline';
-      document.querySelector('.icon-pause').style.display = 'none';
-      if (playTimer) clearInterval(playTimer);
-
-      const currentBtn = document.querySelectorAll('.playlist-card .play-button')[currentIndex];
-      if (currentBtn) {
-        currentBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>`;
-      }
-    }
-
-    function selectTrack(index) {
-      if (index < 0 || index >= playableTracks.length) return;
-      currentIndex = index;
-      const track = playableTracks[index];
-
-      nowPlayingImg.src = track.image;
-      nowPlayingTitle.textContent = track.title;
-      nowPlayingArtist.textContent = track.artist;
-
-      currentTime = 0;
-      updateProgress();
-      document.querySelectorAll('.playlist-card .play-button').forEach(btn => {
-        btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>`;
-      });
-
-      const currentBtn = document.querySelectorAll('.playlist-card .play-button')[index];
-      if (currentBtn) {
-        currentBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>`;
-      }
-
-      play();
-    }
-
-    document.querySelectorAll('.playlist-card .play-button').forEach((btn, index) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        selectTrack(index);
-      });
-    });
-
-    // 재생 버튼
-    playBtn.addEventListener('click', () => {
-      if (!isPlaying) play();
-      else pause();
-    });
-
-    // 이전/다음 버튼
-    document.querySelector('.prev-btn').addEventListener('click', () => {
-      const nextIndex = (currentIndex - 1 + playableTracks.length) % playableTracks.length;
-      selectTrack(nextIndex);
-    });
-
-    document.querySelector('.next-btn').addEventListener('click', () => {
-      const nextIndex = (currentIndex + 1) % playableTracks.length;
-      selectTrack(nextIndex);
-    });
-
-    // 시간 설정
-    totalTimeSpan.textContent = formatTime(totalDuration);
-    currentTimeSpan.textContent = formatTime(0);
-
-    /* 1. 프로필 드롭다운 열기/닫기 */
-    const userProfile = document.getElementById("userProfile");
-    const profileDropdown = document.getElementById("profileDropdown");
-    const closeProfile = document.getElementById("closeProfile");
-
-    userProfile.addEventListener("click", (e) => {
-      e.stopPropagation();
-      profileDropdown.classList.toggle("active");
-    });
-
-    closeProfile.addEventListener("click", (e) => {
-      e.stopPropagation();
-      profileDropdown.classList.remove("active");
-    });
-
-    document.addEventListener("click", () => {
-      profileDropdown.classList.remove("active");
-    });
-
-
-    /* 2. 로그아웃 버튼 */
-
-    function handleLogout() {
-      alert("로그아웃 되었습니다!");
-      window.location.href = "1_에쁠킬라_Login.html";
-    }
-
-    // 로그인 체크 + 사용자 이름 표시
-    (function checkLogin() {
-      const loggedInUser = sessionStorage.getItem('loggedInUser');
-
-      if (!loggedInUser) {
-        // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
-        alert('로그인이 필요한 서비스입니다.');
-        window.location.href = '1_에쁠킬라_Login.html';
-      } else {
-
-        const user = JSON.parse(loggedInUser);
-
-        // 프로필 드롭다운의 닉네임 표시
-        const profileNickname = document.querySelector('.profile-nickname');
-        if (profileNickname) {
-          profileNickname.textContent = user.name + '님';
-        }
-      }
-    })();
-
-  </script>
 </body>
-
+<script src="../javascript/1_에쁠킬라_Volume.js"></script>
 </html>
-
 
 
