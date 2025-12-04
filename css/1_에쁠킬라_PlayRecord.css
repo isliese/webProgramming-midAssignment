@@ -1,0 +1,226 @@
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.main-content {
+    padding: 24px 32px 110px 32px !important;
+}
+
+/* 사용자 프로필 드롭다운 */
+.user-profile {
+    position: relative;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: #282828;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 100000;
+}
+
+.profile-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    z-index: 100000;
+}
+
+.profile-close-btn:hover {
+    color: #ffffff;
+}
+
+.profile-nickname {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+    padding-right: 24px;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background: #ff9500;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: #ffaa00;
+    transform: translateY(-1px);
+}
+
+.record-tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.record-tab {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 15px;
+    font-weight: 600;
+    padding-bottom: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.record-tab.active {
+    color: #ff9500;
+    border-bottom: 2px solid #ff9500;
+}
+
+.calendar-sort-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.filter-btn,
+.sort-select {
+    background: #282828;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-btn .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.filter-btn:hover,
+.sort-select:hover {
+    background: #3a3a3a;
+}
+
+.record-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.record-item {
+    display: flex;
+    align-items: center;
+    background: #282828;
+    border-radius: 12px;
+    padding: 12px 16px;
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.record-item:hover {
+    background: #3c3c3c;
+}
+
+.record-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+
+.record-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.record-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.record-info p {
+    font-size: 13px;
+    color: #b3b3b3;
+}
+
+.record-play-btn {
+    width: 40px;
+    height: 40px;
+    background: #ff9500;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+
+.record-item:hover .record-play-btn {
+    opacity: 1;
+}
+
+.record-play-btn svg {
+    width: 18px;
+    height: 18px;
+    margin-left: 2px;
+}
+
+.record-play-btn .icon-play {
+    display: block;
+}
+
+.record-play-btn .icon-pause {
+    display: none;
+}
+
+.record-item.playing .record-play-btn {
+    opacity: 1;
+}
+
+.record-item.playing .record-play-btn .icon-play {
+    display: none;
+}
+
+.record-item.playing .record-play-btn .icon-pause {
+    display: block;
+}
+
+/* 플레이어 바 진행바 */
+.player-bar .progress .progress-filled {
+    width: 0%;
+    transition: width 0.2s linear;
+}
