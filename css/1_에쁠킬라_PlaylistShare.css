@@ -1,0 +1,154 @@
+/* 메인 콘텐츠 박스 (기존 유지) */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 90px);
+    padding: 40px 32px;
+}
+
+.share-wrapper {
+    background: #1e1e1e;
+    width: 848px;
+    max-width: 900px;
+    padding: 50px 70px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    color: #fff;
+    height: 623.19px;
+}
+/* 헤더 */
+
+.add-header {
+    display: block;
+    align-items: center;
+    padding: 14px 18px 25px 5px;
+    margin-top: 0px;
+}
+
+.playlistshare-description {
+    font-size: 14px;
+    color: #b3b3b3;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.add-title {
+    flex: 1;
+    text-align: left;
+    font-size: 28px;
+    font-weight: 600;
+    color: #ffffff;
+}
+/* URL 박스 */
+.url-box {
+    background: #2b2b2b;
+    padding: 14px 18px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    margin-top: 5px;
+    border: 1.5px solid #3b3b3b;
+}
+
+.url-text {
+    color: #dcdcdc;
+    font-size: 14px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* SoundLetter 스타일 copy 버튼 */
+.copy-btn {
+    background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+    color: #000;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+}
+
+.copy-btn:hover {
+    background: #ffaa00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 149, 0, 0.45);
+}
+
+.copy-btn:active {
+    transform: translateY(0);
+    background: #ff8c00;
+}
+
+/* 공유 버튼들 */
+.share-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.share-item:hover {
+    background: #353535;
+    transform: translateY(-3px);
+}
+
+.share-item {
+    background: #2b2b2b;
+    padding: 18px 0;
+    border-radius: 12px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.share-img {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 8px;
+    margin-top: 14px;
+}
+
+.share-icon {
+    margin: 3px 50px;
+}
+
+.share-label {
+    font-size: 14px;
+    color: #e3e3e3;
+    margin-top: 2px;
+}
+
+.add-close-btn {
+    background: #3e3e3e;
+    color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    margin-top: 20px;
+    position: relative;
+    top: 5px;
+    left: 620px;
+}
+
+.add-close-btn:hover {
+    background: #484848;
+}

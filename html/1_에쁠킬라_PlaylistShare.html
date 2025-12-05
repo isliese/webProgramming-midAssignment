@@ -10,163 +10,7 @@
             type="image/svg+xml"
             href="../1_에쁠킬라_favicon.svg"
         />
-
-        <style>
-            /* 메인 콘텐츠 박스 (기존 유지) */
-            .main-content {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: calc(100vh - 90px);
-                padding: 40px 32px;
-            }
-
-            .share-wrapper {
-                background: #1e1e1e;
-                width: 848px;
-                max-width: 900px;
-                padding: 50px 70px;
-                border-radius: 20px;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-                color: #fff;
-                height: 623.19px;
-            }
-            /* 헤더 */
-
-            .add-header {
-                display: block;
-                align-items: center;
-                padding: 14px 18px 25px 5px;
-                margin-top: 0px;
-            }
-
-            .playlistshare-description {
-                font-size: 14px;
-                color: #b3b3b3;
-                margin-bottom: 10px;
-                margin-top: 10px;
-            }
-
-            .add-title {
-                flex: 1;
-                text-align: left;
-                font-size: 28px;
-                font-weight: 600;
-                color: #ffffff;
-            }
-            /* URL 박스 */
-            .url-box {
-                background: #2b2b2b;
-                padding: 14px 18px;
-                border-radius: 10px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 12px;
-                margin-top: 5px;
-                border: 1.5px solid #3b3b3b;
-            }
-
-            .url-text {
-                color: #dcdcdc;
-                font-size: 14px;
-                width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            /* SoundLetter 스타일 copy 버튼 */
-            .copy-btn {
-                background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
-                color: #000;
-                border: none;
-                padding: 8px 18px;
-                border-radius: 10px;
-                font-size: 14px;
-                font-weight: 700;
-                cursor: pointer;
-                transition: all 0.25s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 70px;
-                box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
-            }
-
-            .copy-btn:hover {
-                background: #ffaa00;
-                transform: translateY(-2px);
-                box-shadow: 0 6px 16px rgba(255, 149, 0, 0.45);
-            }
-
-            .copy-btn:active {
-                transform: translateY(0);
-                background: #ff8c00;
-            }
-
-            /* 공유 버튼들 */
-            .share-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 18px;
-                margin-top: 20px;
-            }
-
-            .share-item:hover {
-                background: #353535;
-                transform: translateY(-3px);
-            }
-
-            .share-item {
-                background: #2b2b2b;
-                padding: 18px 0;
-                border-radius: 12px;
-                text-align: center;
-                align-items: center;
-                justify-content: center;
-                transition: 0.2s;
-                cursor: pointer;
-            }
-
-            .share-img {
-                width: 45px;
-                height: 45px;
-                margin-bottom: 8px;
-                margin-top: 14px;
-            }
-
-            .share-icon {
-                margin: 3px 50px;
-            }
-
-            .share-label {
-                font-size: 14px;
-                color: #e3e3e3;
-                margin-top: 2px;
-            }
-
-            .add-close-btn {
-                background: #3e3e3e;
-                color: #ffffff;
-                border: none;
-                border-radius: 24px;
-                padding: 12px 28px;
-                font-size: 15px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s;
-                text-decoration: none;
-                margin-top: 20px;
-                position: relative;
-                top: 5px;
-                left: 620px;
-            }
-
-            .add-close-btn:hover {
-                background: #484848;
-            }
-        </style>
+        <link rel="stylesheet" href="../css/1_에쁠킬라_PlaylistShare.css" />
     </head>
 
     <body>
@@ -174,12 +18,12 @@
             <!-- 네비게이션 바 그대로 유지 -->
             <nav class="nav-bar">
                 <a
-                    href="html/1_에쁠킬라_Home.html"
+                    href="../html/1_에쁠킬라_Home.html"
                     style="text-decoration: none"
                 >
                     <div class="service-name">SoundLetter</div>
                 </a>
-                <a href="/html/1_에쁠킬라_Home.html" class="nav-item">
+                <a href="../html/1_에쁠킬라_Home.html" class="nav-item">
                     <svg
                         class="nav-icon"
                         viewBox="0 0 24 24"
@@ -190,7 +34,7 @@
                     홈
                 </a>
                 <a
-                    href="/html/1_에쁠킬라_Playlist.html"
+                    href="../html/1_에쁠킬라_Playlist.html"
                     class="nav-item active"
                 >
                     <svg
@@ -204,7 +48,7 @@
                     </svg>
                     플레이리스트
                 </a>
-                <a href="/html/1_에쁠킬라_PlayRecord.html" class="nav-item">
+                <a href="../html/1_에쁠킬라_PlayRecord.html" class="nav-item">
                     <svg
                         class="nav-icon"
                         viewBox="0 0 24 24"
@@ -216,7 +60,7 @@
                     </svg>
                     재생기록
                 </a>
-                <a href="/html/1_에쁠킬라_TimeCapsule.html" class="nav-item">
+                <a href="../html/1_에쁠킬라_TimeCapsule.html" class="nav-item">
                     <svg
                         class="nav-icon"
                         viewBox="0 0 24 24"
@@ -228,7 +72,7 @@
                     </svg>
                     타임캡슐
                 </a>
-                <a href="/html/1_에쁠킬라_Map.html" class="nav-item">
+                <a href="../html/1_에쁠킬라_Map.html" class="nav-item">
                     <svg
                         class="nav-icon"
                         fill="currentColor"
@@ -244,7 +88,7 @@
                     </svg>
                     지도
                 </a>
-                <a href="/html/1_에쁠킬라_Sharing.html" class="nav-item">
+                <a href="../html/1_에쁠킬라_Sharing.html" class="nav-item">
                     <svg
                         class="nav-icon"
                         fill="currentColor"
@@ -260,7 +104,7 @@
                     </svg>
                     쉐어링
                 </a>
-                <a href="/html/1_에쁠킬라_MyPage.html" class="nav-item">
+                <a href="../html/1_에쁠킬라_MyPage.html" class="nav-item">
                     <svg
                         class="nav-icon"
                         fill="currentColor"
@@ -426,7 +270,7 @@
                     </div>
 
                     <div>
-                        <a href="/html/1_에쁠킬라_PlaylistDetail.html"
+                        <a href="../html/1_에쁠킬라_PlaylistDetail.html"
                             ><button
                                 class="add-close-btn"
                                 id="closeAdd"
@@ -525,61 +369,7 @@
         </div>
 
         <!-- 하단 플레이어 유지 -->
-        <script>
-            function copyLink() {
-                const url = document.getElementById('playlistUrl').innerText;
-
-                // navigator.clipboard 사용 가능 여부 체크
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard
-                        .writeText(url)
-                        .then(() => {
-                            alert('링크가 복사되었습니다!');
-                        })
-                        .catch(() => {
-                            // 실패 시 대체 방식
-                            fallbackCopy(url);
-                        });
-                } else {
-                    // clipboard API 미지원 → fallback
-                    fallbackCopy(url);
-                }
-            }
-
-            function fallbackCopy(text) {
-                // 임시 input 생성
-                const tempInput = document.createElement('input');
-                tempInput.value = text;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-
-                try {
-                    document.execCommand('copy');
-                    alert('링크가 복사되었습니다!');
-                } catch (e) {
-                    alert('복사에 실패했습니다. 직접 복사해주세요.');
-                }
-
-                document.body.removeChild(tempInput);
-            }
-
-            // 재생/일시정지 토글 기능 (모든 재생 버튼 공통)
-            document.querySelectorAll('.play-toggle').forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    const playIcon = btn.querySelector('.icon-play');
-                    const pauseIcon = btn.querySelector('.icon-pause');
-
-                    const isPlaying = pauseIcon.style.display === 'block';
-
-                    if (isPlaying) {
-                        pauseIcon.style.display = 'none';
-                        playIcon.style.display = 'block';
-                    } else {
-                        pauseIcon.style.display = 'block';
-                        playIcon.style.display = 'none';
-                    }
-                });
-            });
-        </script>
+        <script defer src="../javascript/1_에쁠킬라_PlaylistShare.js"></script>
+        <script src="../javascript/1_에쁠킬라_Volume.js"></script>
     </body>
 </html>

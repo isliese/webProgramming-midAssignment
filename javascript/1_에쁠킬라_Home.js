@@ -1,5 +1,5 @@
-// 페이지 로드 시 로그인 확인 
-(function() {
+// 페이지 로드 시 로그인 확인
+(function () {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
     if (!isLoggedIn) {
         window.location.href = '/html/1_에쁠킬라_Login.html';
@@ -7,15 +7,15 @@
 })();
 
 // 랜덤 문구 표시 (새로 고침하거나 다른 페이지 갔다가 돌아올 때마다 달라짐)
-(function() {
+(function () {
     const phrases = [
-        "그곳에서 들었던 그 노래, 기억하시나요? ",
-        "미래의 나에게 음악을 선물하세요. ",
-        "친구와 함께 듣는 음악은 특별하죠! ",
-        "당신의 음악 여정을 기록하세요. ",
-        "시간을 담은 음악 편지, 타임캡슐 "
+        '그곳에서 들었던 그 노래, 기억하시나요? ',
+        '미래의 나에게 음악을 선물하세요. ',
+        '친구와 함께 듣는 음악은 특별하죠! ',
+        '당신의 음악 여정을 기록하세요. ',
+        '시간을 담은 음악 편지, 타임캡슐 ',
     ];
-    
+
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     const phraseElement = document.querySelector('.random-phrase');
     if (phraseElement) {
@@ -118,7 +118,8 @@ function selectTrack(index) {
 
 function prevTrack() {
     if (playableTracks.length === 0) return;
-    const nextIndex = (currentIndex - 1 + playableTracks.length) % playableTracks.length;
+    const nextIndex =
+        (currentIndex - 1 + playableTracks.length) % playableTracks.length;
     selectTrack(nextIndex);
 }
 
@@ -131,34 +132,36 @@ function nextTrack() {
 // 재생 가능한 요소 수집
 
 // 최근 재생한 곡
-document.querySelectorAll('.section-recent .recent-song-item').forEach((item) => {
-    const imgEl = item.querySelector('.recent-song-img');
-    const titleEl = item.querySelector('.recent-song-title');
-    const artistEl = item.querySelector('.recent-song-artist');
-    const playBtn = item.querySelector('.recent-play-btn');
+document
+    .querySelectorAll('.section-recent .recent-song-item')
+    .forEach((item) => {
+        const imgEl = item.querySelector('.recent-song-img');
+        const titleEl = item.querySelector('.recent-song-title');
+        const artistEl = item.querySelector('.recent-song-artist');
+        const playBtn = item.querySelector('.recent-play-btn');
 
-    const trackData = {
-        title: titleEl ? titleEl.textContent.trim() : 'Unknown',
-        artist: artistEl ? artistEl.textContent.trim() : '',
-        image: imgEl ? imgEl.getAttribute('src') : ''
-    };
-    const trackIndex = playableTracks.length;
-    playableTracks.push(trackData);
-    trackElements.push({ element: item, playBtn: playBtn });
+        const trackData = {
+            title: titleEl ? titleEl.textContent.trim() : 'Unknown',
+            artist: artistEl ? artistEl.textContent.trim() : '',
+            image: imgEl ? imgEl.getAttribute('src') : '',
+        };
+        const trackIndex = playableTracks.length;
+        playableTracks.push(trackData);
+        trackElements.push({ element: item, playBtn: playBtn });
 
-    item.addEventListener('click', (e) => {
-        if (!e.target.closest('.recent-play-btn')) {
-            selectTrack(trackIndex);
+        item.addEventListener('click', (e) => {
+            if (!e.target.closest('.recent-play-btn')) {
+                selectTrack(trackIndex);
+            }
+        });
+
+        if (playBtn) {
+            playBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectTrack(trackIndex);
+            });
         }
     });
-
-    if (playBtn) {
-        playBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            selectTrack(trackIndex);
-        });
-    }
-});
 
 // 음악 차트
 document.querySelectorAll('.section-chart .chart-item').forEach((item) => {
@@ -170,7 +173,7 @@ document.querySelectorAll('.section-chart .chart-item').forEach((item) => {
     const trackData = {
         title: titleEl ? titleEl.textContent.trim() : 'Unknown',
         artist: artistEl ? artistEl.textContent.trim() : '',
-        image: imgEl ? imgEl.getAttribute('src') : ''
+        image: imgEl ? imgEl.getAttribute('src') : '',
     };
     const trackIndex = playableTracks.length;
     playableTracks.push(trackData);
@@ -200,7 +203,7 @@ document.querySelectorAll('.section-top-songs .song-card').forEach((card) => {
     const trackData = {
         title: titleEl ? titleEl.textContent.trim() : 'Unknown',
         artist: artistEl ? artistEl.textContent.trim() : '',
-        image: imgEl ? imgEl.getAttribute('src') : ''
+        image: imgEl ? imgEl.getAttribute('src') : '',
     };
     const trackIndex = playableTracks.length;
     playableTracks.push(trackData);
@@ -209,7 +212,7 @@ document.querySelectorAll('.section-top-songs .song-card').forEach((card) => {
     card.addEventListener('click', (e) => {
         selectTrack(trackIndex);
     });
-    
+
     if (playBtnSimple) {
         playBtnSimple.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -222,8 +225,12 @@ document.querySelectorAll('.section-top-songs .song-card').forEach((card) => {
 document.querySelectorAll('.card').forEach((card) => {
     const imgEl = card.querySelector('.card-front img');
     const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
-    const albumTitleEl = card.querySelector('.card-front h3, .card-front .card-year');
-    const defaultAlbumTitle = albumTitleEl ? albumTitleEl.textContent.trim() : '';
+    const albumTitleEl = card.querySelector(
+        '.card-front h3, .card-front .card-year'
+    );
+    const defaultAlbumTitle = albumTitleEl
+        ? albumTitleEl.textContent.trim()
+        : '';
 
     const trackLis = card.querySelectorAll('.card-back .track-list li');
     trackLis.forEach((li) => {
@@ -243,7 +250,7 @@ document.querySelectorAll('.card').forEach((card) => {
         const trackData = {
             title,
             artist,
-            image: imgSrc
+            image: imgSrc,
         };
         const trackIndex = playableTracks.length;
         playableTracks.push(trackData);
@@ -281,12 +288,12 @@ totalTimeSpan.textContent = formatTime(totalDuration);
 function updateSmallButtonsUI() {
     trackElements.forEach((trackEl, index) => {
         const { playBtn } = trackEl;
-        
+
         if (!playBtn) return;
-        
+
         const svg = playBtn.querySelector('svg');
         if (!svg) return;
-        
+
         if (index === currentIndex && isPlaying) {
             // 정지 아이콘
             svg.innerHTML = '<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>';
@@ -297,21 +304,25 @@ function updateSmallButtonsUI() {
     });
 
     // 요즘 많이 듣는 노래의 아이콘 처리
-    document.querySelectorAll('.section-top-songs .song-card').forEach((card, i) => {
-        const playIcon = card.querySelector('.icon-small-play');
-        const pauseIcon = card.querySelector('.icon-small-pause');
-        
-        // 이 카드의 실제 인덱스 찾기
-        const cardIndex = trackElements.findIndex(el => el.element === card);
-        
-        if (cardIndex === currentIndex && isPlaying) {
-            if (playIcon) playIcon.style.display = 'none';
-            if (pauseIcon) pauseIcon.style.display = 'inline';
-        } else {
-            if (playIcon) playIcon.style.display = 'inline';
-            if (pauseIcon) pauseIcon.style.display = 'none';
-        }
-    });
+    document
+        .querySelectorAll('.section-top-songs .song-card')
+        .forEach((card, i) => {
+            const playIcon = card.querySelector('.icon-small-play');
+            const pauseIcon = card.querySelector('.icon-small-pause');
+
+            // 이 카드의 실제 인덱스 찾기
+            const cardIndex = trackElements.findIndex(
+                (el) => el.element === card
+            );
+
+            if (cardIndex === currentIndex && isPlaying) {
+                if (playIcon) playIcon.style.display = 'none';
+                if (pauseIcon) pauseIcon.style.display = 'inline';
+            } else {
+                if (playIcon) playIcon.style.display = 'inline';
+                if (pauseIcon) pauseIcon.style.display = 'none';
+            }
+        });
 }
 
 // 사용자 프로필 드롭다운
@@ -358,7 +369,7 @@ document.addEventListener('click', (e) => {
 
     if (!loggedInUser) {
         alert('로그인이 필요한 서비스입니다.');
-        window.location.href = '/html/1_에쁠킬라_Login.html';
+        window.location.href = '../html/1_에쁠킬라_Login.html';
     } else {
         const user = JSON.parse(loggedInUser);
         const profileNickname = document.querySelector('.profile-nickname');
