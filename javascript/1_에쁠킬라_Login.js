@@ -47,7 +47,7 @@ const loginForm = document.getElementById('loginForm');
         sessionStorage.setItem('isLoggedIn', 'true');
 
         alert(`환영합니다, ${user.name}님!`);
-        window.location.href = '../html/1_에쁠킬라_Home.html';
+        window.location.href = '/html/1_에쁠킬라_Home.html';
       } else {
         alert('이메일 또는 비밀번호가 올바르지 않습니다.');
       }
@@ -78,5 +78,5 @@ const loginForm = document.getElementById('loginForm');
       alert("로그아웃 되었습니다!");
       sessionStorage.removeItem('loggedInUser');
       sessionStorage.removeItem('isLoggedIn');
-      window.location.href = "../html/1_에쁠킬라_Login.html";
+      window.location.href = "/html/1_에쁠킬라_Login.html";
     }

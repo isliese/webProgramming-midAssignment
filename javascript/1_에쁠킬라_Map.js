@@ -416,7 +416,7 @@ profileDropdown.classList.remove("active");
 /* 2. 로그아웃 버튼 */
 function handleLogout() {
 alert("로그아웃 되었습니다!");
-window.location.href = "1_에쁠킬라_Login.html";
+window.location.href = "/html/1_에쁠킬라_Login.html";
 }
 
 // 로그인 체크 + 사용자 이름 표시
@@ -426,7 +426,7 @@ const loggedInUser = sessionStorage.getItem('loggedInUser');
 if (!loggedInUser) {
 // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
 alert('로그인이 필요한 서비스입니다.');
-window.location.href = '1_에쁠킬라_Login.html';
+window.location.href = '/html/1_에쁠킬라_Login.html';
 } else {
 
 const user = JSON.parse(loggedInUser);

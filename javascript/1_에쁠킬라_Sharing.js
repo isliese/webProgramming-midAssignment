@@ -230,7 +230,7 @@ profileDropdown.classList.remove("active");
 
 function handleLogout() {
 alert("로그아웃 되었습니다!");
-window.location.href = "1_에쁠킬라_Login.html";
+window.location.href = "/html/1_에쁠킬라_Login.html";
 }
 
 /* ==================== 로그인 체크 ==================== */
@@ -239,7 +239,7 @@ const loggedInUser = sessionStorage.getItem('loggedInUser');
 
 if (!loggedInUser) {
     alert('로그인이 필요한 서비스입니다.');
-    window.location.href = '1_에쁠킬라_Login.html';
+    window.location.href = '/html/1_에쁠킬라_Login.html';
 } else {
     const user = JSON.parse(loggedInUser);
     currentUser = user;
