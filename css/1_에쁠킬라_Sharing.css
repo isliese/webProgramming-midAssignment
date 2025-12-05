@@ -651,3 +651,30 @@ margin-bottom:22px;
 .volume-filled {
     width: 60%;
 }
+
+/* 쉐어링 상태 표시 */
+.sharing-status {
+    font-size: 11px;
+    color: #ff9500;
+    font-weight: 600;
+    animation: pulse 2s ease-in-out infinite;
+    display: none; /* 기본적으로 숨김 */
+    white-space: nowrap; /* 한 줄로 표시 */
+    flex-shrink: 0; /* 압축되지 않도록 */
+    line-height: 1.2;
+}
+
+.sharing-status.active {
+    display: inline-block;
+}
+
+.now-playing-info h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
