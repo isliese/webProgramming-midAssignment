@@ -23,7 +23,7 @@ profileDropdown.classList.remove("active");
 
 function handleLogout() {
 alert("로그아웃 되었습니다!");
-window.location.href = "1_에쁠킬라_Login.html";
+window.location.href = "/html/1_에쁠킬라_Login.html";
 }
 
 

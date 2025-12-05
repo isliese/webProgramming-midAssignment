@@ -125,7 +125,7 @@ totalTimeSpan.textContent = formatTime(totalDuration);
   if (!loggedInUser) {
     // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
     alert('로그인이 필요한 서비스입니다.');
-    window.location.href = '1_에쁠킬라_Login.html';
+    window.location.href = '/html/1_에쁠킬라_Login.html';
   } else {
     const user = JSON.parse(loggedInUser);
 
@@ -192,7 +192,7 @@ function handleLogout() {
   sessionStorage.removeItem('loggedInUser');
   sessionStorage.removeItem('isLoggedIn');
   alert("로그아웃 되었습니다!");
-  window.location.href = "1_에쁠킬라_Login.html";
+  window.location.href = "/html/1_에쁠킬라_Login.html";
 }
 
 
@@ -204,19 +204,7 @@ function playAlbum(artist, title) {
 }
 
 
-
-/* 4. 전체보기 버튼 */
-
-function viewAllLiked() {
-  window.location.href = "1_에쁠킬라_LikedAlbums.html";
-}
-
-function viewAllOffline() {
-  window.location.href = "1_에쁠킬라_OfflineMusic.html";
-}
-
-
-/* 5. 플레이/일시정지 토글 */
+/* 4. 플레이/일시정지 토글 */
 
 const playPauseBtn = document.getElementById("playPauseBtn");
 
@@ -226,7 +214,7 @@ playPauseBtn.addEventListener("click", () => {
 });
 
 
-/* 6. 가짜 진행바 애니메이션 */
+/* 5. 가짜 진행바 애니메이션 */
 
 const progressBar = document.querySelector(".progress-filled");
 

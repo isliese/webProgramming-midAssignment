@@ -79,5 +79,5 @@
 
             // 회원가입 성공
             alert('회원가입이 완료되었습니다!');
-            window.location.href = '../html/1_에쁠킬라_Login.html';
+            window.location.href = '/html/1_에쁠킬라_Login.html';
         });
