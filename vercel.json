@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/1_에쁠킬라_Home.html" }
+    { "source": "/", "destination": "/html/1_에쁠킬라_Home.html" }
   ]
 }
