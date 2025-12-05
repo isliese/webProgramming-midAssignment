@@ -2,6 +2,8 @@
 let currentUser = null;
 const MAX_USERS = 20;
 let currentUsers = [];
+let isSharingActive = false; // 쉐어링 세션 활성화 여부
+let isHost = false; // 내가 호스트인지 여부
 
 // 샘플 사용자 데이터
 const sampleUsers = [
@@ -172,6 +174,7 @@ nowPlayingArtist.textContent = track.artist || '';
 currentTime = 0;
 updateProgress();
 updateNowPlayingCard(); // 카드 업데이트 추가
+updateSharingStatus(); // 쉐어링 상태 업데이트 추가
 play();
 }
 
@@ -343,11 +346,18 @@ if (urlValue) {
     hostName = idValue.replace('@', '');
 }
 
+// 쉐어링 세션 활성화 (참가자로서)
+isSharingActive = true;
+isHost = false;
+
 // Sharing Place 정보 표시
 const sharingPlaceInfo = document.getElementById('sharingPlaceInfo');
 const sharingPlaceHost = document.getElementById('sharingPlaceHost');
 if (sharingPlaceHost) sharingPlaceHost.textContent = hostName;
 if (sharingPlaceInfo) sharingPlaceInfo.classList.add('active');
+
+// 쉐어링 상태 업데이트
+updateSharingStatus();
 
 closePopup();
 }
@@ -442,6 +452,15 @@ return true; // 성공
 
 function removeUser(userName) {
 currentUsers = currentUsers.filter(user => user.name !== userName);
+
+// 다른 사용자(isCurrentUser가 false)가 모두 제거되면 쉐어링 세션 비활성화
+const otherUsersCount = currentUsers.filter(user => !user.isCurrentUser).length;
+if (otherUsersCount === 0) {
+    isSharingActive = false;
+    isHost = false;
+    console.log('❌ 쉐어링 세션 비활성화됨 - 다른 사용자 없음');
+}
+
 renderUsers();
 }
 
@@ -485,11 +504,16 @@ currentUsers.forEach((user, index) => {
 
 console.log('renderUsers 완료, 총 사용자 수:', currentUsers.length);
 console.log('usersDisplay.children.length:', usersDisplay.children.length);
+
+// 쉐어링 상태 업데이트
+updateSharingStatus();
 }
 
 function addUserFromPopup(userName) {
-console.log('addUserFromPopup 호출:', userName);
-console.log('현재 사용자 목록:', currentUsers);
+console.log('=== addUserFromPopup 시작 ===');
+console.log('userName:', userName);
+console.log('현재 currentUsers:', currentUsers);
+console.log('현재 isSharingActive:', isSharingActive);
 
 // 이미 추가된 사용자인지 먼저 확인
 if (currentUsers.some(user => user.name === userName)) {
@@ -497,19 +521,69 @@ if (currentUsers.some(user => user.name === userName)) {
     return;
 }
 
+// 다른 사람(isCurrentUser가 false인 사람)을 처음 초대하는 경우 쉐어링 세션 활성화
+const otherUsersCount = currentUsers.filter(user => !user.isCurrentUser).length;
+console.log('현재 다른 사용자 수:', otherUsersCount);
+
+if (otherUsersCount === 0) {
+    isSharingActive = true;
+    isHost = true;
+    console.log('✅ 쉐어링 세션 활성화됨 (호스트) - 첫 번째 다른 사용자 초대');
+}
+
 // 사용자 추가
 const success = addUser(userName, false);
 console.log('addUser 결과:', success);
+console.log('추가 후 currentUsers.length:', currentUsers.length);
+console.log('추가 후 isSharingActive:', isSharingActive);
 
 if (success) {
+    // 명시적으로 한 번 더 업데이트 호출
+    console.log('🔄 명시적으로 updateSharingStatus 호출');
+    setTimeout(() => {
+        updateSharingStatus();
+    }, 100);
+    
     alert(`${userName}님을 초대했습니다!`);
     closePopup();
 } else {
     alert('초대에 실패했습니다.');
 }
+console.log('=== addUserFromPopup 종료 ===');
 }
 
 // 전역으로 명시적 할당
 window.addUserFromPopup = addUserFromPopup;
+
+// 쉐어링 상태 업데이트 함수
+function updateSharingStatus() {
+const sharingStatus = document.getElementById('sharingStatus');
+const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+
+console.log('updateSharingStatus 호출됨');
+console.log('isSharingActive:', isSharingActive);
+console.log('isHost:', isHost);
+console.log('currentUsers.length:', currentUsers.length);
+
+const otherUsersCount = currentUsers.filter(user => !user.isCurrentUser).length;
+console.log('다른 사용자 수:', otherUsersCount);
+console.log('sharingStatus 요소:', sharingStatus);
+
+if (!sharingStatus) {
+    console.error('sharingStatus 요소를 찾을 수 없음!');
+    return;
+}
+
+// 쉐어링 세션이 활성화되어 있고,
+// (참가자 모드이거나 OR 호스트 모드에서 다른 사용자가 있을 때) 표시
+if (isSharingActive && (!isHost || otherUsersCount > 0)) {
+    console.log('✅ 쉐어링 상태 표시 활성화');
+    sharingStatus.textContent = 'Sharing 중 . . .';
+    sharingStatus.classList.add('active');
+} else {
+    console.log('❌ 쉐어링 상태 표시 비활성화');
+    sharingStatus.classList.remove('active');
+}
+}
 
 renderUsers();
