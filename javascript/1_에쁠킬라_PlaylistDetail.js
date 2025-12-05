@@ -1,4 +1,4 @@
-/* 1. 프로필 드롭다운 열기/닫기 */
+/* 프로필 드롭다운 열기/닫기 */
 const userProfile = document.getElementById('userProfile');
 const profileDropdown = document.getElementById('profileDropdown');
 const closeProfile = document.getElementById('closeProfile');
@@ -17,7 +17,7 @@ document.addEventListener('click', () => {
     profileDropdown.classList.remove('active');
 });
 
-/* 2. 로그아웃 버튼 */
+/* 로그아웃 버튼 */
 
 function handleLogout() {
     alert('로그아웃 되었습니다!');
@@ -337,24 +337,25 @@ document.querySelector('.prev-btn').addEventListener('click', () => {
     }
 });
 
-// 로그인 체크 + 사용자 이름 표시
-(function checkLogin() {
-    const loggedInUser = sessionStorage.getItem('loggedInUser');
+// // 로그인 체크 + 사용자 이름 표시
+// (function checkLogin() {
+//     const loggedInUser = sessionStorage.getItem('loggedInUser');
 
-    if (!loggedInUser) {
-        // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
-        alert('로그인이 필요한 서비스입니다.');
-        window.location.href = '1_에쁠킬라_Login.html';
-    } else {
-        const user = JSON.parse(loggedInUser);
+//     if (!loggedInUser) {
+//         // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
+//         alert('로그인이 필요한 서비스입니다.');
+//         window.location.href = '1_에쁠킬라_Login.html';
+//     } else {
+//         const user = JSON.parse(loggedInUser);
 
-        // 프로필 드롭다운의 닉네임 표시
-        const profileNickname = document.querySelector('.profile-nickname');
-        if (profileNickname) {
-            profileNickname.textContent = user.name + '님';
-        }
-    }
-})();
+//         // 프로필 드롭다운의 닉네임 표시
+//         const profileNickname = document.querySelector('.profile-nickname');
+//         if (profileNickname) {
+//             profileNickname.textContent = user.name + '님';
+//         }
+//     }
+// })();
+
 const trackListContainer = document.querySelector(
     '.track-list-container.right'
 );

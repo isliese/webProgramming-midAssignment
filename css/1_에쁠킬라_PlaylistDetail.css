@@ -648,6 +648,7 @@ a:focus-visible {
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    bottom: 15px;
     left: 300px;
     display: flex;
     justify-content: center;
