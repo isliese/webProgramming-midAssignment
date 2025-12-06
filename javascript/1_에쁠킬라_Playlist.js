@@ -165,4 +165,4 @@
           profileNickname.textContent = user.name + '님';
         }
       }
-    })();
+    // })();

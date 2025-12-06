@@ -1,7 +1,7 @@
 function copyLink() {
     const url = document.getElementById('playlistUrl').innerText;
 
-    // navigator.clipboard 사용 가능 여부 체크
+    //navigator.clipboard 사용 가능 여부 체크
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard
             .writeText(url)
@@ -13,13 +13,13 @@ function copyLink() {
                 fallbackCopy(url);
             });
     } else {
-        // clipboard API 미지원 → fallback
+        //clipboard API 미지원 → fallback
         fallbackCopy(url);
     }
 }
 
 function fallbackCopy(text) {
-    // 임시 input 생성
+    //임시 input 생성
     const tempInput = document.createElement('input');
     tempInput.value = text;
     document.body.appendChild(tempInput);
@@ -35,7 +35,7 @@ function fallbackCopy(text) {
     document.body.removeChild(tempInput);
 }
 
-// 재생/일시정지 토글 기능 (모든 재생 버튼 공통)
+//재생/일시정지 토글 기능 (모든 재생 버튼 공통)
 document.querySelectorAll('.play-toggle').forEach((btn) => {
     btn.addEventListener('click', () => {
         const playIcon = btn.querySelector('.icon-play');
