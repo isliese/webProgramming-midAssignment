@@ -95,8 +95,8 @@ heartBtn.addEventListener('click', () => {
 // 재생 상태 및 타이머 관리
 let isPlaying = false;
 let playTimer = null;
-let currentTime = 0; // 초 단위
-const totalTime = 210; // 3분 30초 = 210초 (임시값)
+let currentTime = 0; 
+const totalTime = 210; 
 
 // 시간을 MM:SS 형식으로 변환
 function formatTime(seconds) {
