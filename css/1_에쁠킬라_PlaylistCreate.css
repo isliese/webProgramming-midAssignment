@@ -19,12 +19,12 @@
     color: #fff;
 
     
-    scrollbar-width: thin;           /* Firefox */
-    scrollbar-color: #555 #2a2a2a;   /* Firefox */
+    scrollbar-width: thin;           
+    scrollbar-color: #555 #2a2a2a;  
 }
 
 .create-wrapper::-webkit-scrollbar {
-    width: 8px;                      /* 전체 두께 */
+    width: 8px;                      
 }
 
 .create-wrapper::-webkit-scrollbar-track {
@@ -35,11 +35,11 @@
 .create-wrapper::-webkit-scrollbar-thumb {
     background: #555;                /* 손잡이 색 */
     border-radius: 8px;
-    border: 2px solid #2a2a2a;       /* 살짝 여백 생김  */
+    border: 2px solid #2a2a2a;       
 }
 
 .create-wrapper::-webkit-scrollbar-thumb:hover {
-    background: #777;                /* 호버 시 밝게 */
+    background: #777;                
 }
 
             /* 헤더 */
