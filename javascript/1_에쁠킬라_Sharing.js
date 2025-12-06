@@ -1,4 +1,3 @@
-/* ==================== 전역 변수 ==================== */
 let currentUser = null;
 const MAX_USERS = 20;
 let currentUsers = [];
@@ -458,7 +457,7 @@ const otherUsersCount = currentUsers.filter(user => !user.isCurrentUser).length;
 if (otherUsersCount === 0) {
     isSharingActive = false;
     isHost = false;
-    console.log('❌ 쉐어링 세션 비활성화됨 - 다른 사용자 없음');
+    console.log('쉐어링 세션 비활성화됨 - 다른 사용자 없음');
 }
 
 renderUsers();
@@ -528,7 +527,7 @@ console.log('현재 다른 사용자 수:', otherUsersCount);
 if (otherUsersCount === 0) {
     isSharingActive = true;
     isHost = true;
-    console.log('✅ 쉐어링 세션 활성화됨 (호스트) - 첫 번째 다른 사용자 초대');
+    console.log('쉐어링 세션 활성화됨 (호스트) - 첫 번째 다른 사용자 초대');
 }
 
 // 사용자 추가
@@ -538,8 +537,7 @@ console.log('추가 후 currentUsers.length:', currentUsers.length);
 console.log('추가 후 isSharingActive:', isSharingActive);
 
 if (success) {
-    // 명시적으로 한 번 더 업데이트 호출
-    console.log('🔄 명시적으로 updateSharingStatus 호출');
+    console.log('명시적으로 updateSharingStatus 호출');
     setTimeout(() => {
         updateSharingStatus();
     }, 100);
@@ -577,11 +575,11 @@ if (!sharingStatus) {
 // 쉐어링 세션이 활성화되어 있고,
 // (참가자 모드이거나 OR 호스트 모드에서 다른 사용자가 있을 때) 표시
 if (isSharingActive && (!isHost || otherUsersCount > 0)) {
-    console.log('✅ 쉐어링 상태 표시 활성화');
+    console.log('쉐어링 상태 표시 활성화');
     sharingStatus.textContent = 'Sharing 중 . . .';
     sharingStatus.classList.add('active');
 } else {
-    console.log('❌ 쉐어링 상태 표시 비활성화');
+    console.log('쉐어링 상태 표시 비활성화');
     sharingStatus.classList.remove('active');
 }
 }

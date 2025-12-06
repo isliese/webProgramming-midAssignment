@@ -269,7 +269,7 @@
 /* 트랙리스트 투명 스크롤 */
 .track-list {
     overflow-y: auto;
-    scrollbar-width: thin;        /* Firefox */
+    scrollbar-width: thin;        
     scrollbar-color: transparent transparent;
 }
 
@@ -279,7 +279,7 @@
 }
 
 .track-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15); /* 아주 희미하게 보이는 스크롤 */
+    background: rgba(255, 255, 255, 0.15); 
     border-radius: 10px;
 }
 

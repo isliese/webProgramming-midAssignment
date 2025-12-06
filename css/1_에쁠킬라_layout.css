@@ -508,13 +508,13 @@ body {
 
 /* 스크롤 스타일 */
 
-/* Firefox */
+
 html, body {
     scrollbar-width: thin;
     scrollbar-color: #555 #1b1b1b;
 }
 
-/* Chrome / Edge / Safari */
+
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     width: 9px;
