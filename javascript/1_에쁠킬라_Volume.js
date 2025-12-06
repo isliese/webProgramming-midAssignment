@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!progressBar || !progressFilled) return;
 
-    let progress = 0.3; // 초기 재생 위치 (UI-only)
+    let progress = 0.0; // 초기 재생 위치 (UI-only)
 
     function updateProgressUI(p) {
         p = Math.max(0, Math.min(1, p));
