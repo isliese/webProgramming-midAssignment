@@ -2,7 +2,7 @@
 (function () {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
     if (!isLoggedIn) {
-        window.location.href = '/html/1_에쁠킬라_Login.html';
+        window.location.href = '../html/1_에쁠킬라_Login.html';
     }
 })();
 
@@ -351,7 +351,7 @@ if (logoutBtn) {
         e.stopPropagation();
         sessionStorage.removeItem('isLoggedIn');
         alert('로그아웃되었습니다.');
-        window.location.href = '/html/1_에쁠킬라_Login.html';
+        window.location.href = '../html/1_에쁠킬라_Login.html';
     });
 }
 
@@ -369,7 +369,7 @@ document.addEventListener('click', (e) => {
 
     if (!loggedInUser) {
         alert('로그인이 필요한 서비스입니다.');
-        window.location.href = '../html/1_에쁠킬라_Login.html';
+        window.location.href = '..../html/1_에쁠킬라_Login.html';
     } else {
         const user = JSON.parse(loggedInUser);
         const profileNickname = document.querySelector('.profile-nickname');

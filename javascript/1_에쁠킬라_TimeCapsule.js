@@ -20,7 +20,7 @@
     /* 2. 로그아웃 버튼 */
     function handleLogout() {
     alert("로그아웃 되었습니다!");
-    window.location.href = "/html/1_에쁠킬라_Login.html";
+    window.location.href = "../html/1_에쁠킬라_Login.html";
     }
 
     // 재생바 기능 구현
@@ -150,7 +150,7 @@
     if (!loggedInUser) {
     // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
     alert('로그인이 필요한 서비스입니다.');
-    window.location.href = '/html/1_에쁠킬라_Login.html';
+    window.location.href = '../html/1_에쁠킬라_Login.html';
     } else {
 
     const user = JSON.parse(loggedInUser);

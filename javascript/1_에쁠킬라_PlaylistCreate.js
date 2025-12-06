@@ -54,7 +54,7 @@
                     const privacy = document.querySelector('input[name="privacy"]:checked').value;
                     
                     alert(`플레이리스트 "${name}"가 생성되었습니다!`);
-                    window.location.href = '/html/1_에쁠킬라_Playlist.html';
+                    window.location.href = '../html/1_에쁠킬라_Playlist.html';
                 });
             });
             // 재생바 기능 구현

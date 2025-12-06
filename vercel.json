@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/", "destination": "/html/1_에쁠킬라_Home.html" }
-  ]
-}
