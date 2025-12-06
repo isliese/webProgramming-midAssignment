@@ -217,3 +217,15 @@
             margin-top: -30px;
             margin-bottom: 40px;
         }
+
+            /* 스크롤 스타일 */
+        html, body {
+        scrollbar-width: thin;
+        scrollbar-color: #555 #1b1b1b;
+        }
+
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+        width: 9px;
+        }
