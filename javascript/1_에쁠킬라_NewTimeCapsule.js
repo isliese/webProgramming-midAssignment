@@ -43,7 +43,7 @@ const playableTracks = [
 let currentIndex = 0;
 let isPlaying = false;
 let currentTime = 0;
-const totalDuration = 210; // 3분 30초 = 210초
+const totalDuration = 210;
 let playTimer = null;
 
 /* 3. DOM 요소 참조*/
