@@ -14,7 +14,7 @@ const playableTracks = [
 let currentIndex = 0;
 let isPlaying = false;
 let currentTime = 0;
-const totalDuration = 210; // 3분 30초 = 210초
+const totalDuration = 210;
 let playTimer = null;
 
 /* 3. DOM 요소 참조*/
@@ -118,6 +118,7 @@ progressFilled.style.width = '0%';
 currentTimeSpan.textContent = formatTime(0);
 totalTimeSpan.textContent = formatTime(totalDuration);
 
+
 // 지도
 let map;
 let mapInitialized = false;
@@ -134,7 +135,7 @@ return new Promise((resolve, reject) => {
 });
 }
 
-// 커스텀 클러스터 렌더러 클래스 (수정됨 - 실제 사진만 표시)
+// 커스텀 클러스터 렌더러 클래스
 class PhotoClusterRenderer {
 render({ count, position, markers }, stats, map) {
 
@@ -144,13 +145,11 @@ render({ count, position, markers }, stats, map) {
     return icon && icon.url && icon.url.trim() !== '';
     });
 
-    // 유효한 마커가 없으면 클러스터를 렌더링하지 않음
     if (validMarkers.length === 0) {
     console.warn('유효한 이미지를 가진 마커가 없습니다.');
     return null;
     }
 
-    // 랜덤 대표 마커 선택 (유효한 마커 중에서)
     const randomMarker = validMarkers[Math.floor(Math.random() * validMarkers.length)];
     const representativeImage = randomMarker.getIcon().url;
 
@@ -158,8 +157,6 @@ render({ count, position, markers }, stats, map) {
     const div = document.createElement('div');
     div.className = 'cluster-photo-marker';
     div.innerHTML = `<div class="cluster-count">${count.toLocaleString()}</div>`;
-    
-    // 초기에는 숨김
     div.style.opacity = '0';
 
     // 이미지 프리로드 후 표시
@@ -205,7 +202,6 @@ render({ count, position, markers }, stats, map) {
 
     if (point) {
         div.style.position = 'absolute';
-        // transform 사용으로 GPU 가속 활용 - 부드러운 이동
         div.style.transform = `translate(${point.x - 40}px, ${point.y - 40}px)`;
         div.style.left = '0px';
         div.style.top = '0px';
@@ -223,7 +219,6 @@ render({ count, position, markers }, stats, map) {
 
 
 function initMap() {
-// 이미 초기화되었으면 리턴
 if (mapInitialized) return;
 
 // 지도 초기화 
@@ -258,7 +253,6 @@ map = new google.maps.Map(document.getElementById("map"), {
     .then(res => res.json())
     .then(data => {
 
-        // 먼저 모든 이미지를 프리로드하고 유효성 검사
         const imagePromises = data.locations.map(location => 
         preloadAndValidateImage(location.image)
             .then(() => ({ ...location, valid: true }))
@@ -273,7 +267,6 @@ map = new google.maps.Map(document.getElementById("map"), {
         const markers = validatedLocations
             .filter(location => location.valid)
             .map(location => {
-            // 단일 마커도 커스텀 HTML 오버레이로 생성 (숫자 1 표시)
             const markerDiv = document.createElement('div');
             markerDiv.className = 'cluster-photo-marker';
             markerDiv.style.width = '80px';
@@ -303,7 +296,6 @@ map = new google.maps.Map(document.getElementById("map"), {
                 
                 // 클릭 이벤트 추가
                 markerDiv.addEventListener('click', () => {
-                // 기존 정보창이 열려있으면 닫기
                 if (currentInfoWindow) {
                     currentInfoWindow.close();
                 }
@@ -335,8 +327,8 @@ map = new google.maps.Map(document.getElementById("map"), {
                 });
                 
                 infoWindow.open(map);
-                currentInfoWindow = infoWindow; // 현재 정보창 저장
-                window.currentInfoWindow = infoWindow; // 전역으로도 접근 가능하게
+                currentInfoWindow = infoWindow; 
+                window.currentInfoWindow = infoWindow; 
                 });
             };
 
@@ -346,7 +338,6 @@ map = new google.maps.Map(document.getElementById("map"), {
 
                 if (point) {
                 markerDiv.style.position = 'absolute';
-                // transform 사용으로 GPU 가속 활용 - 부드러운 이동
                 markerDiv.style.transform = `translate(${point.x - 40}px, ${point.y - 40}px)`;
                 markerDiv.style.left = '0px';
                 markerDiv.style.top = '0px';
@@ -359,13 +350,13 @@ map = new google.maps.Map(document.getElementById("map"), {
 
             overlay.setMap(map);
 
-            // 더미 마커 반환 (클러스터러가 필요로 함)
+            // 더미 마커 반환 
             const dummyMarker = new google.maps.Marker({
                 position: { lat: location.lat, lng: location.lng },
-                map: null, // 지도에 표시하지 않음
+                map: null, 
                 icon: {
                 url: location.image,
-                scaledSize: new google.maps.Size(1, 1), // 보이지 않게
+                scaledSize: new google.maps.Size(1, 1), 
                 anchor: new google.maps.Point(0, 0)
                 }
             });
@@ -378,12 +369,12 @@ map = new google.maps.Map(document.getElementById("map"), {
             return;
         }
 
-        // 클러스터 생성 (실제로는 단일 마커도 커스텀 오버레이로 표시되므로 클러스터링만 담당)
+        // 클러스터 생성 
         new markerClusterer.MarkerClusterer({ 
             map, 
             markers,
             renderer: new PhotoClusterRenderer(),
-            minimumClusterSize: 2 // 2개 이상일 때만 클러스터링
+            minimumClusterSize: 2 
         });
 
         mapInitialized = true;
@@ -391,7 +382,7 @@ map = new google.maps.Map(document.getElementById("map"), {
     })
     .catch(err => console.error("지도 데이터 로드 실패:", err));
 }
-// Google Maps API 로드 완료 후 자동으로 initMap 호출되도록 설정
+// Google Maps API 로드 완료 후 자동으로 initMap 호출
 window.initMap = initMap;
 
 /* 1. 프로필 드롭다운 열기/닫기 */
@@ -419,19 +410,16 @@ alert("로그아웃 되었습니다!");
 window.location.href = "../html/1_에쁠킬라_Login.html";
 }
 
-// 로그인 체크 + 사용자 이름 표시
 (function checkLogin() {
 const loggedInUser = sessionStorage.getItem('loggedInUser');
 
 if (!loggedInUser) {
-// 로그인 정보가 없으면 로그인 페이지로 리다이렉트
 alert('로그인이 필요한 서비스입니다.');
 window.location.href = '../html/1_에쁠킬라_Login.html';
 } else {
 
 const user = JSON.parse(loggedInUser);
 
-// 프로필 드롭다운의 닉네임 표시
 const profileNickname = document.querySelector('.profile-nickname');
 if (profileNickname) {
     profileNickname.textContent = user.name + '님';

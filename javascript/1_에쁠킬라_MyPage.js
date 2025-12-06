@@ -14,7 +14,7 @@ const playableTracks = [
 let currentIndex = 0;
 let isPlaying = false;
 let currentTime = 0;
-const totalDuration = 210; // 3분 30초 = 210초
+const totalDuration = 210;
 let playTimer = null;
 
 /* 3. DOM 요소 참조*/
@@ -29,7 +29,7 @@ const totalTimeSpan = timeSpans[1];
 
 const playBtn = document.querySelector('.control-btn.play-btn');
 
-/* 4. 유틸 – 시간 포맷*/
+/* 4. 유틸*/
 function formatTime(sec) {
 const m = Math.floor(sec / 60);
 const s = Math.floor(sec % 60);

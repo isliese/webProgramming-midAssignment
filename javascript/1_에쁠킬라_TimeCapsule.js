@@ -39,7 +39,7 @@
     let currentIndex = 0;
     let isPlaying = false;
     let currentTime = 0;
-    const totalDuration = 210; // 3분 30초 = 210초
+    const totalDuration = 210;
     let playTimer = null;
 
     /* 3. DOM 요소 참조*/
@@ -201,7 +201,7 @@ function getDaysUntil(dateString) {
     const unlock = new Date(dateString);
     const diff = unlock - today;
 
-    return Math.ceil(diff / (1000 * 60 * 60 * 24)); // 일수
+    return Math.ceil(diff / (1000 * 60 * 60 * 24)); 
     }
 capsules.sort((a, b) => {
     const d1 = getDaysUntil(a.unlockDate);
@@ -219,7 +219,7 @@ capsules.sort((a, b) => {
 
 
 const capsuleGrid = document.querySelector('.capsule-grid');
-capsuleGrid.innerHTML = ""; // 기존 카드 지우기
+capsuleGrid.innerHTML = "";
 
 capsules.forEach(capsule => {
 const daysLeft = getDaysUntil(capsule.unlockDate);
