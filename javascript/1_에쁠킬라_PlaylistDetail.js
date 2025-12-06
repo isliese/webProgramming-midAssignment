@@ -17,8 +17,7 @@ document.addEventListener('click', () => {
     profileDropdown.classList.remove('active');
 });
 
-/* 로그아웃 버튼 */
-
+//로그아웃 버튼
 function handleLogout() {
     alert('로그아웃 되었습니다!');
     window.location.href = '1_에쁠킬라_Login.html';
